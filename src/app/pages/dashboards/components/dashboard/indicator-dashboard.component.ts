@@ -100,8 +100,8 @@ export class DashboardsIndicatorComponent implements OnChanges {
 				'For example, if you think that the length of the advertisement period is not as important as the other indicators, you can adjust the weight of the latter indicator to 5 and it\'s score will only count half as much as the others. Or if you want exclude some indicators entirely and only keep those most important to you, e.g. to see the combined score for the prevalence of single bidding and non-open procedure types, you can adjust the weight of all other indicators to 0.'
 			],
 			averageScoreOfIndicators: [
-				'The Average Score of Integrity Indicators figure shows the share of available key fields during the selected time period.',
-				'For example, an average score of 90 means that 90% of the key fields (covered by the individual integrity indicators) were available in the source data during the selected time period.'
+				'The Average Score of Integrity Indicators shows the average of the individual Integrity Indicators for all contracts during the selected time period. The average score can be refined/recalculated by selecting only certain individual integrity indicators and adding unique weights to them.',
+				'For example, an average score of 40 means that only 40% of the key integrity dimensions showed no risks (covered by the individual integrity indicators) based on all contracts awarded during the selected time period.'
 			],
 			averageScoreOverTime: [
 				'The Average Score of Integrity Indicators over Time figure shows the average of the individual Integrity Indicators for all contracts during the selected time period by years.',
@@ -111,7 +111,7 @@ export class DashboardsIndicatorComponent implements OnChanges {
 				'Sector-wise average of the Integrity Score. Click on any of the bars to get more details on the sector. Contracts are categorized into sectors by defining product markets (CPV codes) based on the contract information. See more on the details of contract categorization and the CPV nomenclature in the Data Explainer on the About page.'
 			],
 		},
-	}
+	};
 
 	constructor(private api: ApiService, private i18n: I18NService, private notify: NotifyService, private platform: PlatformService) {
 		this.viz.ranges.top_authorities.title = i18n.get('Main Buyers in Score Range');
