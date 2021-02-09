@@ -69,6 +69,8 @@ export class GraphIndicatorStructureComponent implements OnChanges, ISeriesProvi
 		if (this.data) {
 			this.indicators_pie.data = Object.keys(this.data).map(key => {
 				return {info: this.indicators.getIndicatorInfo(key), value: this.data[key], id: key};
+			}).filter((item) => {
+				return item.info.id;
 			}).sort((a, b) => {
 				return (a.info ? a.info.order : -1) - (a.info ? b.info.order : -1);
 			}).map(indicator => {
