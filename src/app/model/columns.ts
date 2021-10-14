@@ -16,7 +16,7 @@ const ICON = {
 };
 
 const ColumnsFormatUtils = {
-	checkEntryCollapse: (list: Array<ITableCellLine>, library: ITableLibrary, amount: number = 10) => {
+	checkEntryCollapse: (list: Array<ITableCellLine>, library: ITableLibrary, amount: number = 1) => {
 		if (list.length > amount) {
 			return [{collapseName: list.length + ' ' + library.i18n.get('Entries'), collapseLines: list, collapsed: true}];
 		}
@@ -69,6 +69,18 @@ const ColumnsFormatUtils = {
 
 export const AuthorityColumns: Array<ITableColumnAuthority> = [
 	{
+		name: 'Profile Link',
+		id: 'id',
+		group: 'Authority',
+		format: (authority, library): Array<ITableCellLine> => [{
+			icon: ICON.authority + ' icon-large',
+			content: '',
+			link: '/authority/' + authority.body.id,
+			hint: library.i18n.get('Profile Page') + ' ' + library.i18n.nameGuard(authority.body.name),
+			align: 'center'
+		}]
+	},
+	{
 		name: 'Name',
 		id: 'body.name',
 		group: 'Authority',
@@ -77,36 +89,6 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 			ascend: true
 		},
 		format: (authority, library): Array<ITableCellLine> => [{content: library.i18n.nameGuard(authority.body.name)}]
-	},
-	{
-		name: 'City',
-		id: 'body.address.city',
-		group: 'Authority',
-		sortBy: {
-			id: 'body.address.city',
-			ascend: true
-		},
-		format: (authority, library): Array<ITableCellLine> => authority.body && authority.body.address ? [{content: authority.body.address.city}] : []
-	},
-	{
-		name: 'Country',
-		id: 'body.address.country',
-		group: 'Authority',
-		sortBy: {
-			id: 'body.address.country',
-			ascend: true
-		},
-		format: (authority, library): Array<ITableCellLine> => authority.body && authority.body.address ? [{content: library.i18n.expandCountry(authority.body.address.country)}] : []
-	},
-	{
-		name: 'Tender Count',
-		id: 'count',
-		group: 'Authority',
-		sortBy: {
-			id: 'count',
-			ascend: true
-		},
-		format: (authority, library): Array<ITableCellLine> => [{content: library.i18n.formatValue(authority.count)}]
 	},
 	{
 		name: 'Buyer Type',
@@ -119,20 +101,145 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 		format: (authority, library): Array<ITableCellLine> => [{content: Utils.expandUnderlined(authority.body.buyerType)}]
 	},
 	{
-		name: 'Profile Link',
-		id: 'id',
+		name: 'Contracts count',
+		id: 'body.contractsCount',
 		group: 'Authority',
-		format: (authority, library): Array<ITableCellLine> => [{
-			icon: ICON.authority + ' icon-large',
-			content: '',
-			link: '/authority/' + authority.body.id,
-			hint: library.i18n.get('Profile Page') + ' ' + library.i18n.nameGuard(authority.body.name),
-			align: 'center'
-		}]
-	}
+		sortBy: {
+			id: 'body.contractsCount',
+			ascend: true
+		},
+		format: (authority, library): Array<ITableCellLine> => [{content: library.i18n.formatValue(authority.body.contractsCount)}]
+	},
+	{
+		name: 'Total value of contracts',
+		id: 'body.company.totalValueOfContracts',
+		group: 'Authority',
+		sortBy: {
+			id: 'body.company.totalValueOfContracts',
+			ascend: true
+		},
+		format: (authority, library): Array<ITableCellLine> => [{content: library.i18n.formatValue(authority.body.company.totalValueOfContracts)}]
+	},
+	{
+		name: 'City',
+		id: 'body.address.city',
+		group: 'Address',
+		sortBy: {
+			id: 'body.address.city',
+			ascend: true
+		},
+		format: (authority): Array<ITableCellLine> => [{content: authority.body && authority.body.address ? authority.body.address.city : ''}]
+	},
+	{
+		name: 'Country',
+		id: 'body.address.country',
+		group: 'Address',
+		sortBy: {
+			id: 'body.address.country',
+			ascend: true
+		},
+		format: (authority, library): Array<ITableCellLine> => [{content: authority.body && authority.body.address ? library.i18n.expandCountry(authority.body.address.country) : ''}]
+	},
+	{
+		name: 'Geographic region',
+		id: 'body.address.ot.nutscode',
+		group: 'Address',
+		sortBy: {
+			id: 'body.address.ot.nutscode',
+			ascend: true
+		},
+		// TODO: update path after backend will ready
+		format: (authority, library): Array<ITableCellLine> => authority.body && authority.body.address && authority.body.address.ot ? [{content: authority.body.address.ot.nutscode}] : [{content: ''}]
+	},
+	{
+		name: 'Integrity Indicator Composition Score',
+		id: 'indicators.pii',
+		group: 'Integrity',
+		sortBy: {
+			id: 'ot.score.INTEGRITY',
+			ascend: false
+		},
+		format: (authority, library): ITableCellLine[] => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
+			return [{content: ''}];
+		}
+	},
+	{
+		name: 'Elementary Integrity Indicators',
+		id: 'indicators.pii',
+		group: 'Integrity',
+		sortBy: {
+			id: 'ot.score.INTEGRITY',
+			ascend: false
+		},
+		format: (authority, library) => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
+			return [{content: ''}];
+		}
+	},
+	{
+		name: 'Transparency Indicator Composition Score',
+		id: 'indicators.ti',
+		group: 'Transparency',
+		sortBy: {
+			id: 'ot.score.TRANSPARENCY',
+			ascend: false
+		},
+		format: (authority, library) => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
+			return[{content: ''}];
+		}
+	},
+	{
+		name: 'Elementary Integrity Indicators',
+		id: 'indicators.ti',
+		group: 'Transparency',
+		sortBy: {
+			id: 'ot.score.TRANSPARENCY',
+			ascend: false
+		},
+		format: (authority, library) => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
+			return [{content: ''}];
+		}
+	},
+	{
+		name: 'Award Decision Year',
+		id: 'body.dates.awardDecisionYearsMinMax',
+		group: 'Dates',
+		sortBy: {
+			id: 'body.dates.awardDecisionYearsMinMax',
+			ascend: false
+		},
+		format: (authority, library) => [{content: authority.body && authority.body.dates && authority.body.dates.awardDecisionYearsMinMax ? authority.body.dates.awardDecisionYearsMinMax : ''}]
+	},
+	{
+		name: 'Most frequent market',
+		id: 'body.sector.mostFrequentMarket',
+		group: 'Sector',
+		sortBy: {
+			id: 'body.sector.mostFrequentMarket',
+			ascend: true
+		},
+		format: (authority, library) => [{content: authority.body.sector && authority.body.sector.mostFrequentMarket ? authority.body.sector.mostFrequentMarket : '' }]
+	},
 ];
 
 export const CompanyColumns: Array<ITableColumnCompany> = [
+	{
+		name: 'Profile Link',
+		id: 'id',
+		group: 'Company',
+		format: (company, library) => [{icon: ICON.company + ' icon-large', content: '', link: '/company/' + company.body.id, hint: library.i18n.get('Profile Page') + ' ' + library.i18n.nameGuard(company.body.name), align: 'center'}]
+	},
 	{
 		name: 'Name',
 		group: 'Company',
@@ -144,41 +251,135 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 		format: (company, library): Array<ITableCellLine> => [{content: library.i18n.nameGuard(company.body.name)}]
 	},
 	{
-		name: 'City',
+		name: 'Contracts count',
 		group: 'Company',
-		id: 'body.address.city',
+		id: 'body.contractsCount',
 		sortBy: {
-			id: 'body.address.city',
+			id: 'body.contractsCount',
 			ascend: true
 		},
-		format: (company, library): Array<ITableCellLine> => company.body && company.body.address ? [{content: company.body.address.city}] : []
+		format: (company, library): Array<ITableCellLine> => [{content: library.i18n.formatValue(company.body.contractsCount)}]
+	},
+	{
+		name: 'Total value of contracts',
+		group: 'Company',
+		id: 'body.company.totalValueOfContracts',
+		sortBy: {
+			id: 'body.company.totalValueOfContracts',
+			ascend: true
+		},
+		format: (company, library): Array<ITableCellLine> => [{content: library.i18n.formatValue(company.body.company.totalValueOfContracts)}]
+	},
+	{
+		name: 'Geographic region',
+		id: 'body.address.ot.nutscode',
+		group: 'Address',
+		sortBy: {
+			id: 'body.address.ot.nutscode',
+			ascend: true
+		},
+		// TODO: update path after backend will ready
+		format: (company, library): Array<ITableCellLine> => company.body && company.body.address && company.body.address.ot ? [{content: company.body.address.ot.nutscode}] : [{content: ''}]
 	},
 	{
 		name: 'Country',
-		group: 'Company',
+		group: 'Address',
 		id: 'body.address.country',
 		sortBy: {
 			id: 'body.address.country',
 			ascend: true
 		},
-		format: (company, library): Array<ITableCellLine> => company.body && company.body.address ? [{content: library.i18n.expandCountry(company.body.address.country)}] : []
+		format: (company, library): Array<ITableCellLine> => company.body && company.body.address ? [{content: library.i18n.expandCountry(company.body.address.country)}] : [{content: ''}]
 	},
 	{
-		name: 'Bid Count',
-		id: 'count',
-		group: 'Company',
+		name: 'City',
+		group: 'Address',
+		id: 'body.address.city',
 		sortBy: {
-			id: 'count',
+			id: 'body.address.city',
 			ascend: true
 		},
-		format: (company, library): Array<ITableCellLine> => [{content: library.i18n.formatValue(company.count)}]
+		format: (company, library): Array<ITableCellLine> => company.body && company.body.address ? [{content: company.body.address.city}] : [{content: ''}]
+	},{
+		name: 'Integrity Indicator Composition Score',
+		id: 'indicators.pii',
+		group: 'Integrity',
+		sortBy: {
+			id: 'ot.score.INTEGRITY',
+			ascend: false
+		},
+		format: (company, library) => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
+			return [{content: ''}];
+		}
 	},
 	{
-		name: 'Profile Link',
-		id: 'id',
-		group: 'Company',
-		format: (company, library) => [{icon: ICON.company + ' icon-large', content: '', link: '/company/' + company.body.id, hint: library.i18n.get('Profile Page') + ' ' + library.i18n.nameGuard(company.body.name), align: 'center'}]
-	}
+		name: 'Elementary Integrity Indicators',
+		id: 'indicators.pii',
+		group: 'Integrity',
+		sortBy: {
+			id: 'ot.score.INTEGRITY',
+			ascend: false
+		},
+		format: (company, library) => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
+			return [{content: ''}];
+		}
+	},
+	{
+		name: 'Transparency Indicator Composition Score',
+		id: 'indicators.ti',
+		group: 'Transparency',
+		sortBy: {
+			id: 'ot.score.TRANSPARENCY',
+			ascend: false
+		},
+		format: (company, library) => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
+			return [{content: ''}];
+		}
+	},
+	{
+		name: 'Elementary Integrity Indicators',
+		id: 'indicators.ti',
+		group: 'Transparency',
+		sortBy: {
+			id: 'ot.score.TRANSPARENCY',
+			ascend: false
+		},
+		format: (company, library) => {
+			// TODO: update path after backend will ready
+			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
+			return [{content: ''}];
+		}
+	},
+	{
+		name: 'Award Decision Date',
+		id: 'body.dates.awardDecisionYearsMinMax',
+		group: 'Dates',
+		sortBy: {
+			id: 'body.dates.awardDecisionYearsMinMax',
+			ascend: false
+		},
+		format: (company, library) => [{content: company.body && company.body.dates && company.body.dates.awardDecisionYearsMinMax ? company.body.dates.awardDecisionYearsMinMax : ''}]
+	},
+	{
+		name: 'Most frequent market',
+		id: 'body.sector.mostFrequentMarket',
+		group: 'Sector',
+		sortBy: {
+			id: 'body.sector.mostFrequentMarket',
+			ascend: true
+		},
+		format: (company, library) => [{content: company.body.sector && company.body.sector.mostFrequentMarket ? company.body.sector.mostFrequentMarket : '' }]
+	},
 ];
 
 export const TenderColumns: Array<ITableColumnTender> = [
@@ -414,7 +615,7 @@ export const TenderColumns: Array<ITableColumnTender> = [
 		},
 		format: (tender, library) => {
 			return tender.title ? [{content: tender.title, link: '/tender/' + tender.id, hint: library.i18n.get('Profile Page') + ' ' + tender.title}] :
-			[{icon: ICON.tender + ' icon-large', content: '', link: '/tender/' + tender.id, hint: library.i18n.get('Profile Page') + ' ' + tender.title}];
+				[{icon: ICON.tender + ' icon-large', content: '', link: '/tender/' + tender.id, hint: library.i18n.get('Profile Page') + ' ' + tender.title}];
 		}
 	},
 	{

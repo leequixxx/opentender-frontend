@@ -14,11 +14,11 @@ export class SearchCompanyPage implements OnInit, OnDestroy {
 	title = '';
 	search = new Search('company', CompanyFilterDefs);
 	search_cmd: ISearchCommand;
-	columnIds = ['id', 'body.name', 'body.address.city', 'body.address.country'];
+	columnIds = ['id', 'body.name', 'body.address.country'];
 	filterIds = ['body.name', 'body.address.city'];
 	filters = CompanyFilterDefs;
 	public search_title = 'Search Company';
-	private defaultColumns = ['id', 'body.name', 'body.address.city', 'body.address.country'];
+	private defaultColumns = ['id', 'body.name', 'body.address.country'];
 	public storageId = '_companies-table';
 	public filtersStorageTag = '_company-filters';
 	private firstInit = true;
