@@ -103,6 +103,10 @@ declare namespace Definitions {
 		 */
 		contactPoint?: string;
 		/**
+		 * Number of contracts where bids not empty
+		 */
+		contractsCount?: number;
+		/**
 		 * The phone number of the contact
 		 */
 		phone?: string;
@@ -112,6 +116,9 @@ declare namespace Definitions {
 		 * Address of the body seat
 		 */
 		address?: Address;
+		company?: Company;
+		dates?: Dates;
+		sector?: CompanySector;
 		isSme?: boolean;
 		/**
 		 * isSme
@@ -157,9 +164,23 @@ declare namespace Definitions {
 		 */
 		address?: Address;
 		metaData?: BodyMetadata;
+		buyerType?: BuyerType;
+		bodyIds?: Array<BuyerBodyId>
 	}
 	export interface BodyMetadata {
 		foundationDate?: string;
+	}
+	export interface Company {
+		totalValueOfContracts: number
+	}
+	export interface Dates {
+		awardDecisionDates: string[];
+		awardDecisionYears: string[];
+		awardDecisionYearsMinMax: string;
+	}
+	export interface CompanySector {
+		cpvs: Array<string>;
+		mostFrequentMarket: string;
 	}
 	export interface Buyer {
 		id?: string;
@@ -173,6 +194,10 @@ declare namespace Definitions {
 		 */
 		contactName?: string;
 		/**
+		 * Number of contracts where bids not empty
+		 */
+		contractsCount?: number;
+		/**
 		 * Description of contact point - usually
 		 */
 		contactPoint?: string;
@@ -182,6 +207,9 @@ declare namespace Definitions {
 		phone?: string;
 		email?: string;
 		web?: string;
+		company?: Company;
+		dates?: Dates;
+		sector?: CompanySector;
 		/**
 		 * Address of the body seat
 		 */
@@ -205,6 +233,11 @@ declare namespace Definitions {
 		indicators?: Indicator[];
 	}
 	export type BuyerType = 'NATIONAL_AUTHORITY' | 'NATIONAL_AGENCY' | 'REGIONAL_AUTHORITY' | 'REGIONAL_AGENCY' | 'PUBLIC_BODY' | 'EUROPEAN_AGENCY' | 'UTILITIES' | 'OTHER';
+	export type BuyerBodyId = {
+		id: string,
+		type: string,
+		scope: string
+	}
 	export interface Correction {
 		/**
 		 * sectionNumber
@@ -618,6 +651,7 @@ declare namespace Definitions {
 		 * Type of procedure - unstructured
 		 */
 		nationalProcedureType?: string;
+		originalSupplyType?: string;
 		/**
 		 * Reference number given to tender by buyer
 		 */
@@ -769,6 +803,7 @@ declare namespace Definitions {
 		awardDecisionDate?: Date; // ^\d{4}-[01]\d-[0-3]\d$
 		contractSignatureDate?: Date; // ^\d{4}-[01]\d-[0-3]\d$
 		completionDate?: Date; // ^\d{4}-[01]\d-[0-3]\d$
+		year?: string;
 		/**
 		 * Estimated tender duration in months
 		 */

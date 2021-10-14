@@ -27,6 +27,7 @@ export interface IAuthority {
 	count: number;
 	countries: Array<string>;
 	value?: number;
+	sector?: string;
 }
 
 export interface ICompany {
@@ -34,6 +35,7 @@ export interface ICompany {
 	count: number;
 	countries: Array<string>;
 	value?: number;
+	sector?: string;
 }
 
 export interface IDownload {
@@ -362,6 +364,8 @@ export enum ISearchFilterDefType {
 	date = 6,
 	years = 7,
 	bool = 8,
+	listWithSearch = 9,
+	nestedListWithSearch = 10,
 	none = 0
 }
 
@@ -393,6 +397,7 @@ export interface ISearchFilter {
 	values?: Array<any>; // the actual user search values, eg. range [year_start,year_end]
 	enabled?: {}; // the additional filter strings based on user choosen aggregation
 	buckets?: Array<ISearchResultBucket>; // the result of aggregation
+	searchedValue?: string;
 	active?: boolean;
 	mode?: string;
 	minmax?: null | [number, number];

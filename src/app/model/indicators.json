@@ -4,9 +4,9 @@
 		"name": "Integrity Indicator",
 		"plural": "Integrity Indicators",
 		"subindicators": {
-			"INTEGRITY_SINGLE_BID": {
-				"name": "Single bidder contract",
-				"desc": "Share of contracts where more than one bids were received.",
+			"INTEGRITY_ADVERTISEMENT_PERIOD": {
+				"name": "Length of advertisement period",
+				"desc": "Share of contracts for which the length of time between the call for tender publication and the bid deadline was not significantly different from other contracts' advertisement period.",
 				"order": 1
 			},
 			"INTEGRITY_CALL_FOR_TENDER_PUBLICATION": {
@@ -19,64 +19,28 @@
 				"desc": "Share of contracts for which open procedures were used which are more open for competition.",
 				"order": 3
 			},
-			"INTEGRITY_ADVERTISEMENT_PERIOD": {
-				"name": "Length of advertisement period",
-				"desc": "Share of contracts for which the length of time between the call for tender publication and the bid deadline was not significantly different from other contracts' advertisement period.",
-				"order": 4
-			},
 			"INTEGRITY_DECISION_PERIOD": {
 				"name": "Length of decision period",
 				"desc": "Share of contracts for which the length of the period from bid deadline to decision on contract award was not significantly different from other contracts' decision period.",
-				"order": 5
-			},
-			"INTEGRITY_NEW_COMPANY": {
-				"notused": true,
-				"name": "New company",
-				"desc": "New company signals the risk of a very young company winning a tender (younger than 1 year at the time of winning).",
-				"order": 0
-			},
-			"INTEGRITY_TAX_HAVEN": {
-				"notused": true,
-				"name": "Tax haven",
-				"desc": "Tax haven signals a risk when the supplier is located in a tax haven country (based on the financial secrecy index).",
-				"order": 0
+				"order": 4
 			},
 			"INTEGRITY_DESCRIPTION_LENGTH": {
 				"name": "Description length",
 				"desc": "Share of contracts where the product description is excessively long which may indicate the risk of product description being tailored to one company.",
-				"order": 6
-			},
-			"INTEGRITY_POLITICAL_CONNECTIONS_OF_SUPPLIERS": {
-				"notused": true,
-				"name": "Political connections of suppliers",
-				"desc": "Political connection of the supplier captures the risk of at least one owner or manager holding a political office.",
-				"order": 0
+				"order": 5
 			},
 			"INTEGRITY_WINNER_CA_SHARE": {
 				"name": "Winner contract share",
 				"desc": "Winner's contract share is the share of contract value won by a given company from a given buyer in a given year. The low value of this indicator signals the risk of the buyer being dependent on one or few companies which may lead to vulnerability for extortion and corruption.",
+				"order": 6
+			},
+			"INTEGRITY_SINGLE_BID": {
+				"name": "Single bidder contract",
+				"desc": "Share of contracts where more than one bids were received.",
 				"order": 7
 			},
-			"INTEGRITY_ELIGIBILITY_CRITERIA_LENGTH": {
-				"notused": true,
-				"name": "Eligibility criteria length",
-				"desc": "Eligibility criteria length signals the risk of criteria being tailored to one company with the criteria description being excessively long.",
-				"order": 0
-			},
-			"INTEGRITY_EVALUATION_CRITERIA": {
-				"notused": true,
-				"name": "Evaluation criteria",
-				"desc": "Evaluation criteria signal the risk of using non-quantitative criteria to assess bidders which are subjective and can easily be manipulated.",
-				"order": 0
-			},
-			"INTEGRITY_NR_OF_REQUESTED_BIDS": {
-				"notused": true,
-				"name": "Number of requested bids",
-				"desc": "Low number of requested bids signals a risk when only low number of bidders can submit bids in a competitive market.",
-				"order": 0
-			},
 			"INTEGRITY_SIGNATURE_PERIOD": {
-				"name": "Length of contract signature period",
+				"name": "Length of signature period",
 				"desc": "Share of contracts for which the period between the contract award and the contract signature date is not significantly different from other contracts' signature period.",
 				"order": 8
 			}
@@ -88,17 +52,6 @@
 		"name": "Transparency Indicator",
 		"plural": "Transparency Indicators",
 		"subindicators": {
-			"TRANSPARENCY_PUBLICATION_RATE": {
-				"notused": true,
-				"name": "Publication rate",
-				"desc": "Publication rate is the ratio of advertised public procurement spending over the total public procurement spending of a given contracting authority."
-			},
-			"TRANSPARENCY_NUMBER_OF_KEY_MISSING_FIELDS": {
-				"notused": true,
-				"name": "Share of non-missing key fields",
-				"desc": "Number of key missing fields is the ratio of fields with missing values in the call for tender and contract award announcement related to a given tender (based on the most recently published versions).",
-				"order": 0
-			},
 			"TRANSPARENCY_BUYER_NAME_MISSING": {
 				"name": "Buyer's name available",
 				"desc": "Share of contracts for which buyer's name is available in the published notice.",
@@ -134,42 +87,24 @@
 				"desc": "Share of contracts for which contract value is available in the published notice.",
 				"order": 7
 			},
-			"TRANSPARENCY_IMP_LOC_MISSING": {
-				"notused": true,
-				"name": "Implementation location available",
-				"desc": "Share of contracts for which implementation location is available in the published notice.",
-				"order": 0
+			"TRANSPARENCY_BUYER_LOC_MISSING": {
+				"name": "Buyer's location available",
+				"desc": "Share of contracts for which buyer's location is available in the published notice.",
+				"order": 8
 			},
 			"TRANSPARENCY_PROC_METHOD_MISSING": {
 				"name": "Procedure type available",
 				"desc": "Share of contracts for which procedure type is available in the published notice.",
-				"order": 8
+				"order": 9
 			},
 			"TRANSPARENCY_BID_NR_MISSING": {
 				"name": "Number of bids available",
 				"desc": "Share of contracts for which number of bids is available in the published notice.",
-				"order": 9
+				"order": 10
 			},
 			"TRANSPARENCY_AWARD_DATE_MISSING": {
 				"name": "Award date available",
 				"desc": "Share of contracts for which award date is available in the published notice.",
-				"order": 10
-			},
-			"TRANSPARENCY_HEADOFENTITY_DATE_MISSING": {
-				"notused": true,
-				"name": "Available head of entity approval date",
-				"desc": "Share of contracts for which head of entity approval date is available in the published notice.",
-				"order": 0
-			},
-			"TRANSPARENCY_COMMITTEE_DATE_MISSING": {
-				"notused": true,
-				"name": "Available committee approval date",
-				"desc": "Share of contracts for which committee approval date is available in the published notice.",
-				"order": 0
-			},
-			"TRANSPARENCY_BUYER_LOC_MISSING": {
-				"name": "Buyer's location available",
-				"desc": "Share of contracts for which buyer's location is available in the published notice.",
 				"order": 11
 			},
 			"TRANSPARENCY_SIGN_DATE_MISSING": {

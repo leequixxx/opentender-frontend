@@ -14,11 +14,11 @@ export class SearchAuthorityPage implements OnInit, OnDestroy {
 	title = '';
 	search = new Search('authority');
 	search_cmd: ISearchCommand;
-	columnIds = ['id', 'body.name', 'body.address.city', 'body.mainActivities', 'body.buyerType'];
+	columnIds = ['id', 'body.name', 'body.buyerType', 'body.address.city'];
 	filterIds = ['body.name', 'body.address.city', 'body.mainActivities', 'body.buyerType'];
 	filters = AuthorityFilterDefs;
 	public search_title = 'Search Authority';
-	private defaultColumns = ['id', 'body.name', 'body.address.city', 'body.mainActivities', 'body.buyerType'];
+	private defaultColumns = ['id', 'body.name', 'body.buyerType', 'body.address.city'];
 	public storageId = '_authorities-table';
 	public filtersStorageTag = '_authorities-filters';
 	private firstInit = true;

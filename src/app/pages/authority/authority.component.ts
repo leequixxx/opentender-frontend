@@ -174,7 +174,8 @@ export class AuthorityPage implements OnInit, OnDestroy {
 		) {
 			return;
 		}
-		this.similar = data.similar.map(authority => <Body>authority.body);
+		// @ts-ignore
+		this.similar = data.similar.map(authority => authority.body);
 	}
 
 	getCurrentIds(): Array<string> {
