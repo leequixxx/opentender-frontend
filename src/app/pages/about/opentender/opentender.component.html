@@ -5,11 +5,17 @@
 		</div>
 		<div class="section__content">
 			<div class="about">
-<!--				<p class="about__text" i18n>Around one-third of government expenditure is spent globally every year on procuring goods, works and services. Some estimates indicate that corruption increases the cost of government contracts by 20-25%. Corruption in public procurement also compromises widely supported public goals, such as building safe roads, high quality school buildings, or delivering medicine in time.</p>-->
-<!--				<p class="about__text" i18n>Providing comprehensive public procurement information free of charge in an easy-to-use format to all interested parties is expected to increase market transparency, decrease transaction costs, and facilitate government accountability. Hence, opentender.eu, a central, public, and open procurement platform has been set up to contribute to achieving value for money in public procurement as well as increasing integrity throughout the public sector.</p>-->
-<!--				<h2 class="h3 about__title">Data Explainer</h2>-->
-<!--				<p class="about__text" i18n>Here you can find more details on the data and the indicators</p>-->
-<!--				<h2 class="h3 about__title">Who is behind Opentender {{countryName}}?</h2>-->
+				<div class="about__flex-wrap">
+					<accordion [title]="'Who is behind Opentender Kenya?'">
+						<p class="accordion__text"><strong>Government Transparency Institute</strong></p>
+						<p class="accordion__text">The Government Transparency Institute’s foundation in 2015 was motivated by growing need and opportunity to do independent research and advocacy on transparency, corruption and quality of government in Europe and beyond. The Institute is a non-partisan think tank independent of governments, political parties or special interest groups. The aim of the Institute is to systematically explore the causes, characteristics, and consequences of low quality of government in an inter-disciplinary approach drawing on political science, economics, law, and data science. The Institute aims to aid citizens to hold governments accountable through the publication of large datasets and robust analysis.</p>
+						<p class="accordion__text"><strong>The Public Procurement Regulatory Authority (PPRA) of Kenya</strong></p>
+						<p class="accordion__text">The PPRA has the mandate among other functions, to monitor, assess and review the public procurement and Asset Disposal system to ensure they respect the National values and other provisions including Article 227 of the constitution on public procurement.</p>
+						<p class="accordion__text"><strong>Transparency International's Health Initiative (TI-HI)</strong></p>
+						<p class="accordion__text">TI-HI launched the Open Contracting for Health (OC4H) project <a class="accordion__link" target="_blank" href="http://ti-health.org/open-contracting-for-health/">http://ti-health.org/open-contracting-for-health/</a>.</p>
+						<p class="accordion__text">Open Contracting for Health is the flagship project of the Transparency International Health Initiative. The project has been operational in Uganda, Zambia, Kenya, Nepal and South Africa since 2018. Implementation is led by Transparency International chapters with technical support from the Transparency International Health Initiative. The initiative aims to improve transparency and accountability in health systems by promoting the use of open contracting principles and practices in public procurement.</p>
+					</accordion>
+				</div>
 				<div class="about__flex-wrap">
 					<accordion [title]="'Where does the data come from?'">
 						<p class="accordion__text">The public procurement dataset published on Opentender Kenya was collected from the national Public Procurement Information Portal managed by the Public Procurement Regulatory Authority (PPRA). Data is covered between the period of 2018 and 2019. Notices and awarded contracts were stored separately on the national public procurement portal. There were 11781 awarded contracts and 19812 incomplete notices. Notice information highly overlapped with contract award data, files were appended to each other. Source: <a class="accordion__link" target="_blank" href="https://tenders.go.ke/website">https://tenders.go.ke/website</a></p>
