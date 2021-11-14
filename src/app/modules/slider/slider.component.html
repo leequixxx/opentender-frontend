@@ -4,13 +4,21 @@
 			<div class="range-ribbon-fill" [ngStyle]="{left: position.range1+'px',width: (position.range2-position.range1)+'px'}"></div>
 		</div>
 		<button type="button" aria-label="Slider Handle Left" *ngIf="!singleHandle" class="slider-handle" sliderhandle [left]="position.range1" [min]="position.range1min" [max]="position.range1max" (onChanged)="slider1Change($event)" (onKeyCommand)="slider1Step($event)">
-			<input type="text" (change)="input1change($event)" [value]="_startValue">
 		</button>
 		<button type="button" aria-label="Slider Handle Right" *ngIf="!(position.range1==position.range2 && position.range1==position.range2max)" class="slider-handle" sliderhandle [left]="position.range2" [min]="position.range2min" [max]="position.range2max" (onChanged)="slider2Change($event)" (onKeyCommand)="slider2Step($event)">
-			<input type="text" (change)="input2change($event)" [value]="_endValue">
 		</button>
 	</div>
-	<div *ngIf="!hideTicks" class="slider-ticks">
-		<div *ngFor="let tick of ticks" class="slider-tick" [ngStyle]="{width:tick.width+'px'}"><span *ngIf="tick.show">{{getTickLabel(tick.value)}}</span></div>
+	<div class="slider-inputs" *ngIf="!singleHandle">
+		<div class="slider-inputs__wrap">
+			<span class="slider-inputs__label">Min. Value</span>
+			<input class="slider-inputs__input" type="number" (change)="input1change($event)" [value]="_startValue">
+		</div>
+		<div class="slider-inputs__wrap">
+			<span class="slider-inputs__label">Max. Value</span>
+			<input class="slider-inputs__input" type="number" (change)="input2change($event)" [value]="_endValue">
+		</div>
+	</div>
+	<div *ngIf="!hideTicks" class="slider-ticks" [class.year]="typeYear" [class.count]="typeCount">
+		<div *ngFor="let tick of ticks" class="slider-tick"><span *ngIf="tick.show">{{getTickLabel(tick.value)}}</span></div>
 	</div>
 </div>

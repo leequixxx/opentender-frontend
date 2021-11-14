@@ -66,5 +66,10 @@
       margin-top: -4px;
     }
 
+		::ng-deep {
+			.slider-container.compact {
+				margin-top: 5px;
+			}
+		}
   }
 }

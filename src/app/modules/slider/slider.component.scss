@@ -4,30 +4,26 @@
   display: block;
 
   .slider-container {
+		margin-top: 30px;
     display: block;
-    //margin-left: 9px;
-    margin-right: 18px;
+		position: relative;
   }
 
   .slider-ribbon-container {
-    clear: both;
     position: relative;
     height: 26px;
-    margin-top: 7px;
-    margin-bottom: 12px;
 		z-index: 1;
-		transform: translateX(10px);
+		margin: 0 13px;
 	}
 
   .range-ribbon {
     position: absolute;
-    width: calc(100% - 7px);
+    width: 100%;
     height: 8px;
     border: 1px solid $blue;
     background-color: #E2F0FF;
     color: #323232;
     top: 6px;
-		margin-left: 2px;
 		z-index: 1;
 		max-width: 100%;
   }
@@ -43,14 +39,10 @@
     border: 1px solid $blue;
     margin: 0;
     padding: 0;
-    //border-radius: 4px;
 		border-radius: 50%;
     background-color: $blue;
-    //width: 18px;
-    //height: 18px;
 		width: 30px;
 		height: 30px;
-    //box-sizing: border-box;
 		transform: translate(-13px, -6px);
     box-sizing: content-box;
 		z-index: 2;
@@ -82,7 +74,6 @@
 
 			&:focus {
 				border: 1px solid $blue;
-				//font-weight: 400;
 			}
 		}
   }
@@ -95,31 +86,67 @@
     margin: 60px 0 0 0;
   }
 
+	.slider-inputs {
+		display: flex;
+		justify-content: space-between;
+		margin: 0 4px;
+
+		&__wrap {
+			max-width: 150px;
+		}
+
+		&__label {
+			font-size: 12px;
+			line-height: 14px;
+		}
+
+		&__input {
+			border-color: $blue;
+			color: $blue;
+			padding: 4px 8px;
+			font-size: 12px;
+			line-height: 14px;
+			margin: 0;
+		}
+	}
+
   .slider-ticks {
     height: 20px;
     overflow: visible;
-    display: block;
+    display: flex;
+		justify-content: space-between;
+		width: calc(100% - 26px);
     white-space: nowrap;
     font-size: 0.7em;
-    margin-top: -38px;
-    padding-left: 2px;
-    margin-bottom: 18px;
-		position: relative;
-		transform: translateX(10px);
+		top: 0;
+		left: 13px;
+		position: absolute;
+
+		&.year,
+		&.count {
+			span {
+				display: none;
+			}
+			.slider-tick:first-child,
+			.slider-tick:last-child {
+				span {
+					display: inline-block;
+				}
+			}
+
+		}
 	}
   .slider-tick {
     display: inline-block;
-    border-left: 1px solid $blue;
     height: 40px;
-    //padding-top: 3px;
-    //padding-left: 2px;
+		top: -55px;
 		margin-top: 6px;
 		position: relative;
 
 		span {
 			position: absolute;
 			bottom: 0;
-			left: 5px;
+			transform: translateX(-50%);
 		}
   }
   .slider-tick:last-of-type {
@@ -130,20 +157,7 @@
 		.slider-tick {
 			height: 20px;
 			margin-top: 0;
-
-			&:first-of-type {
-				span {
-					bottom: -20px;
-				}
-			}
-
-			&:last-of-type {
-				span {
-					left: auto;
-					right: 5px;
-					bottom: -20px;
-				}
-			}
+			top: -20px;
 		}
 
 		.slider-handle {
@@ -151,16 +165,9 @@
 			height: 20px;
 			border-radius: 4px;
 
-			&:first-of-type {
-				transform: translate(2px, -1px);
-			}
-
+			&:first-of-type,
 			&:last-of-type {
-				transform: translate(-19px, -1px);
-			}
-
-			input {
-				left: -14px;
+				transform: translate(-50%, -1px);
 			}
 		}
 	}

@@ -25,6 +25,8 @@ import {SelectVizButtonComponent} from './components/select-viz-button/select-vi
 import {GraphsHeatMapGridModule} from '../../modules/graphs/heatmap-grid/graphs-heatmap-grid.module';
 import {SelectSearchButtonComponent} from './components/select-search-button/select-search-button.component';
 import {BreadcrumbModule} from '../../modules/breadcrumb/breadcrumb.module';
+import {SearchListComponent} from './components/search-list/search-list.component';
+import {SearchListCheckbox} from './components/search-list-checkbox/search-list-checkbox';
 
 @NgModule({
 	imports: [
@@ -53,9 +55,28 @@ import {BreadcrumbModule} from '../../modules/breadcrumb/breadcrumb.module';
 		SelectDateFilterComponent,
 		SelectSearchButtonComponent,
 		SearchBoxComponent,
+		SearchListComponent,
 		SearchSectorPage,
 		AutoCompleteComponent,
-		ValueInputComponent
+		ValueInputComponent,
+		SearchListCheckbox
+	],
+	exports: [
+		SearchPage,
+		SearchTenderPage,
+		SearchCompanyPage,
+		SearchAuthorityPage,
+		SelectVizButtonComponent,
+		SelectYearRangeFilterComponent,
+		SelectScoreRangeFilterComponent,
+		SelectDateFilterComponent,
+		SelectSearchButtonComponent,
+		SearchBoxComponent,
+		SearchListComponent,
+		SearchSectorPage,
+		AutoCompleteComponent,
+		ValueInputComponent,
+		SearchListCheckbox
 	]
 })
 export class SearchModule {

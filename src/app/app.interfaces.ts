@@ -100,7 +100,7 @@ export interface IStatsIndicators {
 }
 
 export interface IStatsNuts {
-	[nutscode: string]: number;
+	[nutscode: string]: {[key: string]: number};
 }
 
 export interface IStatsPriceEUR {
@@ -385,9 +385,16 @@ export interface ISearchFilterDef {
 	valueFormatter?: (string) => string;
 	valueTranslater?: (string, ISearchFilterValueTranslate) => string;
 	valuesFilter?: (buckets: Array<ISearchResultBucket>) => Array<ISearchResultBucket>;
+	listFormatter?: string;
+	nested?: boolean;
+	nestedType?: string;
 	subrequest?: {
 		[fieldname: string]: string | boolean | number
 	};
+	min?: number;
+	max?: number;
+	typeCount?: boolean
+	bigInt?: boolean
 }
 
 export interface ISearchFilter {

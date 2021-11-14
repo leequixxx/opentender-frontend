@@ -30,19 +30,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="select" *ngSwitchCase="ISearchFilterDefType.select">
-				<div *ngFor="let bucket of filter.buckets">
-					<label class="checkbox">
-						<span class="checkbox-mirror" [class.checked]="filter.enabled[bucket.key]"></span>
-						<input class="hidden" type="checkbox" [(ngModel)]="filter.enabled[bucket.key]" (ngModelChange)="triggerChange(bucket.key)">
-						<div class="checkbox-columns">
-							<span class="checkbox-column">
-								<span class="value" title="{{getValueTitle(bucket,filter)}}">{{getValueTitle(bucket,filter)}}</span>
-								<span class="count">{{bucket.doc_count | formatNumber}}</span>
-							</span>
-						</div>
-					</label>
-				</div>
+			<div *ngSwitchCase="ISearchFilterDefType.select">
+				<search-list [filter]="filter" (onChange)="triggerChange()"></search-list>
 			</div>
 			<div class="select" *ngSwitchCase="ISearchFilterDefType.bool">
 				<div class="radios">
@@ -59,7 +48,17 @@
 				<select-year-range-filter [filter]="filter" [buckets]="filter.buckets" (onRangeChange)="triggerChange()"></select-year-range-filter>
 			</div>
 			<div class="range" *ngSwitchCase="ISearchFilterDefType.range">
-				<select-score-range-filter [filter]="filter" [buckets]="filter.buckets" (onRangeChange)="triggerChange()"></select-score-range-filter>
+				<select-score-range-filter [filter]="filter"
+																	 [minScore]="filter.def.min"
+																	 [maxScore]="filter.def.max"
+																	 [startScore]="filter.def.min"
+																	 [endScore]="filter.def.max"
+																	 [typeCount]="filter.def.typeCount"
+																	 [bigInt]="filter.def.bigInt"
+																	 [buckets]="filter.buckets"
+																	 (onRangeChange)="triggerChange()">
+
+				</select-score-range-filter>
 			</div>
 			<div class="range" *ngSwitchCase="ISearchFilterDefType.date">
 				<select-date-filter [filter]="filter" [buckets]="filter.buckets" (onChange)="triggerChange()"></select-date-filter>

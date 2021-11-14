@@ -81,7 +81,7 @@ export class SelectYearRangeFilterComponent implements OnChanges {
 		if (event.startValue == this.minYear && event.endValue == this.maxYear) {
 			this.filter.values = null;
 		} else {
-			this.filter.values = [this.startYear, this.endYear + 1];
+			this.filter.values = [this.startYear, this.endYear];
 		}
 		this.onRangeChange.emit();
 	}

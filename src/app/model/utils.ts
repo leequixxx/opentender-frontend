@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import {IChartData} from '../thirdparty/ngx-charts-universal/chart.interface';
 import {ISeriesDataTable} from '../app.interfaces';
+import {NUTS_NAMES} from './nuts_names';
 
 export const Utils = {
 	dateToUnix: (jsdate: Date) => {
@@ -23,6 +24,9 @@ export const Utils = {
 	formatPercent(value): string {
 		value = Math.round(value * 100) / 100;
 		return value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2}) + '%';
+	},
+	formatNuts(value) {
+		return NUTS_NAMES[value.toUpperCase()] || value;
 	},
 	validateNutsCode(code, level) {
 		if (code.length > 1 && code.length < 6) {

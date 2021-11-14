@@ -73,18 +73,23 @@ export class NUTSMapComponent implements OnChanges, ISeriesProvider {
 				};
 				nuts[nutskey] = nut;
 			}
-			nut.value = nut.value + this.data[key];
+			nut.value = `
+			<br>
+			<span>Count: ${this.data[key].count}</span>
+			<br>
+			<span>Value: ${this.data[key].value}</span>
+			`;
 		});
 		let max = 0;
 		let min = 0;
 		let list = Object.keys(nuts).map(key => nuts[key]).filter(nut => nut.feature);
 		if (list.length > 0) {
-			min = list[0].value;
-			max = list[0].value;
+			min = list[0].value.count;
+			max = list[0].value.count;
 		}
 		list.forEach(nut => {
-			min = Math.min(nut.value, min);
-			max = Math.max(nut.value, max);
+			min = Math.min(nut.value.count, min);
+			max = Math.max(nut.value.count, max);
 		});
 		let scale = scaleLinear().domain([0, max]).range([0, 1]);
 

@@ -138,6 +138,7 @@ declare namespace Definitions {
 		 * Array of Indicators
 		 */
 		indicators?: Indicator[];
+		indicator?: indicatorObj;
 	}
 	export interface Body {
 		id?: string;
@@ -180,7 +181,7 @@ declare namespace Definitions {
 	}
 	export interface CompanySector {
 		cpvs: Array<string>;
-		mostFrequentMarket: string;
+		mostFrequentMarket: { key: string, label: string };
 	}
 	export interface Buyer {
 		id?: string;
@@ -231,6 +232,7 @@ declare namespace Definitions {
 		 * Array of Indicators
 		 */
 		indicators?: Indicator[];
+		indicator?: indicatorObj;
 	}
 	export type BuyerType = 'NATIONAL_AUTHORITY' | 'NATIONAL_AGENCY' | 'REGIONAL_AUTHORITY' | 'REGIONAL_AGENCY' | 'PUBLIC_BODY' | 'EUROPEAN_AGENCY' | 'UTILITIES' | 'OTHER';
 	export type BuyerBodyId = {
@@ -363,6 +365,12 @@ declare namespace Definitions {
 		 */
 		type?: IndicatorType;
 		status?: IndicatorStatusType;
+	}
+	export interface indicatorObj {
+		transparencyIndicatorCompositionScore: { KE: number };
+		integrityIndicatorCompositionScore: { KE: number };
+		elementaryTransparencyIndicators: { KE: { tender: number } };
+		elementaryIntegrityIndicators: { KE: { tender: number } };
 	}
 	export type IndicatorStatusType = 'CALCULATED' | 'INSUFFICIENT_DATA' | 'UNDEFINED';
 	export type IndicatorType = 'INTEGRITY_SINGLE_BID' | 'INTEGRITY_CALL_FOR_TENDER_PUBLICATION' | 'INTEGRITY_ADVERTISEMENT_PERIOD' | 'INTEGRITY_PROCEDURE_TYPE' | 'INTEGRITY_DECISION_PERIOD' | 'INTEGRITY_TAX_HAVEN' | 'INTEGRITY_NEW_COMPANY' | 'ADMINISTRATIVE_CENTRALIZED_PROCUREMENT' | 'ADMINISTRATIVE_ELECTRONIC_AUCTION' | 'ADMINISTRATIVE_COVERED_BY_GPA' | 'ADMINISTRATIVE_FRAMEWORK_AGREEMENT' | 'ADMINISTRATIVE_ENGLISH_AS_FOREIGN_LANGUAGE' | 'ADMINISTRATIVE_NOTICE_AND_AWARD_DISCREPANCIES' | 'TRANSPARENCY_NUMBER_OF_KEY_MISSING_FIELDS';
@@ -631,6 +639,10 @@ declare namespace Definitions {
 	export type SizeType = 'BELOW_THE_THRESHOLD' | 'ABOVE_THE_THRESHOLD';
 	export type SupplyType = 'SUPPLIES' | 'WORKS' | 'SERVICES' | 'OTHER';
 	export interface Tender {
+		supplierName: string;
+		supplierAddress: string;
+		supplierId: string;
+		supplierBidderType: string;
 		/**
 		 * Tender ID
 		 */

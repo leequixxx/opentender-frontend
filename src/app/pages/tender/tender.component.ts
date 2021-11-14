@@ -35,21 +35,21 @@ export class TenderPage implements OnInit, OnDestroy {
 		[name: string]: IState;
 		lots: IState;
 		buyer: IState;
+		supplier: IState;
 		indi: IState;
 		info: IState;
 		desc: IState;
 		reqs: IState;
-		additional: IState;
 		documents: IState;
 		publications: IState;
 	} = {
 		lots: {open: true, empty: true},
 		buyer: {open: true, empty: true},
+		supplier: {open: true, empty: true},
 		indi: {open: true, empty: true},
 		info: {open: true, empty: true, subempty: {}},
 		desc: {open: true, empty: true},
 		reqs: {open: true, empty: true},
-		additional: {open: true, empty: true, subempty: {}},
 		documents: {open: true, empty: true},
 		publications: {open: true, empty: true}
 	};
@@ -79,7 +79,6 @@ export class TenderPage implements OnInit, OnDestroy {
 	constructor(private route: ActivatedRoute, private api: ApiService, private config: ConfigService, private platform: PlatformService,
 				private notify: NotifyService, private i18n: I18NService, private indicators: IndicatorService) {
 		if (!this.platform.isBrowser) {
-			this.state.additional.open = true;
 			this.state.documents.open = true;
 			this.state.publications.open = true;
 			this.state.reqs.open = true;
@@ -87,11 +86,11 @@ export class TenderPage implements OnInit, OnDestroy {
 		this.viz.distribution.title = i18n.get('Benchmark Current Tender');
 		this.state.lots.label = this.i18n.get('Lots');
 		this.state.buyer.label = this.i18n.get('Buyer');
+		this.state.supplier.label = this.i18n.get('Supplier');
 		this.state.indi.label = this.i18n.get('Indicators');
 		this.state.info.label = this.i18n.get('Tender Information');
 		this.state.desc.label = this.i18n.get('Description');
 		this.state.reqs.label = this.i18n.get('Requirements');
-		this.state.additional.label = this.i18n.get('Additional Information');
 		this.state.documents.label = this.i18n.get('Documents');
 		this.state.publications.label = this.i18n.get('Publications');
 		this.country = config.country;
@@ -162,21 +161,20 @@ export class TenderPage implements OnInit, OnDestroy {
 		this.tender = null;
 		if (tender) {
 			this.tender = tender;
-			this.state.reqs.empty = !this.objHasProperty(tender, ['personalRequirements', 'economicRequirements', 'technicalRequirements', 'eligibilityCriteria', 'deposits']);
+			this.state.reqs.empty = !this.objHasProperty(tender, ['personalRequirements', 'economicRequirements', 'technicalRequirements', 'eligibilityCriteria']);
 			this.state.buyer.empty = !this.objHasProperty(tender, ['buyers', 'onBehalfOf', 'furtherInformationProvider', 'specificationsProvider', 'bidsRecipient', 'appealBodyName', 'mediationBodyName', 'administrators']);
+			this.state.supplier.empty = !this.objHasProperty(tender, ['supplierName', 'supplierAddress', 'supplierId', 'supplierBidderType']);
 			this.state.lots.empty = !Utils.isDefined(tender.lots);
 			this.state.publications.empty = !Utils.isDefined(tender.publications);
 			this.state.documents.empty = !Utils.isDefined(tender.documents);
 			this.state.info.subempty['types'] = !this.objHasProperty(tender, ['supplyType', 'procedureType', 'selectionMethod', 'eligibleBidLanguages', 'maxBidsCount', 'maxFrameworkAgreementParticipants', 'awardCriteria']);
 			this.state.info.subempty['prices'] = !this.objHasProperty(tender, ['estimatedPrice', 'finalPrice', 'documentsPrice']);
 			this.state.info.subempty['dates'] = !this.objHasProperty(tender, ['estimatedStartDate', 'estimatedCompletionDate', 'bidDeadline', 'documentsDeadline', 'estimatedDurationInDays', 'estimatedDurationInMonths', 'estimatedDurationInYears']);
+			this.state.info.subempty['Other'] = !this.objHasProperty(tender, ['addressOfImplementation', 'deposits']);
 			this.state.info.subempty['cpvs'] = !Utils.isDefined(tender.cpvs);
 			this.state.info.subempty['first-column'] = this.state.info.subempty['prices'] && this.state.info.subempty['dates'] && this.state.info.subempty['cpvs'];
 			this.state.info.empty = this.state.info.subempty['first-column'] && this.state.info.subempty['types'];
-			this.state.additional.subempty['fundings'] = !Utils.isDefined(tender.fundings);
-			this.state.additional.subempty['tender'] =
-				!this.objHasProperty(tender, ['isEInvoiceAccepted', 'isCentralProcurement', 'isCoveredByGpa', 'isFrameworkAgreement', 'isJointProcurement', 'isDps', 'isElectronicAuction',
-					'hasLots', 'hasOptions', 'areVariantsAccepted', 'buyerAssignedId']);
+
 			let vals = {};
 			let scores = {};
 			let indicators = {};

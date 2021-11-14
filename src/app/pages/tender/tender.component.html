@@ -2,125 +2,150 @@
 <loading [loading]="!tender" [notFound]="notFound"></loading>
 <div class="entity" *ngIf="tender">
 	<div class="container">
-		<div class="container-left-9">
 		<h1 class="h2">{{tender.title}}</h1>
 		<h3>{{tender.titleEnglish}}</h3>
-		</div>
-
-		<div class="container-left-3">
-			<div class="info-links">
-				<div class="info-link-box">
-					<ng-container i18n>Link<!--Find Tender Information at--></ng-container>
-<!--					<p target="_blank" rel="noopener" href="https://tenders.exposed/">https://tenders.exposed/</p>-->
-				</div>
-<!--				<div class="info-link-box" *ngIf="country.whistle | defined">-->
-<!--					<ng-container i18n>Blow the whistle on wrongdoings about this tender</ng-container>-->
-<!--					<ng-container *ngFor="let whistle of country.whistle">-->
-<!--						<br>-->
-<!--						<a target="_blank" rel="noopener" href="{{whistle.url}}"><i class="icon-new-tab"></i> {{whistle.name}}</a>-->
-<!--					</ng-container>-->
-<!--				</div>-->
-<!--				<div class="info-link-box" *ngIf="country.foi">-->
-<!--					<ng-container i18n>Find Freedom of Information requests at</ng-container>-->
-<!--					<br>-->
-<!--					<a target="_blank" rel="noopener" href="{{country.foi.url}}"><i class="icon-new-tab"></i> {{country.foi.name}}</a>-->
-<!--				</div>-->
-			</div>
-		</div>
 	</div>
 
 	<div class="container" *ngIf="!state.info.empty">
 		<h3>
 			<collapse-expand [o]="state.info"></collapse-expand>
 		</h3>
-		<div *ngIf="state.info.open" class="container slab-beta-light container-padded-large mt_20">
+		<div *ngIf="state.info.open" class="container mt_20">
 			<div class="container-left-6" *ngIf="!state.info.subempty['first-column']">
-				<!--<div class="info-foi" *ngIf="!tender.estimatedPrice || !tender.estimatedPrice.value">-->
-				<!--No value is given for this contract, you may request it via your Freedom of Information Laws.<br/>-->
-				<!--<a href="https://fragdenstaat.de/anfrage-stellen/">Request with FragDenStaat.de</a>-->
-				<!--</div>-->
-				<div *ngIf="!state.info.subempty['prices']">
-					<h4 i18n>Prices</h4>
-					<div class="inline-info" *ngIf="tender.estimatedPrice | defined">
-						<h4 i18n>Estimated Price</h4>
-						<tender-price [price]="tender.estimatedPrice"></tender-price>
-					</div>
-					<div class="inline-info" *ngIf="tender.finalPrice | defined">
-						<h4 i18n>Final Price</h4>
-						<tender-price [price]="tender.finalPrice"></tender-price>
-					</div>
-					<div class="inline-info" *ngIf="tender.documentsPrice | defined">
-						<h4 i18n>Documents Price</h4>
-						<tender-price [price]="tender.documentsPrice"></tender-price>
+				<div class="info" *ngIf="!state.info.subempty['prices']">
+					<h4 class="info__title" i18n>Prices</h4>
+					<div class="info__content">
+						<div class="info__row" *ngIf="tender.estimatedPrice | defined">
+							<span class="info__row-label" i18n>Estimated Price</span>
+							<tender-price class="info__row-value" [price]="tender.estimatedPrice"></tender-price>
+						</div>
+						<div class="info__row" *ngIf="tender.finalPrice | defined">
+							<h4 class="info__row-label" i18n>Final Price</h4>
+							<tender-price class="info__row-value" [price]="tender.finalPrice"></tender-price>
+						</div>
+						<div class="info__row" *ngIf="tender.documentsPrice | defined">
+							<span class="info__row-label" i18n>Documents Price</span>
+							<tender-price class="info__row-value" [price]="tender.documentsPrice"></tender-price>
+						</div>
 					</div>
 				</div>
-				<div *ngIf="!state.info.subempty['dates']">
-					<h4 i18n>Dates</h4>
-					<div class="inline-info" *ngIf="tender.estimatedStartDate | defined">
-						<h4 i18n>Estimated Start Date</h4>
-						<div>{{tender.estimatedStartDate | formatDate}}</div>
-					</div>
-					<div class="inline-info" *ngIf="tender.estimatedCompletionDate | defined">
-						<h4 i18n>Estimated Completion Date</h4>
-						<div>{{tender.estimatedCompletionDate | formatDate}}</div>
-					</div>
-					<div class="inline-info" *ngIf="tender.bidDeadline | defined">
-						<h4 i18n>Bid Deadline</h4>
-						<div>{{tender.bidDeadline | formatDatetime}}</div>
-					</div>
-					<div class="inline-info" *ngIf="tender.documentsDeadline | defined">
-						<h4 i18n>Documents Deadline</h4>
-						<div>{{tender.documentsDeadline | formatDate}}</div>
-					</div>
-					<div class="inline-info" *ngIf="(tender.estimatedDurationInDays || tender.estimatedDurationInMonths || tender.estimatedDurationInYears) | defined">
-						<h4 i18n>Estimated Duration</h4>
-						<div *ngIf="tender.estimatedDurationInDays">{{tender.estimatedDurationInDays}} Day(s)</div>
-						<div *ngIf="tender.estimatedDurationInMonths">{{tender.estimatedDurationInMonths}} Month(s)</div>
-						<div *ngIf="tender.estimatedDurationInYears">{{tender.estimatedDurationInYears}} Year(s)</div>
+				<div class="info" *ngIf="!state.info.subempty['dates']">
+					<h4 class="info__title" i18n>Dates</h4>
+					<div class="info__content">
+						<div class="info__row" *ngIf="tender.year | defined">
+							<h4 class="info__row-label" i18n>Year</h4>
+							<div class="info__row-value">{{tender.year | formatDate}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.estimatedStartDate | defined">
+							<h4 class="info__row-label" i18n>Estimated Start Date</h4>
+							<div class="info__row-value">{{tender.estimatedStartDate | formatDate}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.bidDeadline | defined">
+							<h4 class="info__row-label" i18n>Bid Deadline</h4>
+							<div class="info__row-value">{{tender.bidDeadline | formatDatetime}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.awardDecisionDate | defined">
+							<h4 class="info__row-label" i18n>Award Decision Date</h4>
+							<div class="info__row-value">{{tender.awardDecisionDate | formatDate}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.estimatedCompletionDate | defined">
+							<h4 class="info__row-label" i18n>Estimated Completion Date</h4>
+							<div class="info__row-value">{{tender.estimatedCompletionDate | formatDate}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.created | defined">
+							<h4 class="info__row-label" i18n>Created</h4>
+							<div class="info__row-value">{{tender.created | formatDatetime}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.modified | defined">
+							<h4 class="info__row-label" i18n>Modified</h4>
+							<div class="info__row-value">{{tender.modified | formatDatetime}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.documentsDeadline | defined">
+							<h4 class="info__row-label" i18n>Documents Deadline</h4>
+							<div class="info__row-value">{{tender.documentsDeadline | formatDate}}</div>
+						</div>
+						<div class="info__row" *ngIf="(tender.estimatedDurationInDays || tender.estimatedDurationInMonths || tender.estimatedDurationInYears) | defined">
+							<h4 class="info__row-label" i18n>Estimated Duration</h4>
+							<div class="info__row-value" *ngIf="tender.estimatedDurationInDays">{{tender.estimatedDurationInDays}} Day(s)</div>
+							<div class="info__row-value" *ngIf="tender.estimatedDurationInMonths">{{tender.estimatedDurationInMonths}} Month(s)</div>
+							<div class="info__row-value" *ngIf="tender.estimatedDurationInYears">{{tender.estimatedDurationInYears}} Year(s)</div>
+						</div>
 					</div>
 				</div>
-				<div *ngIf="tender.cpvs | defined">
-					<h4 i18n>Sectors</h4>
-					<div *ngIf="tender.ot.cpv"><a [routerLink]="['/sector/'+tender.ot.cpv]">{{tender.ot['cpv_name']}}</a>
-						<small> (CPV {{tender.ot.cpv}})</small>
+				<div class="info" *ngIf="tender.cpvs | defined">
+					<h4 class="info__title" i18n>Sectors</h4>
+					<div class="info__content">
+						<div class="info__row" *ngIf="tender.ot.cpv">
+							<a class="info__row-link" [routerLink]="['/sector/'+tender.ot.cpv]">{{tender.ot['cpv_name']}}</a>
+							<small class="info__row-small">CPV {{tender.ot.cpv}}</small>
+						</div>
+						<div *ngFor="let val of tender.cpvs">
+							<div class="info__row" *ngIf="!val.isMain">
+								<span class="info__row-label">{{val.name}}</span>
+								<small class="info__row-small"> (CPV {{val.code}})</small>
+							</div>
+						</div>
 					</div>
-					<div *ngFor="let val of tender.cpvs"><div *ngIf="!val.isMain">{{val.name}} <small> (CPV {{val.code}})</small></div></div>
 				</div>
 			</div>
-			<div class="container-left-6" *ngIf="!state.info.subempty['types']">
-				<h4 i18n>Types</h4>
-				<div class="inline-info" *ngIf="tender.supplyType | defined">
-					<h4 i18n>Supply Type</h4>
-					<div>{{tender.supplyType | expandUnderlined}}</div>
-				</div>
-				<div class="inline-info" *ngIf="tender.procedureType | defined">
-					<h4 i18n>Procedure Type</h4>
-					<div>{{tender.procedureType | expandUnderlined}}</div>
-				</div>
-				<div class="inline-info" *ngIf="tender.selectionMethod | defined">
-					<h4 i18n>Selection Method</h4>
-					<div>{{tender.selectionMethod | expandUnderlined}}</div>
-				</div>
-				<div class="inline-info" *ngIf="tender.eligibleBidLanguages | defined">
-					<h4 i18n>Eligible Bid Languages</h4>
-					<div *ngIf="tender.eligibleBidLanguages"><span *ngFor="let s of tender.eligibleBidLanguages">{{s}} </span></div>
-				</div>
-				<div class="inline-info" *ngIf="tender.maxBidsCount | defined">
-					<h4 i18n>Max Bids Count</h4>
-					<div>{{tender.maxBidsCount}}</div>
-				</div>
-				<div class="inline-info" *ngIf="tender.maxFrameworkAgreementParticipants | defined">
-					<h4 i18n>Max Framework Agreement Participants</h4>
-					<div>{{tender.maxFrameworkAgreementParticipants}}</div>
-				</div>
-				<div *ngIf="tender.awardCriteria | defined">
-					<h4 i18n>Award Criteria</h4>
-					<div *ngFor="let aw of tender.awardCriteria; let index_aw = index">
-						<div class="inline-info">
-							<h4>Nr. {{index_aw+1}} <span *ngIf="aw.weight | defined">: {{aw.weight}}%</span></h4>
-							{{aw.name}}
+			<div class="container-left-6">
+				<div class="info" *ngIf="!state.info.subempty['types']">
+					<h4 class="info__title" i18n>Types</h4>
+					<div class="info__content">
+						<div class="info__row" *ngIf="tender.supplyType | defined">
+							<h4 class="info__row-label" i18n>Supply Type</h4>
+							<div class="info__row-value">{{tender.supplyType | expandUnderlined}}</div>
 						</div>
-						<div>{{aw.description}}</div>
+						<div class="info__row" *ngIf="tender.procedureType | defined">
+							<h4 class="info__row-label" i18n>Procedure Type</h4>
+							<div class="info__row-value">{{tender.procedureType | expandUnderlined}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.nationalProcedureType | defined">
+							<h4 class="info__row-label" i18n>National Procedure Type</h4>
+							<div class="info__row-value">{{tender.nationalProcedureType | expandUnderlined}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.originalSupplyType | defined">
+							<h4 class="info__row-label" i18n>Original Supply Type</h4>
+							<div class="info__row-value">{{tender.originalSupplyType | expandUnderlined}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.selectionMethod | defined">
+							<h4 class="info__row-label" i18n>Selection Method</h4>
+							<div class="info__row-value">{{tender.selectionMethod | expandUnderlined}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.eligibleBidLanguages | defined">
+							<h4 class="info__row-label" i18n>Eligible Bid Languages</h4>
+							<div class="info__row-value" *ngIf="tender.eligibleBidLanguages"><span *ngFor="let s of tender.eligibleBidLanguages">{{s}} </span></div>
+						</div>
+						<div class="info__row" *ngIf="tender.maxBidsCount | defined">
+							<h4 class="info__row-label" i18n>Max Bids Count</h4>
+							<div class="info__row-value">{{tender.maxBidsCount}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.maxFrameworkAgreementParticipants | defined">
+							<h4 class="info__row-label" i18n>Max Framework Agreement Participants</h4>
+							<div class="info__row-value">{{tender.maxFrameworkAgreementParticipants}}</div>
+						</div>
+						<div *ngIf="tender.awardCriteria | defined">
+							<h4 i18n>Award Criteria</h4>
+							<div *ngFor="let aw of tender.awardCriteria; let index_aw = index">
+								<div class="info__row">
+									<h4 class="info__row-label">Nr. {{index_aw+1}} <span *ngIf="aw.weight | defined">: {{aw.weight}}%</span></h4>
+									{{aw.name}}
+								</div>
+								<div class="info__row-value">{{aw.description}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="info" *ngIf="!state.info.subempty['other']">
+					<h4 class="info__title">Other</h4>
+					<div class="info__content">
+						<div class="info__row" *ngIf="tender.deposits | defined">
+							<h4 class="info__row-label" i18n>Deposits</h4>
+							<span class="info__row-value">{{tender.deposits}}</span>
+						</div>
+						<div class="info__row" *ngIf="tender.addressOfImplementation | defined">
+							<tender-body-address [address]="tender.addressOfImplementation"></tender-body-address>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -156,58 +181,80 @@
 		<graph benchmarks-distribution [data]="viz.distribution.data" [highlight]="viz.distribution.highlight" [title]="viz.distribution.title" [entityTitle]="viz.distribution.name" [filters]="viz.distribution.filters" (filtersChange)="benchmarkFilterChange($event)"></graph>
 	</div>
 
-	<div class="container" *ngIf="tender.description | defined">
-		<h3>
-			<collapse-expand [o]="state.desc"></collapse-expand>
-		</h3>
-		<div *ngIf="state.desc.open" class="container slab-beta-light container-padded-large mt_20">
-			<p>
-				<span>{{tender.description}}</span>
-			</p>
-		</div>
-	</div>
-
 	<div class="container" *ngIf="!state.buyer.empty">
 		<h3>
 			<collapse-expand [o]="state.buyer"></collapse-expand>
 		</h3>
-		<div *ngIf="state.buyer.open" class="container slab-beta-light container-padded-large mt_20">
+		<div *ngIf="state.buyer.open" class="container container-padded-large mt_20">
 			<div class="container-left-6" *ngIf="tender.buyers | defined">
-				<div>
+				<div class="info">
 					<tender-body *ngFor="let authority of tender.buyers; let i = index" [body]="authority" [icon]="'icon-library'" [link]="'/authority/'+authority.id"></tender-body>
 				</div>
 			</div>
-			<div class="container-left-6">
+			<div class="container-left-6 info">
 				<div *ngIf="tender.onBehalfOf | defined">
-					<h4 i18n>On Behalf Of</h4>
-					<div *ngFor="let body of tender.onBehalfOf">
-						<tender-body-line [body]="body" [icon]="'icon-library'" [link]="'/authority/'+body.id"></tender-body-line>
+					<h4 class="info__title" i18n>On Behalf Of</h4>
+					<div class="info__content">
+						<div *ngFor="let body of tender.onBehalfOf">
+							<tender-body-line [body]="body" [icon]="'icon-library'" [link]="'/authority/'+body.id"></tender-body-line>
+						</div>
 					</div>
 				</div>
 				<div *ngIf="tender.furtherInformationProvider | defined">
-					<h4 i18n>Further Information Provider</h4>
+					<h4 class="info__title" i18n>Further Information Provider</h4>
 					<tender-body [body]="tender.furtherInformationProvider"></tender-body>
 				</div>
 				<div *ngIf="tender.specificationsProvider | defined">
-					<h4 i18n>Specifications Provider</h4>
+					<h4 class="info__title" i18n>Specifications Provider</h4>
 					<tender-body [body]="tender.specificationsProvider"></tender-body>
 				</div>
 				<div *ngIf="tender.bidsRecipient | defined">
-					<h4 i18n>Bids Recipient</h4>
+					<h4 class="info__title" i18n>Bids Recipient</h4>
 					<tender-body [body]="tender.bidsRecipient"></tender-body>
 				</div>
 				<div *ngIf="tender.appealBodyName | defined">
-					<h4 i18n>Appeal Body Name</h4>
+					<h4 class="info__title" i18n>Appeal Body Name</h4>
 					<div>{{tender.appealBodyName}}</div>
 				</div>
 				<div *ngIf="tender.mediationBodyName | defined">
-					<h4 i18n>Mediation Body Name</h4>
+					<h4 class="info__title" i18n>Mediation Body Name</h4>
 					<div>{{tender.mediationBodyName}}</div>
 				</div>
 				<div *ngIf="tender.administrators | defined">
-					<h4 i18n>Administrators</h4>
+					<h4 class="info__title" i18n>Administrators</h4>
 					<div *ngFor="let admin of tender.administrators">
 						<tender-body [body]="admin"></tender-body>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container" *ngIf="!state.supplier.empty">
+		<h3>
+			<collapse-expand [o]="state.supplier"></collapse-expand>
+		</h3>
+		<div *ngIf="state.supplier.open" class="container container-padded-large mt_20">
+			<div class="container-left-6">
+				<div class="info">
+					<div class="info__content">
+						<div class="info__row" *ngIf="tender.supplierName | defined">
+							<h4 class="info__row-label" i18n>Supplier name:</h4>
+							<a  class="info__row-link" routerLink="{{ '/company/' + tender.supplierId }}"><i class="icon-library info__row-icon"></i>{{tender.supplierName | nameGuard}}</a>
+							<div class="info__row-value">{{tender.supplierName | expandUnderlined}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.supplierAddress | defined">
+							<h4 class="info__row-label" i18n>Supplier address</h4>
+							<div class="info__row-value">{{tender.supplierAddress | expandUnderlined}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.supplierId | defined">
+							<h4 class="info__row-label" i18n>Supplier body ID</h4>
+							<div class="info__row-value">{{tender.supplierId | expandUnderlined}}</div>
+						</div>
+						<div class="info__row" *ngIf="tender.supplierBidderType | defined">
+							<h4 class="info__row-label" i18n>Supplier bidder type</h4>
+							<div class="info__row-value">{{tender.supplierBidderType | expandUnderlined}}</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -218,9 +265,9 @@
 		<h3>
 			<collapse-expand [o]="state.lots"></collapse-expand>
 		</h3>
-		<div *ngIf="state.lots.open" class="">
-			<div class="lot slab-beta-light container mt_20" *ngFor="let lot of tender.lots; let index_l = index">
-				<h4>
+		<div *ngIf="state.lots.open">
+			<div class="lot info container mt_20" *ngFor="let lot of tender.lots; let index_l = index">
+				<h4 class="info__title">
 					<collapse-expand [o]="getLotCollapse(lot,index_l)"></collapse-expand>
 				</h4>
 				<div [hidden]="getLotCollapse(lot,index_l).open">
@@ -229,14 +276,14 @@
 						<div [ngClass]="{'grid-item-2':lot.bids.length>1,'grid-item-1':lot.bids.length<=1}" *ngFor="let bid of lot.bids">
 							<div class="margined-text" *ngIf="!lot.title && lot.description">{{lot.description}}</div>
 							<div class="container container-padded-top-lite">
-								<div class="container-left-10">
-									<div class="lot-bidder" *ngFor="let bidder of bid.bidders">
+								<div class="container-left-10 info__content">
+									<div *ngFor="let bidder of bid.bidders">
 										<tender-body-line [body]="bidder" [icon]="'icon-office'" [link]="'/company/'+bidder.id"></tender-body-line>
 									</div>
 								</div>
 								<div class="container-left-1">
-									<div class="inline-info inline-info_d_b" *ngIf="bid.price | defined">
-										<h4 i18n>Price</h4>
+									<div class="info__row" *ngIf="bid.price | defined">
+										<h4 class="info__row-label" i18n>Price</h4>
 										<tender-price [price]="bid.price"></tender-price>
 									</div>
 								</div>
@@ -248,77 +295,78 @@
 					<div class="margined-text" *ngIf="lot.title | defined">{{lot.title}}</div>
 					<div class="margined-text" *ngIf="lot.description | defined">{{lot.description}}</div>
 					<div class="container container-padded-top-lite">
-						<div class="container-left-4">
-							<h4 i18n>Lot Details</h4>
-							<div class="inline-info" *ngIf="lot.status | defined">
-								<h4 i18n>Status</h4>
-								<div>{{lot.status | expandUnderlined}}</div>
-							</div>
-							<div class="inline-info" *ngIf="lot.awardDecisionDate | defined">
-								<h4 i18n>Award Decision Date</h4>
-								{{lot.awardDecisionDate | formatDate}}
-							</div>
-							<div class="inline-info" *ngIf="lot.estimatedStartDate | defined">s
-								<h4 i18n>Estimated Start Date</h4>
-								{{lot.estimatedStartDate | formatDate}}
-							</div>
-							<div class="inline-info" *ngIf="lot.estimatedCompletionDate | defined">
-								<h4 i18n>Estimated Completion Date</h4>
-								{{lot.estimatedCompletionDate | formatDate}}
-							</div>
-							<div class="inline-info" *ngIf="lot.completionDate | defined">
-								<h4 i18n>Completion Date</h4>
-								{{lot.completionDate | formatDate}}
-							</div>
-
-							<div class="inline-info" *ngIf="lot.contractSignatureDate | defined">
-								<h4 i18n>Contract Signature Date</h4>
-								{{lot.contractSignatureDate | formatDate}}
-							</div>
-							<div class="inline-info" *ngIf="lot.cancellationDate | defined">
-								<h4 i18n>Cancellation Date</h4>
-								{{lot.cancellationDate | formatDate}}
-							</div>
-							<div class="inline-info" *ngIf="lot.estimatedPrice | defined">
-								<h4 i18n>Estimated Price</h4>
-								<tender-price [price]="lot.estimatedPrice"></tender-price>
-							</div>
-							<div class="inline-info" *ngIf="lot.bidsCount | defined">
-								<h4 i18n>Bids Count</h4>
-								{{lot.bidsCount}}
-							</div>
-							<div class="inline-info" *ngIf="lot.validBidsCount | defined">
-								<h4 i18n>Valid Bids Count</h4>
-								{{lot.validBidsCount}}
-							</div>
-							<div class="inline-info" *ngIf="lot.electronicBidsCount | defined">
-								<h4 i18n>Electronic Bids Count</h4>
-								{{lot.electronicBidsCount}}
-							</div>
-							<div class="inline-info" *ngIf="lot.contractNumber| defined">
-								<h4 i18n>Contract Number</h4>
-								{{lot.contractNumber}}
-							</div>
-							<div class="inline-info" *ngIf="lot.cpvs | defined">
-								<h4 i18n>Cpvs</h4>
-								<div *ngFor="let cpv of lot.cpvs">{{cpv.code}}</div>
-							</div>
-							<div class="inline-info" *ngIf="lot.lotNumber| defined">
-								<h4 i18n>Lot Number</h4>
-								{{lot.lotNumber}}
-							</div>
-							<div class="inline-info" *ngIf="lot.positionOnPage| defined">
-								<h4 i18n>Position On Page</h4>
-								{{lot.positionOnPage}}
-							</div>
-							<div class="inline-info" *ngIf="lot.eligibilityCriteria| defined">
-								<h4 i18n>Eligibility Criteria</h4>
-								{{lot.eligibilityCriteria}}
+						<div class="container-left-4 info">
+							<h4 class="info__title" i18n>Lot Details</h4>
+							<div class="info__content">
+								<div class="info__row" *ngIf="lot.status | defined">
+									<h4 class="info__row-label" i18n>Status</h4>
+									<span class="info__row-value"><span>{{lot.status | expandUnderlined}}</span></span>
+								</div>
+								<div class="info__row" *ngIf="lot.awardDecisionDate | defined">
+									<h4 class="info__row-label" i18n>Award Decision Date</h4>
+									<span class="info__row-value">{{lot.awardDecisionDate | formatDate}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.estimatedStartDate | defined">
+									<h4 class="info__row-label" i18n>Estimated Start Date</h4>
+									<span class="info__row-value">{{lot.estimatedStartDate | formatDate}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.estimatedCompletionDate | defined">
+									<h4 class="info__row-label" i18n>Estimated Completion Date</h4>
+									<span class="info__row-value">{{lot.estimatedCompletionDate | formatDate}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.completionDate | defined">
+									<h4 class="info__row-label" i18n>Completion Date</h4>
+									<span class="info__row-value">{{lot.completionDate | formatDate}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.contractSignatureDate | defined">
+									<h4 class="info__row-label" i18n>Contract Signature Date</h4>
+									<span class="info__row-value">{{lot.contractSignatureDate | formatDate}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.cancellationDate | defined">
+									<h4 class="info__row-label" i18n>Cancellation Date</h4>
+									<span class="info__row-value">{{lot.cancellationDate | formatDate}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.estimatedPrice | defined">
+									<h4 class="info__row-label" i18n>Estimated Price</h4>
+									<span class="info__row-value"><tender-price [price]="lot.estimatedPrice"></tender-price></span>
+								</div>
+								<div class="info__row" *ngIf="lot.bidsCount | defined">
+									<h4 class="info__row-label" i18n>Bids Count</h4>
+									<span class="info__row-value">{{lot.bidsCount}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.validBidsCount | defined">
+									<h4 class="info__row-label" i18n>Valid Bids Count</h4>
+									<span class="info__row-value">{{lot.validBidsCount}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.electronicBidsCount | defined">
+									<h4 class="info__row-label" i18n>Electronic Bids Count</h4>
+									<span class="info__row-value">{{lot.electronicBidsCount}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.contractNumber| defined">
+									<h4 class="info__row-label" i18n>Contract Number</h4>
+									<span class="info__row-value">{{lot.contractNumber}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.cpvs | defined">
+									<h4 class="info__row-label" i18n>Cpvs</h4>
+									<span class="info__row-value"><span *ngFor="let cpv of lot.cpvs">{{cpv.code}}</span></span>
+								</div>
+								<div class="info__row" *ngIf="lot.lotNumber| defined">
+									<h4 class="info__row-label" i18n>Lot Number</h4>
+									<span class="info__row-value">{{lot.lotNumber}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.positionOnPage| defined">
+									<h4 class="info__row-label" i18n>Position On Page</h4>
+									<span class="info__row-value">{{lot.positionOnPage}}</span>
+								</div>
+								<div class="info__row" *ngIf="lot.eligibilityCriteria| defined">
+									<h4 class="info__row-label" i18n>Eligibility Criteria</h4>
+									<span class="info__row-value">{{lot.eligibilityCriteria}}</span>
+								</div>
 							</div>
 						</div>
-						<div class="container-left-8">
-							<h4 i18n>Bids</h4>
-							<div *ngIf="lot.bids | defined">
+						<div class="container-left-8 info" *ngIf="lot.bids | defined">
+							<h4 class="info__title" i18n>Bids</h4>
+							<div class="info__content">
 								<div *ngFor="let bid of lot.bids">
 									<div class="container-left-8">
 										<div *ngIf="bid.bidders | defined">
@@ -333,25 +381,25 @@
 											</div>
 										</div>
 									</div>
-									<div class="container-left-4">
-										<div class="inline-info" *ngIf="bid.price | defined">
-											<h4 i18n>Price</h4>
+									<div class="container-left-4 info__content">
+										<div class="info__row" *ngIf="bid.price | defined">
+											<h4 class="info__row-label" i18n>Price</h4>
 											<tender-price [price]="bid.price"></tender-price>
 										</div>
-										<div class="inline-info" *ngIf="bid.isWinning | defined">
-											<h4 i18n>Is Winning</h4>
-											{{bid.isWinning}}
+										<div class="info__row" *ngIf="bid.isWinning | defined">
+											<h4 class="info__row-label" i18n>Is Winning</h4>
+											<span class="info__row-value">{{bid.isWinning}}</span>
 										</div>
-										<div class="inline-info" *ngIf="bid.isSubcontracted | defined">
-											<h4 i18n>Is Subcontracted</h4>
-											{{bid.isSubcontracted}}
+										<div class="info__row" *ngIf="bid.isSubcontracted | defined">
+											<h4 class="info__row-label" i18n>Is Subcontracted</h4>
+											<span class="info__row-value">{{bid.isSubcontracted}}</span>
 										</div>
-										<div class="inline-info" *ngIf="bid.subcontractedValue | defined">
+										<div class="info__row" *ngIf="bid.subcontractedValue | defined">
 											<h4 i18n>Subcontacted Value</h4>
 											<tender-price [price]="bid.subcontractedValue"></tender-price>
 										</div>
-										<div class="inline-info" *ngIf="bid.unitPrices | defined">
-											<h4 *ngIf="bid.unitPrices.length>0" i18n>Unit Prices</h4>
+										<div class="info__row" *ngIf="bid.unitPrices | defined">
+											<h4 class="info__row-label" *ngIf="bid.unitPrices.length>0" i18n>Unit Prices</h4>
 											<div *ngFor="let uprice of bid.unitPrices">{{uprice.unitNumber}}</div>
 										</div>
 									</div>
@@ -364,30 +412,43 @@
 		</div>
 	</div>
 
+	<div class="container" *ngIf="tender.description | defined">
+		<h3>
+			<collapse-expand [o]="state.desc"></collapse-expand>
+		</h3>
+		<div *ngIf="state.desc.open" class="container info container-padded-large mt_20">
+			<div class="info__content">
+				<div class="info__row">
+					<span class="info__row-label">{{tender.description}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container" *ngIf="!state.reqs.empty">
 		<h3>
 			<collapse-expand [o]="state.reqs"></collapse-expand>
 		</h3>
-		<div *ngIf="state.reqs.open" class="container slab-beta-light container-padded-large mt_20">
-			<div class="container" *ngIf="tender.personalRequirements | defined">
-				<h4 i18n>Personal Requirements</h4>
-				<span>{{tender.personalRequirements}}</span>
-			</div>
-			<div class="container" *ngIf="tender.economicRequirements | defined">
-				<h4 i18n>Economic Requirements</h4>
-				<span>{{tender.economicRequirements}}</span>
-			</div>
-			<div class="container" *ngIf="tender.technicalRequirements | defined">
-				<h4 i18n>Technical Requirements</h4>
-				<span>{{tender.technicalRequirements}}</span>
-			</div>
-			<div class="container" *ngIf="tender.eligibilityCriteria | defined">
-				<h4 i18n>Eligibility Criteria</h4>
-				<span>{{tender.eligibilityCriteria}}</span>
-			</div>
-			<div class="container" *ngIf="tender.deposits | defined">
-				<h4 i18n>Deposits</h4>
-				<span>{{tender.deposits}}</span>
+		<div *ngIf="state.reqs.open" class="container container-padded-large mt_20">
+			<div class="info">
+				<div class="info__content">
+					<div class="info__row" *ngIf="tender.personalRequirements | defined">
+						<h4 class="info__row-label" i18n>Personal Requirements</h4>
+						<span class="info__row-value">{{tender.personalRequirements}}</span>
+					</div>
+					<div class="info__row" *ngIf="tender.economicRequirements | defined">
+						<h4 class="info__row-label" i18n>Economic Requirements</h4>
+						<span class="info__row-value">{{tender.economicRequirements}}</span>
+					</div>
+					<div class="info__row" *ngIf="tender.technicalRequirements | defined">
+						<h4 class="info__row-label" i18n>Technical Requirements</h4>
+						<span class="info__row-value">{{tender.technicalRequirements}}</span>
+					</div>
+					<div class="info__row" *ngIf="tender.eligibilityCriteria | defined">
+						<h4 class="info__row-label" i18n>Eligibility Criteria</h4>
+						<span class="info__row-value">{{tender.eligibilityCriteria}}</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -396,50 +457,52 @@
 		<h3>
 			<collapse-expand [o]="state.publications"></collapse-expand>
 		</h3>
-		<div *ngIf="state.publications.open" class="container slab-beta-light container-padded-large mt_20">
+		<div *ngIf="state.publications.open" class="container container-padded-large mt_20">
 			<div class="grid">
-				<div class="grid-item-3"
+				<div class="grid-item-3 info"
 					 *ngFor="let pub of tender.publications; let index_p=index">
-					<h4>Nr. {{index_p + 1}}</h4>
-					<div class="inline-info" *ngIf="pub.source | defined">
-						<h4 i18n>Source</h4>
-						<a target="_blank" rel="noopener" href="{{pub.source}}">{{pub.source | extractDomain}}</a>
-					</div>
-					<div class="inline-info" *ngIf="pub.humanReadableUrl | defined">
-						<h4 i18n>URL</h4>
-						<a target="_blank" rel="noopener" href="{{pub.humanReadableUrl}}">{{pub.humanReadableUrl | extractDomain}}</a>
-					</div>
-				    <div class="inline-info" *ngIf="pub.machineReadableUrl | defined">
-						<h4 i18n>URL</h4>
-						<a target="_blank" rel="noopener" href="{{pub.machineReadableUrl}}">{{pub.machineReadableUrl | extractDomain}}</a>
-					</div>
-					<div class="inline-info" *ngIf="pub.publicationDate | defined">
-						<h4 i18n>Publication Date</h4>
-						{{pub.publicationDate | formatDate}}
-					</div>
-					<div class="inline-info" *ngIf="pub.dispatchDate | defined">
-						<h4 i18n>Dispatch Date</h4>
-						{{pub.dispatchDate | formatDate}}
-					</div>
-					<div class="inline-info" *ngIf="pub.formType | defined">
-						<h4 i18n>Form Type</h4>
-						{{pub.formType | expandUnderlined}}
-					</div>
-					<div class="inline-info" *ngIf="pub.sourceFormType | defined">
-						<h4 i18n>Source Form Type</h4>
-						{{pub.sourceFormType | expandUnderlined}}
-					</div>
-					<div class="inline-info" *ngIf="pub.language | defined">
-						<h4 i18n>Language</h4>
-						{{pub.language}}
-					</div>
-					<div class="inline-info" *ngIf="pub.sourceId | defined">
-						<h4 i18n>Source Id</h4>
-						{{pub.sourceId}}
-					</div>
-					<div class="inline-info" *ngIf="pub.buyerAssignedId | defined">
-						<h4 i18n>Buyer Assigned Id</h4>
-						{{pub.buyerAssignedId}}
+					<h4 class="info__title">Nr. {{index_p + 1}}</h4>
+					<div class="info__content">
+						<div class="info__row" *ngIf="pub.source | defined">
+							<h4 class="info__row-label" i18n>Source</h4>
+							<a class="info__row-link" target="_blank" rel="noopener" href="{{pub.source}}">{{pub.source | extractDomain}}</a>
+						</div>
+						<div class="info__row" *ngIf="pub.humanReadableUrl | defined">
+							<h4 class="info__row-label" i18n>URL</h4>
+							<a class="info__row-link" target="_blank" rel="noopener" href="{{pub.humanReadableUrl}}">{{pub.humanReadableUrl | extractDomain}}</a>
+						</div>
+						<div class="info__row" *ngIf="pub.machineReadableUrl | defined">
+							<h4 class="info__row-label" i18n>URL</h4>
+							<a class="info__row-link" target="_blank" rel="noopener" href="{{pub.machineReadableUrl}}">{{pub.machineReadableUrl | extractDomain}}</a>
+						</div>
+						<div class="info__row" *ngIf="pub.publicationDate | defined">
+							<h4 class="info__row-label" i18n>Publication Date</h4>
+							<span class="info__row-value">{{pub.publicationDate | formatDate}}</span>
+						</div>
+						<div class="info__row" *ngIf="pub.dispatchDate | defined">
+							<h4 class="info__row-label" i18n>Dispatch Date</h4>
+							<span class="info__row-value">{{pub.dispatchDate | formatDate}}</span>
+						</div>
+						<div class="info__row" *ngIf="pub.formType | defined">
+							<h4 class="info__row-label" i18n>Form Type</h4>
+							<span class="info__row-value">{{pub.formType | expandUnderlined}}</span>
+						</div>
+						<div class="info__row" *ngIf="pub.sourceFormType | defined">
+							<h4 class="info__row-label" i18n>Source Form Type</h4>
+							<span class="info__row-value">{{pub.sourceFormType | expandUnderlined}}</span>
+						</div>
+						<div class="info__row" *ngIf="pub.language | defined">
+							<h4 class="info__row-label" i18n>Language</h4>
+							<span class="info__row-value">{{pub.language}}</span>
+						</div>
+						<div class="info__row" *ngIf="pub.sourceId | defined">
+							<h4 class="info__row-label" i18n>Source Id</h4>
+							<span class="info__row-value">{{pub.sourceId}}</span>
+						</div>
+						<div class="info__row" *ngIf="pub.buyerAssignedId | defined">
+							<h4 class="info__row-label" i18n>Buyer Assigned Id</h4>
+							<span class="info__row-value">{{pub.buyerAssignedId}}</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -450,99 +513,22 @@
 		<h3>
 			<collapse-expand [o]="state.documents"></collapse-expand>
 		</h3>
-		<div *ngIf="state.documents.open" class="container slab-beta-light container-padded-large mt_20">
-			<div class="container-left-4" *ngFor="let doc of tender.documents; let index_d=index">
-				<h4>Nr. {{index_d}}</h4>
-				<div class="inline-info" *ngIf="doc.title | defined">
-					<h4 i18n>Title</h4>
-					{{doc.title}}
-				</div>
-				<div class="inline-info" *ngIf="doc.language | defined">
-					<h4 i18n>Language</h4>
-					{{doc.language}}
-				</div>
-				<div class="inline-info" *ngIf="doc.url | defined">
-					<h4 i18n>URL</h4>
-					<a target="_blank" rel="noopener" href="{{doc.url}}">{{doc.url | extractDomain}}</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<h3>
-			<collapse-expand [o]="state.additional"></collapse-expand>
-		</h3>
-		<div *ngIf="state.additional.open" class="container slab-beta-light container-padded-large mt_20">
-			<div class="container-left-4" *ngIf="!this.state.additional.subempty['tender']">
-				<h4 i18n>Tender Information</h4>
-				<div class="inline-info" *ngIf="tender.isEInvoiceAccepted | defined">
-					<h4 i18n>EInvoice Accepted</h4>
-					{{tender.isEInvoiceAccepted}}
-				</div>
-				<div class="inline-info" *ngIf="tender.isCentralProcurement | defined">
-					<h4 i18n>Central Procurement</h4>
-					{{tender.isCentralProcurement}}
-				</div>
-				<div class="inline-info" *ngIf="tender.isCoveredByGpa | defined">
-					<h4 i18n>Covered By Gpa</h4>
-					{{tender.isCoveredByGpa}}
-				</div>
-				<div class="inline-info" *ngIf="tender.isJointProcurement | defined">
-					<h4 i18n>Joint Procurement</h4>
-					{{tender.isJointProcurement}}
-				</div>
-				<div class="inline-info" *ngIf="tender.isFrameworkAgreement | defined">
-					<h4 i18n>Framework Agreement</h4>
-					{{tender.isFrameworkAgreement}}
-				</div>
-				<div class="inline-info" *ngIf="tender.isDps | defined">
-					<h4 i18n>Dps</h4>
-					{{tender.isDps}}
-				</div>
-				<div class="inline-info" *ngIf="tender.isDps | defined">
-					<h4 i18n>Electronic Auction</h4>
-					{{tender.isElectronicAuction}}
-				</div>
-				<div class="inline-info" *ngIf="tender.hasLots | defined">
-					<h4 i18n>has Lots</h4>
-					{{tender.hasLots}}
-				</div>
-				<div class="inline-info" *ngIf="tender.hasOptions | defined">
-					<h4 i18n>has Options</h4>
-					{{tender.hasOptions}}
-				</div>
-				<div class="inline-info" *ngIf="tender.areVariantsAccepted | defined">
-					<h4 i18n>Variants Accepted</h4>
-					{{tender.areVariantsAccepted}}
-				</div>
-				<div class="inline-info inline-info_d_b" *ngIf="tender.buyerAssignedId | defined">
-					<h4 i18n>Buyer Assigned ID</h4>
-					{{tender.buyerAssignedId}}
-				</div>
-			</div>
-			<div class="container-left-4" *ngIf="!this.state.additional.subempty['fundings']">
-				<div>
-					<h4 i18n>Funding</h4>
-					<div *ngFor="let funding of tender.fundings">
-						<div class="inline-info" *ngIf="funding.programme | defined">
-							<h4>Programme</h4>{{funding.programme}}
-						</div>
-						<div class="inline-info" *ngIf="funding.isEuFund | defined">
-							<h4>Is EU-Fund</h4>{{funding.isEuFund}}
-						</div>
+		<div *ngIf="state.documents.open" class="container container-padded-large mt_20">
+			<div class="container-left-4 info" *ngFor="let doc of tender.documents; let index_d=index">
+				<h4 class="info__title">Nr. {{index_d}}</h4>
+				<div class="info__content">
+					<div class="info__row" *ngIf="doc.title | defined">
+						<h4 class="info__row-label" i18n>Title</h4>
+						<span class="info__row-value">{{doc.title}}</span>
 					</div>
-				</div>
-			</div>
-			<div class="container-left-4">
-				<h4 i18n>Meta Data</h4>
-				<div class="inline-info">
-					<h4 i18n>Created</h4>
-					<div>{{tender.created | formatDatetime}}</div>
-				</div>
-				<div class="inline-info">
-					<h4 i18n>Modified</h4>
-					<div>{{tender.modified | formatDatetime}}</div>
+					<div class="info__row" *ngIf="doc.language | defined">
+						<h4 class="info__row-label" i18n>Language</h4>
+						<span class="info__row-value">{{doc.language}}</span>
+					</div>
+					<div class="info__row" *ngIf="doc.url | defined">
+						<h4 class="info__row-label" i18n>URL</h4>
+						<a class="info__row-link" target="_blank" rel="noopener" href="{{doc.url}}">{{doc.url | extractDomain}}</a>
+					</div>
 				</div>
 			</div>
 		</div>

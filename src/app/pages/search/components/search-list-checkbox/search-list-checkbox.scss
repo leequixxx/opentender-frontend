@@ -1,0 +1,47 @@
+@import "../../../../../style/globals.scss";
+
+.checkbox {
+	margin-bottom: 0;
+	margin-top: 6px;
+	line-height: 1em;
+	cursor: pointer;
+
+	input {
+		display: inline-block;
+		margin: 1px 3px 0 0;
+		float: left;
+	}
+}
+
+.checkbox-mirror {
+	display: block;
+	width: 15px;
+	height: 15px;
+	content: '';
+	border: 1px solid $blue;
+	border-radius: 4px;
+	float: left;
+
+	&.checked {
+		background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2215%22%20height%3D%2215%22%20viewBox%3D%220%200%2015%2015%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Crect%20x%3D%220.5%22%20y%3D%220.5%22%20width%3D%2214%22%20height%3D%2214%22%20rx%3D%223.5%22%20fill%3D%22%231954A5%22%20stroke%3D%22%231954A5%22/%3E%0A%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M13.6569%205.58579L11.5356%203.46447L6.58588%208.41421L4.46456%206.29289L2.34324%208.41421L4.46456%2010.5355L6.58588%2012.6569L8.7072%2010.5355L13.6569%205.58579Z%22%20fill%3D%22white%22/%3E%0A%3C/svg%3E%0A');
+		background-repeat: no-repeat;
+		background-position: 50%;
+		background-color: $blue;
+	}
+}
+
+
+.checkbox-columns {
+	margin-left: 22px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.value {
+	font-size: 14px;
+	width: 100%;
+	height: 18px;
+	padding-right: 3px;
+}

@@ -25,8 +25,8 @@ export class ConfigService {
 	public absUrl: string = '';
 	public locale: string;
 	public contactmail = 'info@govtransparency.eu';
-	public validMinYear: number = 2009;
-	public validMaxYear: number = 2018;
+	public validMinYear: number = 2000;
+	public validMaxYear: number = 2020;
 
 	constructor(@Inject('opentender') externalConfig,
 				@Inject('config') serverConfig,

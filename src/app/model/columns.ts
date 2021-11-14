@@ -149,66 +149,58 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 			ascend: true
 		},
 		// TODO: update path after backend will ready
-		format: (authority, library): Array<ITableCellLine> => authority.body && authority.body.address && authority.body.address.ot ? [{content: authority.body.address.ot.nutscode}] : [{content: ''}]
+		format: (authority, library): Array<ITableCellLine> => authority.body && authority.body.address && authority.body.address.ot ? [{content: Utils.formatNuts(authority.body.address.ot.nutscode)}] : [{content: ''}]
 	},
 	{
 		name: 'Integrity Indicator Composition Score',
-		id: 'indicators.pii',
+		id: 'body.indicator.integrityIndicatorCompositionScore',
 		group: 'Integrity',
 		sortBy: {
-			id: 'ot.score.INTEGRITY',
+			id: 'body.indicator.integrityIndicatorCompositionScore',
 			ascend: false
 		},
-		format: (authority, library): ITableCellLine[] => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return [{content: ''}];
+			return authority.body && authority.body.indicator && authority.body.indicator.integrityIndicatorCompositionScore  && authority.body.indicator.integrityIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.integrityIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
 		}
 	},
 	{
 		name: 'Elementary Integrity Indicators',
-		id: 'indicators.pii',
+		id: 'body.indicator.elementaryIntegrityIndicators',
 		group: 'Integrity',
 		sortBy: {
-			id: 'ot.score.INTEGRITY',
+			id: 'body.indicator.elementaryIntegrityIndicators',
 			ascend: false
 		},
-		format: (authority, library) => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return [{content: ''}];
+			return authority.body && authority.body.indicator && authority.body.indicator.elementaryIntegrityIndicators && authority.body.indicator.elementaryIntegrityIndicators.KE && authority.body.indicator.elementaryIntegrityIndicators.KE.tender ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.elementaryIntegrityIndicators.KE.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{
 		name: 'Transparency Indicator Composition Score',
-		id: 'indicators.ti',
+		id: 'body.indicator.transparencyIndicatorCompositionScore',
 		group: 'Transparency',
 		sortBy: {
-			id: 'ot.score.TRANSPARENCY',
+			id: 'body.indicator.transparencyIndicatorCompositionScore',
 			ascend: false
 		},
-		format: (authority, library) => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return[{content: ''}];
+			return authority.body && authority.body.indicator && authority.body.indicator.transparencyIndicatorCompositionScore && authority.body.indicator.transparencyIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.transparencyIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
 		}
 	},
 	{
-		name: 'Elementary Integrity Indicators',
-		id: 'indicators.ti',
+		name: 'Elementary Transparency Indicators',
+		id: 'body.indicator.elementaryTransparencyIndicators',
 		group: 'Transparency',
 		sortBy: {
-			id: 'ot.score.TRANSPARENCY',
+			id: 'body.indicator.elementaryTransparencyIndicators',
 			ascend: false
 		},
-		format: (authority, library) => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return [{content: ''}];
+			return authority.body && authority.body.indicator && authority.body.indicator.elementaryTransparencyIndicators && authority.body.indicator.elementaryTransparencyIndicators.KE && authority.body.indicator.elementaryTransparencyIndicators.KE.tender ? [{content:  Utils.roundValueTwoDecimals(authority.body.indicator.elementaryTransparencyIndicators.KE.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -219,7 +211,7 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 			id: 'body.dates.awardDecisionYearsMinMax',
 			ascend: false
 		},
-		format: (authority, library) => [{content: authority.body && authority.body.dates && authority.body.dates.awardDecisionYearsMinMax ? authority.body.dates.awardDecisionYearsMinMax : ''}]
+		format: (authority, library): Array<ITableCellLine> => [{content: authority.body && authority.body.dates && authority.body.dates.awardDecisionYearsMinMax ? authority.body.dates.awardDecisionYearsMinMax : ''}]
 	},
 	{
 		name: 'Most frequent market',
@@ -229,7 +221,7 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 			id: 'body.sector.mostFrequentMarket',
 			ascend: true
 		},
-		format: (authority, library) => [{content: authority.body.sector && authority.body.sector.mostFrequentMarket ? authority.body.sector.mostFrequentMarket : '' }]
+		format: (authority, library): Array<ITableCellLine> =>  authority.body.sector && authority.body.sector.mostFrequentMarket && authority.body.sector.mostFrequentMarket.label ? [{content:authority.body.sector.mostFrequentMarket.label }] : [{content: ''}]
 	},
 ];
 
@@ -279,7 +271,7 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 			ascend: true
 		},
 		// TODO: update path after backend will ready
-		format: (company, library): Array<ITableCellLine> => company.body && company.body.address && company.body.address.ot ? [{content: company.body.address.ot.nutscode}] : [{content: ''}]
+		format: (company, library): Array<ITableCellLine> => company.body && company.body.address && company.body.address.ot ? [{content: Utils.formatNuts(company.body.address.ot.nutscode)}] : [{content: ''}]
 	},
 	{
 		name: 'Country',
@@ -302,73 +294,65 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 		format: (company, library): Array<ITableCellLine> => company.body && company.body.address ? [{content: company.body.address.city}] : [{content: ''}]
 	},{
 		name: 'Integrity Indicator Composition Score',
-		id: 'indicators.pii',
+		id: 'body.indicator.integrityIndicatorCompositionScore',
 		group: 'Integrity',
 		sortBy: {
-			id: 'ot.score.INTEGRITY',
+			id: 'body.indicator.integrityIndicatorCompositionScore',
 			ascend: false
 		},
-		format: (company, library) => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return [{content: ''}];
+			return company.body && company.body.indicator && company.body.indicator.integrityIndicatorCompositionScore && company.body.indicator.integrityIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.integrityIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
 		}
 	},
 	{
 		name: 'Elementary Integrity Indicators',
-		id: 'indicators.pii',
+		id: 'body.indicator.elementaryTransparencyIndicators',
 		group: 'Integrity',
 		sortBy: {
-			id: 'ot.score.INTEGRITY',
+			id: 'body.indicator.elementaryTransparencyIndicators',
 			ascend: false
 		},
-		format: (company, library) => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return [{content: ''}];
+			return company.body && company.body.indicator && company.body.indicator.elementaryTransparencyIndicators && company.body.indicator.elementaryTransparencyIndicators.KE && company.body.indicator.elementaryTransparencyIndicators.KE.tender ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.elementaryTransparencyIndicators.KE.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{
 		name: 'Transparency Indicator Composition Score',
-		id: 'indicators.ti',
+		id: 'body.indicator.transparencyIndicatorCompositionScore',
 		group: 'Transparency',
 		sortBy: {
-			id: 'ot.score.TRANSPARENCY',
+			id: 'body.indicator.transparencyIndicatorCompositionScore',
 			ascend: false
 		},
-		format: (company, library) => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return [{content: ''}];
+			return company.body && company.body.indicator && company.body.indicator.transparencyIndicatorCompositionScore && company.body.indicator.transparencyIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.transparencyIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
 		}
 	},
 	{
 		name: 'Elementary Integrity Indicators',
-		id: 'indicators.ti',
+		id: 'body.indicator.elementaryIntegrityIndicators',
 		group: 'Transparency',
 		sortBy: {
-			id: 'ot.score.TRANSPARENCY',
+			id: 'body.indicator.elementaryIntegrityIndicators',
 			ascend: false
 		},
-		format: (company, library) => {
-			// TODO: update path after backend will ready
-			// TODO: update ColumnsFormatUtils.formatTenderIndicatorGroup if it possible
+		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return [{content: ''}];
+			return company.body && company.body.indicator && company.body.indicator.elementaryIntegrityIndicators && company.body.indicator.elementaryIntegrityIndicators.KE && company.body.indicator.elementaryIntegrityIndicators.KE.tender ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.elementaryIntegrityIndicators.KE.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{
-		name: 'Award Decision Date',
+		name: 'Award Decision Year',
 		id: 'body.dates.awardDecisionYearsMinMax',
 		group: 'Dates',
 		sortBy: {
 			id: 'body.dates.awardDecisionYearsMinMax',
 			ascend: false
 		},
-		format: (company, library) => [{content: company.body && company.body.dates && company.body.dates.awardDecisionYearsMinMax ? company.body.dates.awardDecisionYearsMinMax : ''}]
+		format: (company, library): Array<ITableCellLine> => [{content: company.body && company.body.dates && company.body.dates.awardDecisionYearsMinMax ? company.body.dates.awardDecisionYearsMinMax : ''}]
 	},
 	{
 		name: 'Most frequent market',
@@ -378,7 +362,7 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 			id: 'body.sector.mostFrequentMarket',
 			ascend: true
 		},
-		format: (company, library) => [{content: company.body.sector && company.body.sector.mostFrequentMarket ? company.body.sector.mostFrequentMarket : '' }]
+		format: (company, library): Array<ITableCellLine> => company.body.sector && company.body.sector.mostFrequentMarket && company.body.sector.mostFrequentMarket.label ?  [{content: company.body.sector.mostFrequentMarket.label }] : [{content: ''}]
 	},
 ];
 

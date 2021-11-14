@@ -11,7 +11,8 @@ export class Search {
 		this.filters = (filterDefs || []).map(this.buildFilter);
 	}
 
-	public build(searchesDefs: Array<ISearchFilterDef>, filterDefs: Array<ISearchFilterDef>) {
+	public build(searchesDefs: Array<ISearchFilterDef>, filterDefs: Array<ISearchFilterDef>, defaultFilter?: ISearchFilterDef) {
+		console.log(defaultFilter)
 		this.searches = (searchesDefs || []).map(this.buildFilter);
 		this.filters = (filterDefs || []).map(this.buildFilter);
 	}

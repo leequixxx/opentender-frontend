@@ -1,0 +1,19 @@
+<div class="search-list" *ngIf="filter">
+	<div class="search-list__search-wrap">
+		<input type="text" class="search-list__search" [placeholder]="'Select a ' + filter.def.name + '...'" [(ngModel)]="searchValue">
+		<button class="search-list__toggle-btn" [class.active]="showList" (click)="toggleListVisibility()"></button>
+	</div>
+	<div class="search-list__list" *ngIf="showList">
+		<div class="search-list__list-content">
+			<ng-container *ngFor="let bucket of filteredList">
+				<div class="search-list__list-item" *ngIf="!filter.searchedValue || bucket.key.toLowerCase().includes(filter.searchedValue)">
+					<search-list-checkbox [filter]="filter" [bucket]="bucket" (change)="triggerChange()"></search-list-checkbox>
+				</div>
+			</ng-container>
+		</div>
+		<div class="search-list__list-btn-wrap">
+			<button class="btn btn_clear" (click)="removeItems()">Clear all</button>
+			<button class="btn btn_continue" (click)="closeShowList()">Continue</button>
+		</div>
+	</div>
+</div>

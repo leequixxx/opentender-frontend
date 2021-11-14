@@ -15,13 +15,13 @@ declare module '*languages.json' {
 	}>;
 }
 
-interface INumeralName {
+export interface INumeralName {
 	one?: string;
 	four?: string;
 	other?: string;
 }
 
-const LARGE_NUMBERS_EN = [
+export const LARGE_NUMBERS_EN = [
 	{},
 	{'other': 'Thousandth'},
 	{'other': 'Million'},

@@ -83,13 +83,13 @@ export class SearchTenderPage implements OnInit, OnDestroy {
 			});
 		}
 	}
-
-	onSelectViz(data: Array<string>): void {
-		Object.keys(this.viz).forEach(key => {
-			this.viz[key].active = data.indexOf(key) >= 0;
-		});
-		this.refresh();
-	}
+	//
+	// onSelectViz(data: Array<string>): void {
+	// 	Object.keys(this.viz).forEach(key => {
+	// 		this.viz[key].active = data.indexOf(key) >= 0;
+	// 	});
+	// 	this.refresh();
+	// }
 
 	columnsChange(data: { columns: Array<string> }): void {
 		this.columnIds = data.columns;

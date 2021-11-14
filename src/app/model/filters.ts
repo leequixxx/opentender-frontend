@@ -2,22 +2,31 @@ import {Utils} from './utils';
 import {ISearchFilterDef, ISearchFilterDefType} from '../app.interfaces';
 
 export const TenderFilterDefs: Array<ISearchFilterDef> = [
+	// {
+	// 	id: 'buyers.name',
+	// 	name: 'Name',
+	// 	group: 'Buyer',
+	// 	field: 'buyers.name',
+	// 	type: ISearchFilterDefType.text,
+	// 	aggregation_field: 'buyers.name.raw',
+	// 	aggregation_type: ISearchFilterDefType.term
+	// },
 	{
 		id: 'buyers.name',
 		name: 'Name',
-		group: 'Buyer',
 		field: 'buyers.name',
-		type: ISearchFilterDefType.text,
-		aggregation_field: 'buyers.name.raw',
-		aggregation_type: ISearchFilterDefType.term
+		group: 'Buyer',
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'buyers.address.city',
 		name: 'City',
 		group: 'Buyer',
 		field: 'buyers.address.city',
-		type: ISearchFilterDefType.text,
-		valueFormatter: Utils.capitalize
+		type: ISearchFilterDefType.select,
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		size: 10000
 	},
 	{
 		id: 'buyers.address.country',
@@ -25,10 +34,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Buyer',
 		field: 'buyers.address.country',
 		type: ISearchFilterDefType.select,
-		valueTranslater: (value, i18n) => {
-			return i18n.expandCountry(value);
-		},
-		size: 30
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		size: 10000
 	},
 	{
 		id: 'buyers.buyerType',
@@ -36,17 +43,16 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Buyer',
 		field: 'buyers.buyerType',
 		type: ISearchFilterDefType.select,
-		valueFormatter: Utils.expandUnderlined
+		valueFormatter: Utils.expandUnderlined,
+		size: 10000
 	},
-
 	{
 		id: 'lots.bids.bidders.name',
 		name: 'Name',
-		group: 'Supplier',
 		field: 'lots.bids.bidders.name',
-		type: ISearchFilterDefType.text,
-		aggregation_field: 'lots.bids.bidders.name.raw',
-		aggregation_type: ISearchFilterDefType.term
+		group: 'Supplier',
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'lots.bidsCount',
@@ -58,12 +64,12 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 	{
 		id: 'title',
 		name: 'Title',
-		group: 'Tender',
 		field: 'title',
-		type: ISearchFilterDefType.text,
-		aggregation_field: 'title.stopped',
-		aggregation_type: ISearchFilterDefType.term,
+		group: 'Tender',
+		type: ISearchFilterDefType.select,
+		size: 10000,
 		valueFormatter: Utils.capitalize
+
 	},
 	{
 		id: 'country',
@@ -74,9 +80,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		valueTranslater: (value, i18n) => {
 			return i18n.expandCountry(value);
 		},
-		size: 30
+		size: 10000
 	},
-
 	{
 		id: 'procedureType',
 		name: 'Procedure Type',
@@ -84,7 +89,7 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		field: 'procedureType',
 		type: ISearchFilterDefType.select,
 		valueFormatter: Utils.expandUnderlined,
-		size: 30
+		size: 10000
 	},
 	{
 		id: 'supplyType',
@@ -92,17 +97,17 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Tender',
 		field: 'supplyType',
 		type: ISearchFilterDefType.select,
-		valueFormatter: Utils.expandUnderlined
+		valueFormatter: Utils.expandUnderlined,
+		size: 10000
+
 	},
-
-
 	{
 		id: 'publications.source',
 		name: 'Source',
 		group: 'Tender Meta Data',
 		field: 'publications.source',
 		type: ISearchFilterDefType.select,
-		size: 30
+		size: 10000
 	},
 	{
 		id: 'ot.cpv',
@@ -123,28 +128,32 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Main CPV (Divisions)',
 		group: 'Sector',
 		field: 'ot.cpv.divisions',
-		type: ISearchFilterDefType.select
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'ot.cpv.groups',
 		name: 'Main CPV (Groups)',
 		group: 'Sector',
 		field: 'ot.cpv.groups',
-		type: ISearchFilterDefType.select
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'ot.cpv.categories',
 		name: 'Main CPV (Categories)',
 		group: 'Sector',
 		field: 'ot.cpv.categories',
-		type: ISearchFilterDefType.select
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'ot.cpv.full',
 		name: 'Main CPV (Full)',
 		group: 'Sector',
 		field: 'ot.cpv',
-		type: ISearchFilterDefType.select
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'indicators.score_co',
@@ -155,6 +164,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 			'ot.scores.type': 'TENDER'
 		},
 		type: ISearchFilterDefType.range,
+		min: 0,
+		max: 100
 	},
 	{
 		id: 'indicators.score_pi',
@@ -165,6 +176,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 			'ot.scores.type': 'INTEGRITY'
 		},
 		type: ISearchFilterDefType.range,
+		min: 0,
+		max: 100
 	},
 	{
 		id: 'indicators.score_ti',
@@ -175,6 +188,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 			'ot.scores.type': 'TRANSPARENCY'
 		},
 		type: ISearchFilterDefType.range,
+		min: 0,
+		max: 100
 	},
 	{
 		id: 'finalPrice.netAmountEur',
@@ -189,6 +204,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Dates',
 		field: 'lots.awardDecisionDate',
 		type: ISearchFilterDefType.years,
+		min: 2014,
+		max: 2020
 	},
 	{
 		id: 'lots.awardDecisionDate',
@@ -218,38 +235,139 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		field: 'contractSignatureDate',
 		type: ISearchFilterDefType.date,
 	},
-
 ];
 
 export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 	{
-		id: 'body.name',
+		id: 'body.name.raw',
 		name: 'Name',
-		field: 'body.name',
-		group: 'Company',
-		type: ISearchFilterDefType.text,
-		aggregation_field: 'body.name.raw',
-		aggregation_type: ISearchFilterDefType.term
+		field: 'body.name.raw',
+		group: 'Authority',
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
-		id: 'lots.bids.bidders.bidderType',
-		name: 'Supplier Type',
-		group: 'Supplier',
-		field: 'body.bidderType',
-		type: ISearchFilterDefType.select,
-		valueFormatter: Utils.expandUnderlined
+		id: 'body.contractsCount',
+		name: 'Contracts count',
+		group: 'Authority',
+		field: 'body.contractsCount',
+		type: ISearchFilterDefType.range,
+		min: 1,
+		max: 194,
+		typeCount: true
 	},
-	];
+	{
+		id: 'body.company.totalValueOfContracts',
+		name: 'Total value of contracts',
+		group: 'Authority',
+		field: 'body.company.totalValueOfContracts',
+		type: ISearchFilterDefType.range,
+		bigInt: true,
+		min: 0,
+		max: 443906594,
+		typeCount: true
+	},
+	{
+		id: 'body.address.city',
+		name: 'City',
+		group: 'Address',
+		field: 'body.address.city',
+		type: ISearchFilterDefType.select,
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		size: 10000
+	},
+	{
+		id: 'body.address.country',
+		name: 'Country',
+		group: 'Address',
+		field: 'body.address.country',
+		type: ISearchFilterDefType.select,
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		size: 10000
+	},
+	{
+		id: 'body.address.ot.nutscode',
+		name: 'Geographic region',
+		group: 'Address',
+		field: 'body.address.ot.nutscode',
+		type: ISearchFilterDefType.select,
+		nested: true,
+		nestedType: 'nuts',
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		// type: ISearchFilterDefType.nestedListWithSearch,
+		aggregation_field: 'body.address.ot.nutscode',
+		size: 10000
+	},
+	{
+		id: 'body.indicator.integrityIndicatorCompositionScore',
+		name: 'Integrity Indicator Composite Score',
+		group: 'Integrity',
+		field: 'body.indicator.integrityIndicatorCompositionScore',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.indicator.elementaryIntegrityIndicators',
+		name: 'Elementary Integrity Indicators',
+		group: 'Integrity',
+		field: 'body.indicator.elementaryIntegrityIndicators',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.indicator.transparencyIndicatorCompositionScore',
+		name: 'Transparency Indicator Composite Score',
+		group: 'Transparency',
+		field: 'body.indicator.transparencyIndicatorCompositionScore',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.indicator.elementaryTransparencyIndicators',
+		name: 'Elementary Transparency Indicators',
+		group: 'Transparency',
+		field: 'body.indicator.elementaryTransparencyIndicators',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.dates.awardDecisionYears',
+		name: 'Award Decision Year',
+		group: 'Dates',
+		field: 'body.dates.awardDecisionYears',
+		type: ISearchFilterDefType.years,
+		size: 1000
+	},
+	{
+		id: 'body.dates.awardDecisionDates',
+		name: 'Award Decision Date',
+		group: 'Dates',
+		field: 'body.dates.awardDecisionDates',
+		type: ISearchFilterDefType.date,
+	},
+	{
+		id: 'body.sector.cpvs',
+		name: 'CPV code',
+		group: 'Sector',
+		field: 'body.sector.cpvs',
+		type: ISearchFilterDefType.select,
+		// type: ISearchFilterDefType.nestedListWithSearch,
+		size: 10000
+	},
+];
 
 export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 	{
-		id: 'body.name',
+		id: 'body.name.raw',
 		name: 'Name',
 		group: 'Authority',
-		field: 'body.name',
-		type: ISearchFilterDefType.text,
-		aggregation_field: 'body.name.raw',
-		aggregation_type: ISearchFilterDefType.term
+		field: 'body.name.raw',
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'body.buyerType',
@@ -258,8 +376,117 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		field: 'body.buyerType',
 		type: ISearchFilterDefType.select,
 		valueFormatter: Utils.expandUnderlined,
-		size: 30
-	}
+		size: 10000
+	},
+	{
+		id: 'body.contractsCount',
+		name: 'Contracts count',
+		group: 'Authority',
+		field: 'body.contractsCount',
+		type: ISearchFilterDefType.range,
+		min: 0,
+		max: 560,
+		typeCount: true
+	},
+	{
+		id: 'body.company.totalValueOfContracts',
+		name: 'Total value of contracts',
+		group: 'Authority',
+		field: 'body.company.totalValueOfContracts',
+		type: ISearchFilterDefType.range,
+		min: 0,
+		max: 454000026,
+		bigInt: true,
+		typeCount: true
+	},
+	{
+		id: 'body.address.city',
+		name: 'City',
+		group: 'Address',
+		field: 'body.address.city',
+		type: ISearchFilterDefType.select,
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		size: 10000
+	},
+	{
+		id: 'body.address.country',
+		name: 'Country',
+		group: 'Address',
+		field: 'body.address.country',
+		type: ISearchFilterDefType.select,
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		size: 10000
+	},
+	{
+		id: 'body.address.ot.nutscode',
+		name: 'Geographic region',
+		group: 'Address',
+		field: 'body.address.ot.nutscode',
+		type: ISearchFilterDefType.select,
+		// type: ISearchFilterDefType.nestedListWithSearch,
+		aggregation_field: 'body.address.ot.nutscode',
+		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
+		size: 10000
+	},
+	{
+		id: 'body.indicator.integrityIndicatorCompositionScore',
+		name: 'Integrity Indicator Composite Score',
+		group: 'Integrity',
+		field: 'body.indicator.integrityIndicatorCompositionScore',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.indicator.elementaryIntegrityIndicators',
+		name: 'Elementary Integrity Indicators',
+		group: 'Integrity',
+		field: 'body.indicator.elementaryIntegrityIndicators',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.indicator.transparencyIndicatorCompositionScore',
+		name: 'Transparency Indicator Composite Score',
+		group: 'Transparency',
+		field: 'body.indicator.transparencyIndicatorCompositionScore',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.indicator.elementaryTransparencyIndicators',
+		name: 'Elementary Transparency Indicators',
+		group: 'Transparency',
+		field: 'body.indicator.elementaryTransparencyIndicators',
+		min: 0,
+		max: 100,
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'body.dates.awardDecisionYears',
+		name: 'Award Decision Year',
+		group: 'Dates',
+		field: 'body.dates.awardDecisionYears',
+		type: ISearchFilterDefType.years,
+	},
+	{
+		id: 'body.dates.awardDecisionDates',
+		name: 'Award Decision Date',
+		group: 'Dates',
+		field: 'body.dates.awardDecisionDates',
+		type: ISearchFilterDefType.date,
+	},
+	{
+		id: 'body.sector.cpvs',
+		name: 'CPV code',
+		group: 'Sector',
+		field: 'body.sector.cpvs',
+		type: ISearchFilterDefType.select,
+		// type: ISearchFilterDefType.nestedListWithSearch,
+		size: 10000
+	},
 ];
 
 export function isSearchDef(filter: ISearchFilterDef) {

@@ -1,0 +1,197 @@
+@import "../../../../../style/globals.scss";
+
+
+.search-list {
+	margin-top: 3px;
+	position: relative;
+
+	&__search-wrap {
+		display: flex;
+		margin-top: 20px;
+	}
+
+	&__search {
+		display: block;
+		margin-top: 0;
+		margin-bottom: 0;
+		font-size: 16px;
+		color: $blue;
+		line-height: 20px;
+		font-weight: 400;
+		background: none;
+		padding: 15px 11px;
+		border-radius: 4px 0 0 4px;
+		border: 1px solid $blue;
+		width: calc(100% - 52px);
+		box-sizing: border-box;
+
+		&:hover,
+		&:focus,
+		&:active {
+			border: 1px solid $blue;
+		}
+	}
+
+	&__toggle-btn {
+		width: 52px;
+		height: 52px;
+		content: '';
+		display: block;
+		position: relative;
+		background-color: $blue;
+		box-shadow: none;
+		outline: none;
+		border: 1px solid $blue;
+		border-radius: 0 4px 4px 0;
+		background-position: 50%;
+		background-repeat: no-repeat;
+		background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2216%22%20height%3D%2210%22%20viewBox%3D%220%200%2016%2010%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M7.40234%209.64453L0.582031%202.82422C0.417969%202.66016%200.335938%202.46094%200.335938%202.22656C0.335938%201.99219%200.417969%201.79297%200.582031%201.62891L1.35547%200.855469C1.51953%200.691406%201.71875%200.609375%201.95312%200.609375C2.1875%200.585937%202.38672%200.65625%202.55078%200.820312L8%206.26953L13.4492%200.820312C13.6133%200.65625%2013.8125%200.585937%2014.0469%200.609375C14.2812%200.609375%2014.4805%200.691406%2014.6445%200.855469L15.418%201.62891C15.582%201.79297%2015.6641%201.99219%2015.6641%202.22656C15.6641%202.46094%2015.582%202.66016%2015.418%202.82422L8.59766%209.64453C8.43359%209.83203%208.23438%209.92578%208%209.92578C7.76562%209.92578%207.56641%209.83203%207.40234%209.64453Z%22%20fill%3D%22white%22/%3E%0A%3C/svg%3E%0A');
+
+		&.active {
+			transform: rotate(180deg);
+			border-radius: 4px 0 0 4px;
+		}
+	}
+
+	&__list {
+		position: absolute;
+		left: 4px;
+		top: calc(100% - 1px);
+		width: calc(100% - 8px);
+		background-color: #fff;
+		padding: 8px;
+		border: 1px solid $blue;
+		z-index: 2;
+		border-radius: 0 0 4px 4px;
+	}
+
+	&__list-item {
+		& + & {
+			margin-top: 8px;
+		}
+
+		&.nested {
+			display: flex;
+			align-items: center;
+
+			.search-list__list-item-nested-icon {
+				display: block;
+			}
+			.checkbox {
+				margin-top: 0;
+			}
+		}
+	}
+
+	&__list-item-nested-icon {
+		display: none;
+		margin-right: 6px;
+		width: 14px;
+		height: 14px;
+		border: 1px solid $blue;
+		content: '';
+		border-radius: 50%;
+		position: relative;
+		cursor: pointer;
+
+		&::before,
+		&::after {
+			display: block;
+			content: '';
+			background-color: $blue;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		&::before {
+			width: 8px;
+			height: 1px;
+		}
+
+		&::after {
+			width: 1px;
+			height: 8px;
+		}
+
+		&.open {
+			&::after {
+				display: none;
+			}
+		}
+	}
+
+	&__list-content {
+		max-height: 300px;
+		overflow-y: auto;
+	}
+
+	&__list-btn-wrap {
+		padding: 16px 0 8px;
+		display: flex;
+		width: 100%;
+		justify-content: space-around;
+		align-items: center;
+	}
+}
+
+.btn {
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	cursor: pointer;
+	outline: none;
+	appearance: none;
+	white-space: nowrap;
+
+	&:hover {
+		opacity: .9;
+	}
+
+	&_clear {
+		background-color: #fff;
+		border-color: #d30000;
+		color: #d30000;
+		padding: 5px 28px;
+		display: inline-flex;
+		align-items: center;
+
+		&::before {
+			width: 14px;
+			height: 14px;
+			content: '';
+			display: block;
+			background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2214%22%20height%3D%2215%22%20viewBox%3D%220%200%2014%2015%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M7%200.96875C3.25391%200.96875%200.21875%204.00391%200.21875%207.75C0.21875%2011.4961%203.25391%2014.5312%207%2014.5312C10.7461%2014.5312%2013.7812%2011.4961%2013.7812%207.75C13.7812%204.00391%2010.7461%200.96875%207%200.96875ZM10.3086%209.55469C10.4453%209.66406%2010.4453%209.88281%2010.3086%2010.0195L9.24219%2011.0859C9.10547%2011.2227%208.88672%2011.2227%208.77734%2011.0859L7%209.28125L5.19531%2011.0859C5.08594%2011.2227%204.86719%2011.2227%204.73047%2011.0859L3.66406%209.99219C3.52734%209.88281%203.52734%209.66406%203.66406%209.52734L5.46875%207.75L3.66406%205.97266C3.52734%205.86328%203.52734%205.64453%203.66406%205.50781L4.75781%204.44141C4.86719%204.30469%205.08594%204.30469%205.22266%204.44141L7%206.21875L8.77734%204.44141C8.88672%204.30469%209.10547%204.30469%209.24219%204.44141L10.3086%205.50781C10.4453%205.64453%2010.4453%205.86328%2010.3086%205.97266L8.53125%207.75L10.3086%209.55469Z%22%20fill%3D%22%23D30000%22/%3E%0A%3C/svg%3E%0A');
+			background-repeat: no-repeat;
+			background-position: 50%;
+			background-size: 14px;
+			margin-right: 5px;
+		}
+	}
+
+	&_continue {
+		background-color: $blue;
+		color: #fff;
+		border-color: $blue;
+		padding: 5px 28px;
+		display: inline-flex;
+		align-items: center;
+
+		&::before {
+			width: 14px;
+			height: 14px;
+			content: '';
+			display: block;
+			background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2214%22%20height%3D%2215%22%20viewBox%3D%220%200%2014%2015%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpath%20d%3D%22M7%200.96875C3.25391%200.96875%200.21875%204.00391%200.21875%207.75C0.21875%2011.4961%203.25391%2014.5312%207%2014.5312C10.7461%2014.5312%2013.7812%2011.4961%2013.7812%207.75C13.7812%204.00391%2010.7461%200.96875%207%200.96875ZM3.82812%208.95312C3.63672%208.95312%203.5%208.81641%203.5%208.625V6.875C3.5%206.71094%203.63672%206.54688%203.82812%206.54688H7V4.63281C7%204.33203%207.32812%204.16797%207.54688%204.38672L10.6641%207.53125C10.8008%207.66797%2010.8008%207.85938%2010.6641%207.99609L7.54688%2011.1406C7.35547%2011.332%207%2011.1953%207%2010.8945V8.95312H3.82812Z%22%20fill%3D%22white%22/%3E%0A%3C/svg%3E%0A');
+			background-repeat: no-repeat;
+			background-position: 50%;
+			background-size: 14px;
+			margin-right: 5px;
+		}
+	}
+}
+

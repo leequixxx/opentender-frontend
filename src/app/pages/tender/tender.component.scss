@@ -9,7 +9,6 @@
 
   h4 {
     font-size: 0.8em;
-    border-bottom: 1px solid $neutral-gray;
 		margin-top: 5px;
     margin-bottom: 20px;
     line-height: 1em;
@@ -27,7 +26,7 @@
 
 		.container {
 			margin: 0;
-			padding: 20px 15px;
+			padding: 0;
 
 			&.mt_20 {
 				margin-top: 20px;
@@ -52,12 +51,6 @@
         }
       }
     }
-
-    .grid {
-      h4 {
-        margin-top: 0;
-      }
-    }
   }
 
   .info-foi {
@@ -72,6 +65,64 @@
     padding-left: 10px;
     border-left: 1px solid $neutral-gray;
   }
+
+	.info {
+		&__title {
+			font-size: 16px;
+			margin: 16px 0 8px;
+			padding: 0;
+		}
+
+		&__content {
+			background-color: #EBEFF8;
+			border-radius: 8px;
+		}
+
+		&__row {
+			padding: 8px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		&__row-label {
+			font-size: 14px;
+			line-height: 20px;
+			font-weight: 400;
+			align-items: center;
+			margin: 0;
+			padding: 0;
+		}
+
+		&__row-value {
+			font-size: 16px;
+			font-weight: 700;
+			line-height: 20px;
+			margin: 0;
+			padding: 0;
+		}
+
+		&__row-link {
+			font-size: 14px;
+			line-height: 20px;
+			text-decoration: underline;
+			color: #3561B8;
+		}
+
+		&__row-small {
+			font-size: 12px;
+			line-height: 20px;
+			margin-left: 60px;
+		}
+
+		&__row-icon {
+			margin-right: 8px;
+		}
+
+		&__title + &__content {
+			margin-top: 8px;
+		}
+	}
 
   .inline-info {
 		display: flex;
@@ -121,6 +172,7 @@
     flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
+
     .grid-item-3 {
       flex-basis: 100%;
       max-width: 100%;

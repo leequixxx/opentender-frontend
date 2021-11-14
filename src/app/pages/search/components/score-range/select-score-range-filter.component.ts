@@ -10,15 +10,22 @@ import {ISearchFilter, ISearchResultBucket} from '../../../../app.interfaces';
 export class SelectScoreRangeFilterComponent implements OnChanges {
 	@Input()
 	filter: ISearchFilter;
-
+	@Input()
+	typeCount: boolean = false;
+	@Input()
+	bigInt: boolean = false;
 	@Input()
 	buckets: Array<ISearchResultBucket>;
 
 	@Output('onRangeChange') onRangeChange = new EventEmitter();
 
+	@Input()
 	public minScore: number = 0;
+	@Input()
 	public maxScore: number = 100;
+	@Input()
 	public startScore: number = 0;
+	@Input()
 	public endScore: number = 100;
 
 

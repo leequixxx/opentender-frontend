@@ -15,7 +15,7 @@ export class SearchCompanyPage implements OnInit, OnDestroy {
 	search = new Search('company', CompanyFilterDefs);
 	search_cmd: ISearchCommand;
 	columnIds = ['id', 'body.name', 'body.address.country'];
-	filterIds = ['body.name', 'body.address.city'];
+	filterIds = [];
 	filters = CompanyFilterDefs;
 	public search_title = 'Search Company';
 	private defaultColumns = ['id', 'body.name', 'body.address.country'];

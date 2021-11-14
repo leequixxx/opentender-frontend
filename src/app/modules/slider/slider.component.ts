@@ -15,6 +15,8 @@ import {
 } from '@angular/core';
 import {PlatformService} from '../../services/platform.service';
 import {IEventSlideAble, IEventKeyDownAble} from './slider-handle.directive';
+import {Utils} from '../../model/utils';
+import {I18NService} from '../i18n/services/i18n.service';
 
 @Component({
 	selector: 'slider',
@@ -23,7 +25,9 @@ import {IEventSlideAble, IEventKeyDownAble} from './slider-handle.directive';
 })
 
 export class SliderComponent implements OnChanges {
-
+	@Input() public typeYear = false;
+	@Input() public typeCount = false;
+	@Input() public bigInt = false;
 	@Input('singleHandle')
 	singleHandle: boolean = false;
 
@@ -105,7 +109,7 @@ export class SliderComponent implements OnChanges {
 		range2max: 100
 	};
 
-	constructor(private el: ElementRef, private platform: PlatformService) {
+	constructor(private el: ElementRef, private platform: PlatformService, private i18n: I18NService) {
 	}
 
 	ngOnInit() {
@@ -133,28 +137,26 @@ export class SliderComponent implements OnChanges {
 		let valueSpan = Math.max(0, this._max - this._min);
 		let mod = 0;
 		if (!this.compact) {
-			// TODO: better tick show/hide heuristic
 			mod = 1;
-			// if (valueSpan > 10) {
-			// 	mod = 10;
-			// }
-			// if (valueSpan > 100) {
-			// 	mod = 100;
-			// }
 		}
 
 		let nrOfTicks = valueSpan / this._stepValue;
-		this.tickWidth = Math.max((this.position.range2max / nrOfTicks), 1);
+		this.tickWidth = this.bigInt ? Math.min((this.position.range2max / nrOfTicks), 1) : Math.max((this.position.range2max / nrOfTicks), 1);
 		this.ticks = [];
-		if (valueSpan > 0) {
-			for (let i = 0; i <= valueSpan; i = i + this._stepValue) {
-				mod = 1;
-				this.ticks.push({value: this._min + i, width: this.tickWidth, show: i % mod === 0});
+
+		if (this.typeCount) {
+			this.ticks = [{value: this._min, width: this.tickWidth, show: true}, {value: this.convertBigInt(this._max), width: this.tickWidth, show: true}]
+		} else {
+			if (valueSpan > 0) {
+				for (let i = 0; i <= valueSpan; i = i + this._stepValue) {
+					mod = 1;
+					this.ticks.push({value: this._min + i, width: this.tickWidth, show: i % mod === 0});
+				}
 			}
-		}
-		if (this.ticks.length > 0) {
-			this.ticks[0].show = true;
-			this.ticks[this.ticks.length - 1].show = true;
+			if (this.ticks.length > 0) {
+				this.ticks[0].show = true;
+				this.ticks[this.ticks.length - 1].show = true;
+			}
 		}
 		this.applyPositions();
 	}
@@ -270,13 +272,14 @@ export class SliderComponent implements OnChanges {
 	}
 
 	input1change(event) {
-		if (this.isInRange(event.target.value)) {
+		if (this.isInRange(event.target.value, this._min, this._endValue)) {
 			this._startValue = event.target.value;
-		} else if (this.isToSmall(event.target.value)) {
+		} else if (this.isToSmall(event.target.value, this._min)) {
 			this._startValue = this._min;
 			event.target.value = this._min;
-		} else if (this.isToBig(event.target.value)) {
-			this._startValue = this._max;
+		} else if (this.isToBig(event.target.value, this._endValue)) {
+			this._startValue = this._endValue;
+			event.target.value = this._endValue;
 		}
 
 		if (this.snap) {
@@ -287,11 +290,12 @@ export class SliderComponent implements OnChanges {
 	}
 
 	input2change(event) {
-		if (this.isInRange(event.target.value)) {
+		if (this.isInRange(event.target.value, this._startValue, this._max)) {
 			this._endValue = event.target.value;
-		} else if (this.isToSmall(event.target.value)) {
-			this._endValue = this._min;
-		} else if (this.isToBig(event.target.value)) {
+		} else if (this.isToSmall(event.target.value, this._startValue)) {
+			this._endValue = this._startValue;
+			event.target.value = this._startValue;
+		} else if (this.isToBig(event.target.value, this._max)) {
 			this._endValue = this._max;
 			event.target.value = this._max;
 		}
@@ -301,17 +305,22 @@ export class SliderComponent implements OnChanges {
 		this.applyPositions();
 		this.changed();
 	}
-	private isInRange(value: number): boolean {
-		return value >= this._min && value <= this._max;
+	private isInRange(value: number, min, max): boolean {
+		return value >= min && value <= max;
 	}
-	private isToSmall(value: number): boolean {
-		return value < this._min;
+	private isToSmall(value: number, min): boolean {
+		return value < min;
 	}
-	private isToBig(value: number): boolean {
-		return value > this._max;
+	private isToBig(value: number, max): boolean {
+		return value > max;
 	}
 	private isSamePosition(curr, def) {
 		return curr === def;
+	}
+
+	public convertBigInt(value: number): string {
+		if (!value) return '';
+		return this.i18n.formatValue(value)
 	}
 
 }

@@ -2,7 +2,7 @@
 
 .date-input-wrapper {
 	position: relative;
-	margin-top: -15px;
+	margin-top: 20px;
 
 	my-date-picker {
     display: inherit;
@@ -18,7 +18,7 @@
 	}
   .mydp {
 		border: 1px solid $blue;
-		padding: 7px 11px 7px 20px;
+		padding: 8px 11px 8px 20px;
 
 		.mydpicon {
 			font-family: 'mydatepicker' !important;
