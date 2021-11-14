@@ -489,6 +489,113 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 	},
 ];
 
+export const DashboardFilterDefs: Array<ISearchFilterDef> = [
+	{
+		id: 'ot.buyerType',
+		name: 'Buyer Type',
+		group: 'Authority',
+		field: 'ot.buyerType',
+		subrequest: {
+			'ot.scores.type': 'TRANSPARENCY'
+		},
+		type: ISearchFilterDefType.select,
+		size: 10000
+	},
+	{
+		id: 'ot.date',
+		name: 'Date',
+		group: 'Dates',
+		field: 'ot.date',
+		subrequest: {
+			'ot.scores.type': 'TRANSPARENCY'
+		},
+		type: ISearchFilterDefType.years,
+	},
+	{
+		id: 'op.buyerContractsCount',
+		name: 'Buyer\'s total contracts count',
+		group: 'Authority',
+		field: 'op.buyerContractsCount',
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'op.supplierContractsCount',
+		name: 'Supplier\'s total contracts count',
+		group: 'Authority',
+		field: 'op.supplierContractsCount',
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'op.contractsTotal',
+		name: 'Value of contracts',
+		group: 'Authority',
+		field: 'op.contractsTotal',
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'op.supplierType',
+		name: 'Supplier Type',
+		group: 'Authority',
+		field: 'op.supplierType',
+		type: ISearchFilterDefType.select,
+		valueFormatter: Utils.expandUnderlined,
+		size: 10000
+	},
+	{
+		id: 'op.country',
+		name: 'Country',
+		group: 'Address',
+		field: 'op.country',
+		type: ISearchFilterDefType.select,
+		valueFormatter: (value) => Utils.formatNuts(value),
+		size: 10000
+	},
+	{
+		id: 'op.cpvs',
+		name: 'Geographic region',
+		group: 'Address',
+		field: 'op.cpvs',
+		type: ISearchFilterDefType.select,
+		// type: ISearchFilterDefType.nestedListWithSearch,
+		size: 10000
+	},
+	{
+		id: 'op.city',
+		name: 'City',
+		group: 'Address',
+		field: 'op.city',
+		type: ISearchFilterDefType.select,
+		valueFormatter: (value) => Utils.formatNuts(value),
+		size: 10000
+	},
+	{
+		id: 'body.sector.cpvs',
+		name: 'CPV code',
+		group: 'Sector',
+		field: 'body.sector.cpvs',
+		type: ISearchFilterDefType.select,
+		// type: ISearchFilterDefType.nestedListWithSearch,
+		size: 10000
+	},
+	{
+		id: 'op.contractSize',
+		name: 'Contract size',
+		group: 'Tender',
+		field: 'op.contractSize',
+		type: ISearchFilterDefType.range,
+	},
+	{
+		id: 'op.procedureType',
+		name: 'Procedure Type',
+		group: 'Tender',
+		field: 'op.procedureType',
+		type: ISearchFilterDefType.select,
+		valueFormatter: Utils.expandUnderlined,
+		size: 10000
+	},
+];
+
+
 export function isSearchDef(filter: ISearchFilterDef) {
 	return filter.type === ISearchFilterDefType.text || filter.type === ISearchFilterDefType.value || filter.type === ISearchFilterDefType.term
 }
