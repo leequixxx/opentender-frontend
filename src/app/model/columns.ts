@@ -161,7 +161,7 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 		},
 		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return authority.body && authority.body.indicator && authority.body.indicator.integrityIndicatorCompositionScore  && authority.body.indicator.integrityIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.integrityIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
+			return authority.body && authority.body.indicator && authority.body.indicator.integrityIndicatorCompositionScore  && authority.body.indicator.integrityIndicatorCompositionScore ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.integrityIndicatorCompositionScore).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -174,7 +174,7 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 		},
 		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return authority.body && authority.body.indicator && authority.body.indicator.elementaryIntegrityIndicators && authority.body.indicator.elementaryIntegrityIndicators.KE && authority.body.indicator.elementaryIntegrityIndicators.KE.tender ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.elementaryIntegrityIndicators.KE.tender).toString()}] : [{ content: '' }];
+			return authority.body && authority.body.indicator && authority.body.indicator.elementaryIntegrityIndicators && authority.body.indicator.elementaryIntegrityIndicators.tender ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.elementaryIntegrityIndicators.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -187,7 +187,7 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 		},
 		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return authority.body && authority.body.indicator && authority.body.indicator.transparencyIndicatorCompositionScore && authority.body.indicator.transparencyIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.transparencyIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
+			return authority.body && authority.body.indicator && authority.body.indicator.transparencyIndicatorCompositionScore ? [{content: Utils.roundValueTwoDecimals(authority.body.indicator.transparencyIndicatorCompositionScore).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -200,7 +200,7 @@ export const AuthorityColumns: Array<ITableColumnAuthority> = [
 		},
 		format: (authority, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return authority.body && authority.body.indicator && authority.body.indicator.elementaryTransparencyIndicators && authority.body.indicator.elementaryTransparencyIndicators.KE && authority.body.indicator.elementaryTransparencyIndicators.KE.tender ? [{content:  Utils.roundValueTwoDecimals(authority.body.indicator.elementaryTransparencyIndicators.KE.tender).toString()}] : [{ content: '' }];
+			return authority.body && authority.body.indicator && authority.body.indicator.elementaryTransparencyIndicators && authority.body.indicator.elementaryTransparencyIndicators.tender ? [{content:  Utils.roundValueTwoDecimals(authority.body.indicator.elementaryTransparencyIndicators.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -302,7 +302,7 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 		},
 		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return company.body && company.body.indicator && company.body.indicator.integrityIndicatorCompositionScore && company.body.indicator.integrityIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.integrityIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
+			return company.body && company.body.indicator && company.body.indicator.integrityIndicatorCompositionScore ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.integrityIndicatorCompositionScore).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -315,7 +315,7 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 		},
 		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'INTEGRITY'));
-			return company.body && company.body.indicator && company.body.indicator.elementaryTransparencyIndicators && company.body.indicator.elementaryTransparencyIndicators.KE && company.body.indicator.elementaryTransparencyIndicators.KE.tender ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.elementaryTransparencyIndicators.KE.tender).toString()}] : [{ content: '' }];
+			return company.body && company.body.indicator && company.body.indicator.elementaryTransparencyIndicators && company.body.indicator.elementaryTransparencyIndicators.tender ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.elementaryTransparencyIndicators.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -328,7 +328,7 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 		},
 		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return company.body && company.body.indicator && company.body.indicator.transparencyIndicatorCompositionScore && company.body.indicator.transparencyIndicatorCompositionScore.KE ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.transparencyIndicatorCompositionScore.KE).toString()}] : [{ content: '' }];
+			return company.body && company.body.indicator && company.body.indicator.transparencyIndicatorCompositionScore ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.transparencyIndicatorCompositionScore).toString()}] : [{ content: '' }];
 		}
 	},
 	{
@@ -341,7 +341,7 @@ export const CompanyColumns: Array<ITableColumnCompany> = [
 		},
 		format: (company, library): Array<ITableCellLine> => {
 			// return ColumnsFormatUtils.formatTenderIndicatorGroup(authority, library.indicators.find(group => group.id === 'TRANSPARENCY'));
-			return company.body && company.body.indicator && company.body.indicator.elementaryIntegrityIndicators && company.body.indicator.elementaryIntegrityIndicators.KE && company.body.indicator.elementaryIntegrityIndicators.KE.tender ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.elementaryIntegrityIndicators.KE.tender).toString()}] : [{ content: '' }];
+			return company.body && company.body.indicator && company.body.indicator.elementaryIntegrityIndicators && company.body.indicator.elementaryIntegrityIndicators.tender ? [{content: Utils.roundValueTwoDecimals(company.body.indicator.elementaryIntegrityIndicators.tender).toString()}] : [{ content: '' }];
 		}
 	},
 	{

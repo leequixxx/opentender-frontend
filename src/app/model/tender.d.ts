@@ -367,10 +367,10 @@ declare namespace Definitions {
 		status?: IndicatorStatusType;
 	}
 	export interface indicatorObj {
-		transparencyIndicatorCompositionScore: { KE: number };
-		integrityIndicatorCompositionScore: { KE: number };
-		elementaryTransparencyIndicators: { KE: { tender: number } };
-		elementaryIntegrityIndicators: { KE: { tender: number } };
+		transparencyIndicatorCompositionScore: number;
+		integrityIndicatorCompositionScore: number ;
+		elementaryTransparencyIndicators: { tender: number };
+		elementaryIntegrityIndicators: { tender: number };
 	}
 	export type IndicatorStatusType = 'CALCULATED' | 'INSUFFICIENT_DATA' | 'UNDEFINED';
 	export type IndicatorType = 'INTEGRITY_SINGLE_BID' | 'INTEGRITY_CALL_FOR_TENDER_PUBLICATION' | 'INTEGRITY_ADVERTISEMENT_PERIOD' | 'INTEGRITY_PROCEDURE_TYPE' | 'INTEGRITY_DECISION_PERIOD' | 'INTEGRITY_TAX_HAVEN' | 'INTEGRITY_NEW_COMPANY' | 'ADMINISTRATIVE_CENTRALIZED_PROCUREMENT' | 'ADMINISTRATIVE_ELECTRONIC_AUCTION' | 'ADMINISTRATIVE_COVERED_BY_GPA' | 'ADMINISTRATIVE_FRAMEWORK_AGREEMENT' | 'ADMINISTRATIVE_ENGLISH_AS_FOREIGN_LANGUAGE' | 'ADMINISTRATIVE_NOTICE_AND_AWARD_DISCREPANCIES' | 'TRANSPARENCY_NUMBER_OF_KEY_MISSING_FIELDS';
