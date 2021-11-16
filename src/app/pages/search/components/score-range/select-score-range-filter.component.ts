@@ -13,6 +13,8 @@ export class SelectScoreRangeFilterComponent implements OnChanges {
 	@Input()
 	typeCount: boolean = false;
 	@Input()
+	typeYear: boolean = false;
+	@Input()
 	bigInt: boolean = false;
 	@Input()
 	buckets: Array<ISearchResultBucket>;

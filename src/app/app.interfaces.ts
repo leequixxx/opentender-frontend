@@ -378,6 +378,7 @@ export interface ISearchFilterDef {
 	name: string;
 	field: string;
 	type: ISearchFilterDefType;
+	uiType?: ISearchFilterDefType;
 	group?: string;
 	size?: number;
 	aggregation_field?: string; // if empty "field" is used for aggregation, too
@@ -394,6 +395,7 @@ export interface ISearchFilterDef {
 	min?: number;
 	max?: number;
 	typeCount?: boolean
+	typeYear?: boolean
 	bigInt?: boolean
 }
 

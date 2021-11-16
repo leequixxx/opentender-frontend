@@ -25,18 +25,14 @@ export class SearchPage implements OnDestroy {
 	}
 
 	public buildCrumbs(): void {
-		this.crumbs = [
-			{
-				name: this.i18n.get('Search')
-			}];
+		this.crumbs = [{ name: this.i18n.get('Search') }];
 		const data = this.titleService.getRouteData(this.router.url);
 		if (data) {
-			this.crumbs.push({
-				name: this.i18n.get(data.menu_title || data.title)
-			});
+			this.crumbs.push({ name: this.i18n.get(data.menu_title || data.title) });
 		}
 	}
 
 	public ngOnDestroy(): void {
 		this.subscription.unsubscribe();
-	}}
+	}
+}

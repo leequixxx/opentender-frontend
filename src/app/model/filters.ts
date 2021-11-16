@@ -203,9 +203,10 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Award Decision Year',
 		group: 'Dates',
 		field: 'lots.awardDecisionDate',
-		type: ISearchFilterDefType.years,
 		min: 2014,
-		max: 2020
+		max: 2020,
+		typeYear: true,
+		type: ISearchFilterDefType.range,
 	},
 	{
 		id: 'lots.awardDecisionDate',
@@ -339,8 +340,10 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Award Decision Year',
 		group: 'Dates',
 		field: 'body.dates.awardDecisionYears',
-		type: ISearchFilterDefType.years,
-		size: 1000
+		min: 2014,
+		max: 2020,
+		typeYear: true,
+		type: ISearchFilterDefType.range,
 	},
 	{
 		id: 'body.dates.awardDecisionDates',
@@ -350,10 +353,10 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		type: ISearchFilterDefType.date,
 	},
 	{
-		id: 'body.sector.cpvs',
+		id: 'body.sector.cpvCodes',
 		name: 'CPV code',
 		group: 'Sector',
-		field: 'body.sector.cpvs',
+		field: 'body.sector.cpvCodes',
 		type: ISearchFilterDefType.select,
 		// type: ISearchFilterDefType.nestedListWithSearch,
 		size: 10000
@@ -469,7 +472,10 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Award Decision Year',
 		group: 'Dates',
 		field: 'body.dates.awardDecisionYears',
-		type: ISearchFilterDefType.years,
+		min: 2014,
+		max: 2020,
+		typeYear: true,
+		type: ISearchFilterDefType.range,
 	},
 	{
 		id: 'body.dates.awardDecisionDates',
@@ -479,10 +485,10 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		type: ISearchFilterDefType.date,
 	},
 	{
-		id: 'body.sector.cpvs',
+		id: 'body.sector.cpvCodes',
 		name: 'CPV code',
 		group: 'Sector',
-		field: 'body.sector.cpvs',
+		field: 'body.sector.cpvCodes',
 		type: ISearchFilterDefType.select,
 		// type: ISearchFilterDefType.nestedListWithSearch,
 		size: 10000

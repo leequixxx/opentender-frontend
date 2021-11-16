@@ -146,6 +146,8 @@ export class SliderComponent implements OnChanges {
 
 		if (this.typeCount) {
 			this.ticks = [{value: this._min, width: this.tickWidth, show: true}, {value: this.convertBigInt(this._max), width: this.tickWidth, show: true}]
+		} else if (this.typeYear) {
+			this.ticks = [{value: this._min, width: this.tickWidth, show: true}, {value: this._max, width: this.tickWidth, show: true}]
 		} else {
 			if (valueSpan > 0) {
 				for (let i = 0; i <= valueSpan; i = i + this._stepValue) {
