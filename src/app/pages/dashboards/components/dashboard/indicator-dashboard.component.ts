@@ -5,11 +5,14 @@ import {Utils} from '../../../../model/utils';
 import {NotifyService} from '../../../../services/notify.service';
 import {
 	ISearchCommandFilter, IStats,
-	IIndicatorInfo, ISubIndicatorInfo, ISearchCommand, ISearchCommandWeights, ISearchResultTender
+	IIndicatorInfo, ISubIndicatorInfo, ISearchCommand, ISearchCommandWeights, ISearchResultTender, IStatsNuts
 } from '../../../../app.interfaces';
 import {PlatformService} from '../../../../services/platform.service';
 import * as Config from '../../../../../../config.dist';
 import {DASHBOARD_CHART_TITLES, DASHBOARD_TOOLTIPS, VIZ_DEFAULT_DATA, VizType} from '../../../../model/dashboard';
+import {Search} from '../../../../model/search';
+import {DashboardFilterDefs, isSearchDef} from '../../../../model/filters';
+import {StateService} from '../../../../services/state.service';
 
 @Component({
 	moduleId: __filename,
@@ -23,16 +26,15 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	@Input() pageDescription = [''];
 	@Input() pageID = '';
 	public currencySymbol = Config.currencySymbol;
-	private icon: string = '';
-	private searchPrefix: string = '';
-	private searchScore: [number, number] = [0, 50];
+	// private icon: string = '';
+	@Input() searchPrefix: string = '';
+	private searchScore: [number, number] = [0, 100];
 	public filterWeights: ISearchCommandWeights = null;
 	public showDialog = false;
 	public title: string = '';
 	public subindicators: ISubIndicatorInfo[] = [];
 	public weights: Array<{ value: number; indicator: ISubIndicatorInfo; }> = [];
 	public selected: ISubIndicatorInfo = null;
-	public search_cmd: ISearchCommand;
 	public indicatorTitle: string;
 	public loading: number = 0;
 	public viz: VizType = VIZ_DEFAULT_DATA;
@@ -42,15 +44,69 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	public storageId = '_tender-table';
 	public titles = DASHBOARD_CHART_TITLES;
 	public tooltips = DASHBOARD_TOOLTIPS;
+	public search = new Search('dashboard');
+	public search_cmd: ISearchCommand;
+	public filterIds = []
+	public filters = DashboardFilterDefs;
+	public filtersStorageTag = '_' + this.pageID || 'dashboard' + '-filters';
+	private firstInit = true;
+	public map_data: IStatsNuts = {};
 
-	constructor(private api: ApiService, private i18n: I18NService, private notify: NotifyService, private platform: PlatformService) {
+	public search_title = ''
+
+	constructor(private api: ApiService,
+							private i18n: I18NService,
+							private notify: NotifyService,
+							private platform: PlatformService,
+							private state: StateService) {
 		this.viz.ranges.top_authorities.title = i18n.get('Main Buyers in Score Range');
 		this.viz.ranges.top_companies.title = i18n.get('Main Suppliers in Score Range');
+		this.search.build(this.filters.filter(isSearchDef), this.filters.filter(def => {
+			return this.filterIds.indexOf(def.id) >= 0;
+		}));
+		// this.setTitle();
+	}
+
+	public filtersChange() {
+		let filtersTag = JSON.stringify(location.pathname) + this.filtersStorageTag;
+		if (!this.firstInit) {
+			let state = {
+				search: this.search,
+				search_cmd: this.search_cmd
+			};
+			localStorage.setItem(filtersTag, JSON.stringify(state));
+		}
+		if (this.firstInit) {
+			this.firstInit = false;
+		}
+		this.refresh();
+	}
+
+	public setDefaultStats() {
+		this.search = new Search('dashboard');
+		this.search.build(this.filters.filter(isSearchDef), this.filters.filter(def => {
+			return this.filterIds.indexOf(def.id) >= 0;
+		}));
 	}
 
 	public ngOnChanges(changes: SimpleChanges): void {
 		this.title = this.indicator.plural;
-		this.icon = this.indicator.icon;
+
+		let state = this.state.get('search.dashboard' + this.pageID);
+		if (state) {
+			this.columnIds = state.columnIds;
+			this.search = state.search;
+			this.search_cmd = state.search_cmd;
+		} else if (localStorage.getItem(JSON.stringify(location.pathname) + this.filtersStorageTag)) {
+			let storageState = JSON.parse(localStorage.getItem(JSON.stringify(location.pathname) + this.filtersStorageTag));
+			storageState.search.filters = storageState.search.filters.map(filter => ({...filter, def: {...filter.def, valueFormatter: this.filters.filter(f => f.id === filter.def.id)[0].valueFormatter || null}}))
+			this.search.setBuildedFilters(storageState.search.filters);
+			this.search.setBuildedSearches(storageState.search.searches);
+			this.search_cmd = storageState.search_cmd;
+		} else {
+			this.refresh();
+		}
+		// this.icon = this.indicator.icon;
 		this.subindicators = this.indicator.subindicators;
 		this.displayIndicatorTitles();
 	}
@@ -134,15 +190,21 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	}
 
 	refresh() {
+		this.search_cmd = this.getCommand(this.search.getCommand());
 		this.visualizeScores();
 		this.visualizeRanges();
-		this.search();
+		// this.search();
+	}
+
+	public getCommand(cmd) {
+		cmd.filters = [...cmd.filters, ...this.buildFilters(true)]
+		return cmd
 	}
 
 	onScoreSliderChange(event) {
 		this.searchScore = [event.startValue, event.endValue];
-		this.visualizeRanges();
-		this.search();
+		this.refresh();
+		// this.search();
 	}
 
 	onYearRangeSliderChange(event) {
@@ -204,8 +266,10 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	}
 
 	visualizeScores() {
-		let filters = this.buildFilters(false);
+		let filters = this.search_cmd.filters;
+		// let filters = [...this.search_cmd.filters, ...this.buildFilters(false)];
 		this.loading++;
+		// @ts-ignore
 		let cmd: ISearchCommand = {filters: filters};
 		let sub = this.api.getIndicatorScoreStats(cmd).subscribe(
 			(result) => {
@@ -221,12 +285,14 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	}
 
 	visualizeRanges() {
-		let filters = this.buildFilters(true);
+		let filters = this.search_cmd.filters;
+		// let filters = [...this.search_cmd.filters, ...this.buildFilters(true)];
 		this.loading++;
 		let cmd: ISearchCommand = {filters: filters};
 		let sub = this.api.getIndicatorRangeStats(cmd).subscribe(
 			(result) => {
 				this.displayRangeStats(result.data);
+				this.map_data = result.data.terms_authority_nuts
 			},
 			(error) => {
 				this.notify.error(error);
@@ -289,24 +355,26 @@ export class DashboardsIndicatorComponent implements OnChanges {
 			}
 		}
 		let filters = [filter];
+
 		if (this.filter.years) {
 			let yearFilter: ISearchCommandFilter = {
 				field: 'ot.date',
 				type: 'years',
-				value: [this.filter.years.startValue, this.filter.years.endValue + 1],
+				value: [this.filter.years.startValue, this.filter.years.endValue],
 			};
 			filters.push(yearFilter);
 		}
 		return filters;
 	}
 
-	search() {
-		this.search_cmd = {
-			filters: this.buildFilters(true)
-		};
-	}
+	// search() {
+	// 	this.search_cmd = {
+	// 		filters: this.buildFilters(true)
+	// 	};
+	// }
 
 	searchChange(data: ISearchResultTender) {
+		this.search.fillAggregationResults(data.aggregations);
 
 	}
 	public serDefaultColumns() {

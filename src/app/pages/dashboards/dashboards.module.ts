@@ -20,6 +20,8 @@ import {GraphsRadarPieModule} from '../../modules/graphs/radar-pie/graphs-radar-
 import {GraphsValuesGridModule} from '../../modules/graphs/values-grid/graphs-values-grid.module';
 import {BreadcrumbModule} from '../../modules/breadcrumb/breadcrumb.module';
 import {InfoButtonModule} from '../../modules/info-button/info-button.module';
+import {SearchModule} from '../search/search.module';
+import {MapDashboardComponent} from '../../modules/maps/nuts-map-dashboard';
 
 @NgModule({
 	imports: [
@@ -38,7 +40,8 @@ import {InfoButtonModule} from '../../modules/info-button/info-button.module';
 		DialogModule,
 		SelectYearRangeModule,
 		MapsModule,
-		InfoButtonModule
+		InfoButtonModule,
+		SearchModule
 	],
 	declarations: [
 		DashboardsIndicatorComponent,
@@ -46,6 +49,7 @@ import {InfoButtonModule} from '../../modules/info-button/info-button.module';
 		DashboardsIntegrityPage,
 		DashboardsMarketAnalysisPage,
 		DashboardsTransparencyPage,
+		MapDashboardComponent
 	]
 })
 export class DashboardsModule {

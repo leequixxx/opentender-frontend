@@ -1,16 +1,7 @@
 import {Utils} from './utils';
-import {ISearchFilterDef, ISearchFilterDefType} from '../app.interfaces';
+import {INestedType, ISearchFilterDef, ISearchFilterDefType} from '../app.interfaces';
 
 export const TenderFilterDefs: Array<ISearchFilterDef> = [
-	// {
-	// 	id: 'buyers.name',
-	// 	name: 'Name',
-	// 	group: 'Buyer',
-	// 	field: 'buyers.name',
-	// 	type: ISearchFilterDefType.text,
-	// 	aggregation_field: 'buyers.name.raw',
-	// 	aggregation_type: ISearchFilterDefType.term
-	// },
 	{
 		id: 'buyers.name',
 		name: 'Name',
@@ -114,14 +105,16 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Main CPV',
 		group: 'Sector',
 		field: 'ot.cpv',
-		type: ISearchFilterDefType.text,
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'cpvs.code',
 		name: 'CPV Codes',
 		group: 'Sector',
 		field: 'cpvs.code',
-		type: ISearchFilterDefType.text,
+		type: ISearchFilterDefType.select,
+		size: 10000
 	},
 	{
 		id: 'ot.cpv.divisions',
@@ -164,8 +157,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 			'ot.scores.type': 'TENDER'
 		},
 		type: ISearchFilterDefType.range,
-		min: 0,
-		max: 100
+		minmax: [0, 100],
+		typeCount: true
 	},
 	{
 		id: 'indicators.score_pi',
@@ -176,8 +169,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 			'ot.scores.type': 'INTEGRITY'
 		},
 		type: ISearchFilterDefType.range,
-		min: 0,
-		max: 100
+		minmax: [0, 100],
+		typeCount: true
 	},
 	{
 		id: 'indicators.score_ti',
@@ -188,8 +181,8 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 			'ot.scores.type': 'TRANSPARENCY'
 		},
 		type: ISearchFilterDefType.range,
-		min: 0,
-		max: 100
+		minmax: [0, 100],
+		typeCount: true
 	},
 	{
 		id: 'finalPrice.netAmountEur',
@@ -203,8 +196,6 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Award Decision Year',
 		group: 'Dates',
 		field: 'lots.awardDecisionDate',
-		min: 2014,
-		max: 2020,
 		typeYear: true,
 		type: ISearchFilterDefType.range,
 	},
@@ -253,8 +244,6 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Authority',
 		field: 'body.contractsCount',
 		type: ISearchFilterDefType.range,
-		min: 1,
-		max: 194,
 		typeCount: true
 	},
 	{
@@ -264,8 +253,6 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		field: 'body.company.totalValueOfContracts',
 		type: ISearchFilterDefType.range,
 		bigInt: true,
-		min: 0,
-		max: 443906594,
 		typeCount: true
 	},
 	{
@@ -293,9 +280,8 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		field: 'body.address.ot.nutscode',
 		type: ISearchFilterDefType.select,
 		nested: true,
-		nestedType: 'nuts',
+		nestedType: INestedType.nuts,
 		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
-		// type: ISearchFilterDefType.nestedListWithSearch,
 		aggregation_field: 'body.address.ot.nutscode',
 		size: 10000
 	},
@@ -304,8 +290,8 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Integrity Indicator Composite Score',
 		group: 'Integrity',
 		field: 'body.indicator.integrityIndicatorCompositionScore',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -313,8 +299,8 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Elementary Integrity Indicators',
 		group: 'Integrity',
 		field: 'body.indicator.elementaryIntegrityIndicators.tender',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -322,8 +308,8 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Transparency Indicator Composite Score',
 		group: 'Transparency',
 		field: 'body.indicator.transparencyIndicatorCompositionScore',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -331,8 +317,8 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Elementary Transparency Indicators',
 		group: 'Transparency',
 		field: 'body.indicator.elementaryTransparencyIndicators.tender',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -340,8 +326,6 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Award Decision Year',
 		group: 'Dates',
 		field: 'body.dates.awardDecisionYears',
-		min: 2014,
-		max: 2020,
 		typeYear: true,
 		type: ISearchFilterDefType.range,
 	},
@@ -358,7 +342,7 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Sector',
 		field: 'body.sector.cpvCodes',
 		type: ISearchFilterDefType.select,
-		// type: ISearchFilterDefType.nestedListWithSearch,
+		nestedType: INestedType.cpv,
 		size: 10000
 	},
 ];
@@ -387,8 +371,6 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Authority',
 		field: 'body.contractsCount',
 		type: ISearchFilterDefType.range,
-		min: 0,
-		max: 560,
 		typeCount: true
 	},
 	{
@@ -397,8 +379,6 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Authority',
 		field: 'body.company.totalValueOfContracts',
 		type: ISearchFilterDefType.range,
-		min: 0,
-		max: 454000026,
 		bigInt: true,
 		typeCount: true
 	},
@@ -426,7 +406,7 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Address',
 		field: 'body.address.ot.nutscode',
 		type: ISearchFilterDefType.select,
-		// type: ISearchFilterDefType.nestedListWithSearch,
+		nestedType: INestedType.nuts,
 		aggregation_field: 'body.address.ot.nutscode',
 		valueFormatter: (value) => Utils.capitalize(Utils.formatNuts(value)),
 		size: 10000
@@ -436,8 +416,8 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Integrity Indicator Composite Score',
 		group: 'Integrity',
 		field: 'body.indicator.integrityIndicatorCompositionScore',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -445,8 +425,8 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Elementary Integrity Indicators',
 		group: 'Integrity',
 		field: 'body.indicator.elementaryIntegrityIndicators.tender',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -454,8 +434,8 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Transparency Indicator Composite Score',
 		group: 'Transparency',
 		field: 'body.indicator.transparencyIndicatorCompositionScore',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -463,8 +443,8 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Elementary Transparency Indicators',
 		group: 'Transparency',
 		field: 'body.indicator.elementaryTransparencyIndicators.tender',
-		min: 0,
-		max: 100,
+		typeCount: true,
+		minmax: [0, 100],
 		type: ISearchFilterDefType.range,
 	},
 	{
@@ -472,8 +452,6 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		name: 'Award Decision Year',
 		group: 'Dates',
 		field: 'body.dates.awardDecisionYears',
-		min: 2014,
-		max: 2020,
 		typeYear: true,
 		type: ISearchFilterDefType.range,
 	},
@@ -490,65 +468,65 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Sector',
 		field: 'body.sector.cpvCodes',
 		type: ISearchFilterDefType.select,
-		// type: ISearchFilterDefType.nestedListWithSearch,
+		nestedType: INestedType.cpv,
 		size: 10000
 	},
 ];
 
 export const DashboardFilterDefs: Array<ISearchFilterDef> = [
 	{
-		id: 'ot.buyerType',
+		id: 'buyers.buyerType',
 		name: 'Buyer Type',
 		group: 'Authority',
-		field: 'ot.buyerType',
-		subrequest: {
-			'ot.scores.type': 'TRANSPARENCY'
-		},
-		type: ISearchFilterDefType.select,
-		size: 10000
-	},
-	{
-		id: 'ot.date',
-		name: 'Date',
-		group: 'Dates',
-		field: 'ot.date',
-		subrequest: {
-			'ot.scores.type': 'TRANSPARENCY'
-		},
-		type: ISearchFilterDefType.years,
-	},
-	{
-		id: 'op.buyerContractsCount',
-		name: 'Buyer\'s total contracts count',
-		group: 'Authority',
-		field: 'op.buyerContractsCount',
-		type: ISearchFilterDefType.range,
-	},
-	{
-		id: 'op.supplierContractsCount',
-		name: 'Supplier\'s total contracts count',
-		group: 'Authority',
-		field: 'op.supplierContractsCount',
-		type: ISearchFilterDefType.range,
-	},
-	{
-		id: 'op.contractsTotal',
-		name: 'Value of contracts',
-		group: 'Authority',
-		field: 'op.contractsTotal',
-		type: ISearchFilterDefType.range,
-	},
-	{
-		id: 'op.supplierType',
-		name: 'Supplier Type',
-		group: 'Authority',
-		field: 'op.supplierType',
+		field: 'buyers.buyerType',
 		type: ISearchFilterDefType.select,
 		valueFormatter: Utils.expandUnderlined,
 		size: 10000
 	},
 	{
-		id: 'op.country',
+		id: 'lots.awardDecisionDate',
+		name: 'Award Decision Date',
+		group: 'Date',
+		field: 'lots.awardDecisionDate',
+		type: ISearchFilterDefType.date,
+	},
+	{
+		id: 'buyers.contractsCount',
+		name: 'Buyer\'s total contracts count',
+		group: 'Authority',
+		field: 'buyers.contractsCount',
+		type: ISearchFilterDefType.range,
+		typeCount: true
+	},
+	{
+		id: 'lots.bids.bidders.contractsCount',
+		name: 'Supplier\'s total contracts count',
+		group: 'Authority',
+		field: 'lots.bids.bidders.contractsCount',
+		type: ISearchFilterDefType.range,
+		typeCount: true
+	},
+	{
+		id: 'buyers.company.totalValueOfContracts',
+		name: 'Value of contracts',
+		group: 'Authority',
+		field: 'buyers.company.totalValueOfContracts',
+		aggregation_field: 'buyers.company.totalValueOfContracts',
+		type: ISearchFilterDefType.range,
+		typeCount: true,
+		bigInt: true
+	},
+	{
+		id: 'supplyType',
+		name: 'Supplier Type',
+		group: 'Authority',
+		field: 'supplyType',
+		type: ISearchFilterDefType.select,
+		valueFormatter: Utils.expandUnderlined,
+		size: 10000
+	},
+	{
+		id: 'ot.country',
 		name: 'Country',
 		group: 'Address',
 		field: 'op.country',
@@ -557,44 +535,45 @@ export const DashboardFilterDefs: Array<ISearchFilterDef> = [
 		size: 10000
 	},
 	{
-		id: 'op.cpvs',
+		id: 'buyers.address.ot.nutscode.nuts3',
 		name: 'Geographic region',
 		group: 'Address',
-		field: 'op.cpvs',
+		field: 'buyers.address.ot.nutscode.nuts3',
 		type: ISearchFilterDefType.select,
 		// type: ISearchFilterDefType.nestedListWithSearch,
 		size: 10000
 	},
 	{
-		id: 'op.city',
+		id: 'buyers.address.city.raw',
 		name: 'City',
 		group: 'Address',
-		field: 'op.city',
+		field: 'buyers.address.city.raw',
 		type: ISearchFilterDefType.select,
 		valueFormatter: (value) => Utils.formatNuts(value),
 		size: 10000
 	},
 	{
-		id: 'body.sector.cpvs',
+		id: 'cpvs.code.raw',
 		name: 'CPV code',
 		group: 'Sector',
-		field: 'body.sector.cpvs',
+		field: 'cpvs.code.raw',
 		type: ISearchFilterDefType.select,
 		// type: ISearchFilterDefType.nestedListWithSearch,
 		size: 10000
 	},
 	{
-		id: 'op.contractSize',
+		id: 'buyers.contractsCount',
 		name: 'Contract size',
 		group: 'Tender',
-		field: 'op.contractSize',
+		field: 'buyers.contractsCount',
 		type: ISearchFilterDefType.range,
+		typeCount: true
 	},
 	{
-		id: 'op.procedureType',
+		id: 'procedureType',
 		name: 'Procedure Type',
 		group: 'Tender',
-		field: 'op.procedureType',
+		field: 'procedureType',
 		type: ISearchFilterDefType.select,
 		valueFormatter: Utils.expandUnderlined,
 		size: 10000

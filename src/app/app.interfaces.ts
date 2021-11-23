@@ -191,6 +191,8 @@ export interface ISearchResultBucket {
 	name?: string;
 	key: string;
 	doc_count: number;
+	min?: number,
+	max?: number
 }
 
 export interface ISearchResultAggregation {
@@ -368,6 +370,10 @@ export enum ISearchFilterDefType {
 	nestedListWithSearch = 10,
 	none = 0
 }
+export enum INestedType {
+	nuts = 1,
+	cpv = 2
+}
 
 export interface ISearchFilterValueTranslate {
 	expandCountry: (string) => string;
@@ -378,7 +384,6 @@ export interface ISearchFilterDef {
 	name: string;
 	field: string;
 	type: ISearchFilterDefType;
-	uiType?: ISearchFilterDefType;
 	group?: string;
 	size?: number;
 	aggregation_field?: string; // if empty "field" is used for aggregation, too
@@ -388,12 +393,11 @@ export interface ISearchFilterDef {
 	valuesFilter?: (buckets: Array<ISearchResultBucket>) => Array<ISearchResultBucket>;
 	listFormatter?: string;
 	nested?: boolean;
-	nestedType?: string;
+	nestedType?: INestedType;
 	subrequest?: {
 		[fieldname: string]: string | boolean | number
 	};
-	min?: number;
-	max?: number;
+	minmax?: null | [number, number];
 	typeCount?: boolean
 	typeYear?: boolean
 	bigInt?: boolean

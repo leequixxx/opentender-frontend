@@ -32,7 +32,7 @@ export class DashboardsMarketAnalysisPage implements OnInit, OnDestroy {
 		lots_in_years: {data: null},
 		top_authorities: {data: null},
 		top_companies: {data: null},
-		years: {data: null},
+		years: {data: [2000, 2020]},
 	};
 	public filter: {
 		years?: { startValue: number, endValue: number };
@@ -97,7 +97,7 @@ export class DashboardsMarketAnalysisPage implements OnInit, OnDestroy {
 			let yearFilter: ISearchCommandFilter = {
 				field: 'ot.date',
 				type: 'years',
-				value: [this.filter.years.startValue, this.filter.years.endValue + 1]
+				value: [this.filter.years.startValue, this.filter.years.endValue]
 			};
 			filters.push(yearFilter);
 		}
@@ -117,7 +117,7 @@ export class DashboardsMarketAnalysisPage implements OnInit, OnDestroy {
 		viz.sectors_stats.data = stats.sectors_stats;
 		viz.volume_regions.data = {};
 		stats.region_stats.forEach(region => {
-			viz.volume_regions.data[region.id].value = region.stats.sum_finalPriceEUR.value || 0;
+			viz.volume_regions.data[region.id] = { value: region.stats.sum_finalPriceEUR.value || 0 };
 		});
 		viz.score_in_years.data = stats.histogram_indicators['TENDER'] || {};
 		viz.score_in_sectors.data = stats.terms_main_cpv_divisions_score;

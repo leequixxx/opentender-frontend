@@ -44,6 +44,10 @@ export class SelectScoreRangeFilterComponent implements OnChanges {
 	public ngOnChanges(changes: SimpleChanges): void {
 		if (changes.filter && changes.filter.currentValue) {
 			this.restoreFilter(changes.filter.currentValue);
+			this.minScore = Math.trunc(this.minScore);
+			this.maxScore = Math.trunc(this.maxScore);
+			this.startScore = Math.trunc(this.startScore);
+			this.endScore = Math.trunc(this.endScore);
 		}
 		if (changes.buckets && changes.buckets.currentValue) {
 			this.applyBuckets(changes.buckets.currentValue);

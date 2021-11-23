@@ -49,10 +49,10 @@
 			</div>
 			<div class="range" *ngSwitchCase="ISearchFilterDefType.range">
 				<select-score-range-filter [filter]="filter"
-																	 [minScore]="filter.def.min"
-																	 [maxScore]="filter.def.max"
-																	 [startScore]="filter.def.min"
-																	 [endScore]="filter.def.max"
+																	 [minScore]="(filter && filter.minmax) ? filter.minmax[0] : 0"
+																	 [maxScore]="(filter && filter.minmax) ? filter.minmax[1] : 100"
+																	 [startScore]="(filter && filter.minmax) ? filter.minmax[0] : 0"
+																	 [endScore]="(filter && filter.minmax) ? filter.minmax[1] : 100"
 																	 [typeCount]="filter.def.typeCount"
 																	 [typeYear]="filter.def.typeYear"
 																	 [bigInt]="filter.def.bigInt"

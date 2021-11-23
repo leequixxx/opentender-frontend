@@ -59,20 +59,23 @@
 		top: calc(100% - 1px);
 		width: calc(100% - 8px);
 		background-color: #fff;
-		padding: 8px;
+		padding: 12px;
 		border: 1px solid $blue;
-		z-index: 2;
+		z-index: 3;
 		border-radius: 0 0 4px 4px;
 	}
 
 	&__list-item {
 		& + & {
-			margin-top: 8px;
+			border-top: 1px solid #e2e2e2;
+			margin-top: 12px;
+			padding-top: 12px;
 		}
 
 		&.nested {
 			display: flex;
 			align-items: center;
+			flex-wrap: wrap;
 
 			.search-list__list-item-nested-icon {
 				display: block;
@@ -83,12 +86,22 @@
 		}
 	}
 
+	&__inner-list {
+		display: none;
+		width: 100%;
+		margin-top: 12px;
+		padding-top: 12px;
+		border-top: 1px solid #e2e2e2;
+		padding-left: 21px;
+
+	}
+
 	&__list-item-nested-icon {
 		display: none;
 		margin-right: 6px;
 		width: 14px;
 		height: 14px;
-		border: 1px solid $blue;
+		background-color: #36BBA4;
 		content: '';
 		border-radius: 50%;
 		position: relative;
@@ -98,7 +111,7 @@
 		&::after {
 			display: block;
 			content: '';
-			background-color: $blue;
+			background-color: #fff;
 			position: absolute;
 			top: 50%;
 			left: 50%;
@@ -118,6 +131,10 @@
 		&.open {
 			&::after {
 				display: none;
+			}
+
+			& ~ .search-list__inner-list {
+				display: block;
 			}
 		}
 	}
@@ -191,6 +208,30 @@
 			background-position: 50%;
 			background-size: 14px;
 			margin-right: 5px;
+		}
+	}
+}
+
+:host {
+	::ng-deep {
+		.search-list__list-item-nested-icon + search-list-checkbox {
+			max-width: calc(100% - 20px);
+		}
+
+		.checkbox {
+			display: flex;
+			align-items: center;
+		}
+
+		.checkbox-mirror {
+			min-width: 15px;
+		}
+
+		.checkbox-columns {
+			margin-left: 12px !important;
+			overflow: visible !important;
+			text-overflow: inherit !important;
+			white-space: normal !important;
 		}
 	}
 }

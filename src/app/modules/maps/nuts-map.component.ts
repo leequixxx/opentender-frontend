@@ -69,7 +69,8 @@ export class NUTSMapComponent implements OnChanges, ISeriesProvider {
 				nut = {
 					id: nutskey,
 					feature: geo.features.find(f => f.properties.id === nutskey),
-					value: 0
+					value: 0,
+					gradientValue: this.data[key].count
 				};
 				nuts[nutskey] = nut;
 			}
@@ -84,12 +85,12 @@ export class NUTSMapComponent implements OnChanges, ISeriesProvider {
 		let min = 0;
 		let list = Object.keys(nuts).map(key => nuts[key]).filter(nut => nut.feature);
 		if (list.length > 0) {
-			min = list[0].value.count;
-			max = list[0].value.count;
+			min = list[0].gradientValue;
+			max = list[0].gradientValue;
 		}
 		list.forEach(nut => {
-			min = Math.min(nut.value.count, min);
-			max = Math.max(nut.value.count, max);
+			min = Math.min(nut.gradientValue, min);
+			max = Math.max(nut.gradientValue, max);
 		});
 		let scale = scaleLinear().domain([0, max]).range([0, 1]);
 
@@ -106,7 +107,7 @@ export class NUTSMapComponent implements OnChanges, ISeriesProvider {
 						id: nut.feature.properties.id,
 						name: nut.feature.properties.name,
 						value: nut.value,
-						color: d3chroma.interpolateBlues(scale(nut.value)),
+						color: d3chroma.interpolateBlues(scale(nut.gradientValue)),
 						border: '#a4a4a4'
 					},
 					type: nut.feature.type,

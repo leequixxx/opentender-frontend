@@ -50,6 +50,7 @@ export class Search {
 			filter.buckets = [];
 			if (aggregations) {
 				let agg = aggregations['_' + filter.aggregation_id];
+				let aggRange = aggregations['_' + filter.aggregation_id + '_range'];
 				if (agg) {
 					filter.buckets = agg.buckets;
 					if (agg.buckets) {
@@ -63,6 +64,11 @@ export class Search {
 							}
 						});
 					}
+					if (agg.max) {
+						filter.minmax = filter.def.minmax || [agg.min, agg.max]
+					}
+				} else if (aggRange && aggRange.max) {
+					filter.minmax = filter.def.minmax || [aggRange.min, aggRange.max]
 				}
 			}
 			missing.forEach((key) => {
@@ -74,7 +80,7 @@ export class Search {
 	public getCommand(): ISearchCommand {
 		let cmd: ISearchCommand = {filters: []};
 		cmd.aggregations = this.filters.filter((f) => {
-			return f.active && f.def.type !== ISearchFilterDefType.range;
+			return f.active
 		}).map((f) => {
 			return {type: ISearchFilterDefType[f.def.aggregation_type || f.def.type], field: f.def.aggregation_field || f.def.field, size: f.def.size};
 		});

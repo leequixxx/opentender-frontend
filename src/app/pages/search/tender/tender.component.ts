@@ -55,6 +55,7 @@ export class SearchTenderPage implements OnInit, OnDestroy {
 			this.search_cmd = state.search_cmd;
 		} else if (localStorage.getItem(JSON.stringify(location.pathname) + this.filtersStorageTag)) {
 			let storageState = JSON.parse(localStorage.getItem(JSON.stringify(location.pathname) + this.filtersStorageTag));
+			storageState.search.filters = storageState.search.filters.map(filter => ({...filter, def: {...filter.def, valueFormatter: this.filters.filter(f => f.id === filter.def.id)[0].valueFormatter || null}}))
 			this.search.setBuildedFilters(storageState.search.filters);
 			this.search.setBuildedSearches(storageState.search.searches);
 			this.search_cmd = storageState.search_cmd;

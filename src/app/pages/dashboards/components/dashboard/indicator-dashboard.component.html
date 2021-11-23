@@ -4,6 +4,22 @@
 		<h1 class="container-title">{{title}}</h1>
 		<p class="container-description" *ngFor="let text of pageDescription">{{text}}</p>
 	</div>
+	<div class="container container-margin dashboard-search-wrap">
+		<search-box [search]="search" [filters]="filters" [search_title]="search_title" (onChange)="filtersChange()" (reset)="setDefaultStats()"></search-box>
+	</div>
+	<div class="container container-margin">
+		<div class="container-left-12">
+			<label class="mb_40 fw_700" i18n>Score Range</label>
+			<slider
+				[min]="0"
+				[max]="100"
+				[startValue]="0"
+				[endValue]="100"
+				stepValue="10"
+				defaultWidth="934"
+				(onSliderChange)="onScoreSliderChange($event)"></slider>
+		</div>
+	</div>
 	<div class="container container-margin" style="position: relative; z-index: 2">
 		<div class="container-left-12">
 			<select-year-range [years]="viz.scores.years.data" (onRangeChange)="onYearRangeSliderChange($event)"></select-year-range>
@@ -61,18 +77,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container container-margin">
-		<div class="container-left-12">
-			<label class="mb_40 fw_700" i18n>Score Range</label>
-			<slider
-					[min]="0"
-					[max]="100"
-					[startValue]="0"
-					[endValue]="50"
-					stepValue="10"
-					defaultWidth="934"
-					(onSliderChange)="onScoreSliderChange($event)"></slider>
-		</div>
+
+	<div class="container">
+		<dashboard-nutsmap [map_data]="map_data"></dashboard-nutsmap>
 	</div>
 
 	<div [ngClass]="{'is-loading': loading>0}">

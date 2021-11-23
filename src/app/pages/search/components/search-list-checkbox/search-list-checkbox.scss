@@ -1,15 +1,16 @@
 @import "../../../../../style/globals.scss";
 
-.checkbox {
-	margin-bottom: 0;
-	margin-top: 6px;
-	line-height: 1em;
-	cursor: pointer;
+:host {
+	.checkbox {
+		margin-bottom: 0;
+		line-height: 1em;
+		cursor: pointer;
 
-	input {
-		display: inline-block;
-		margin: 1px 3px 0 0;
-		float: left;
+		input {
+			display: inline-block;
+			margin: 1px 3px 0 0;
+			float: left;
+		}
 	}
 }
 

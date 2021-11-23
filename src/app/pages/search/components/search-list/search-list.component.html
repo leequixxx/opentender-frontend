@@ -4,13 +4,71 @@
 		<button class="search-list__toggle-btn" [class.active]="showList" (click)="toggleListVisibility()"></button>
 	</div>
 	<div class="search-list__list" *ngIf="showList">
-		<div class="search-list__list-content">
-			<ng-container *ngFor="let bucket of filteredList">
-				<div class="search-list__list-item" *ngIf="!filter.searchedValue || bucket.key.toLowerCase().includes(filter.searchedValue)">
-					<search-list-checkbox [filter]="filter" [bucket]="bucket" (change)="triggerChange()"></search-list-checkbox>
-				</div>
+		<div class="search-list__list-content" *ngIf="filter.def.nestedType; else simpleBlock">
+			<ng-container *ngIf="filter.def.nestedType === INestedType.nuts">
+				<ng-container *ngFor="let bucket of filteredList; trackBy: trackByKey">
+					<div class="search-list__list-item nested">
+						<span class="search-list__list-item-nested-icon" [class.open]="bucket.open" (click)="toggleSubList($event)"></span>
+						<search-list-checkbox [filter]="filter" [bucket]="bucket" (change)="triggerChange()"></search-list-checkbox>
+						<div class="search-list__inner-list" [class.open]="bucket.open" *ngIf="bucket.children">
+							<ng-container *ngFor="let childrenLvl2 of bucket.children; trackBy: trackByKey">
+								<div class="search-list__list-item nested">
+									<span class="search-list__list-item-nested-icon" [class.open]="childrenLvl2.open" (click)="toggleSubList($event)"></span>
+									<search-list-checkbox [filter]="filter" [bucket]="childrenLvl2" (change)="triggerChange()"></search-list-checkbox>
+									<div class="search-list__inner-list" *ngIf="childrenLvl2.children" [class.open]="childrenLvl2.open">
+										<ng-container *ngFor="let childrenLvl3 of childrenLvl2.children; trackBy: trackByKey">
+											<div class="search-list__list-item">
+												<search-list-checkbox [filter]="filter" [bucket]="childrenLvl3" (change)="triggerChange()"></search-list-checkbox>
+											</div>
+										</ng-container>
+									</div>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</ng-container>
+			</ng-container>
+			<ng-container *ngIf="filter.def.nestedType === INestedType.cpv">
+				<ng-container *ngFor="let bucket of filteredList; trackBy: trackByKey">
+					<div class="search-list__list-item nested">
+						<span class="search-list__list-item-nested-icon" [class.open]="bucket.open" (click)="toggleSubList($event)"></span>
+						<search-list-checkbox [filter]="filter" [bucket]="bucket" (change)="triggerChange()"></search-list-checkbox>
+						<div class="search-list__inner-list" [class.open]="bucket.open" *ngIf="bucket.children">
+							<ng-container *ngFor="let childrenLvl2 of bucket.children; trackBy: trackByKey">
+								<div class="search-list__list-item nested">
+									<span class="search-list__list-item-nested-icon" [class.open]="childrenLvl2.open" (click)="toggleSubList($event)"></span>
+									<search-list-checkbox [filter]="filter" [bucket]="childrenLvl2" (change)="triggerChange()"></search-list-checkbox>
+									<div class="search-list__inner-list" *ngIf="childrenLvl2.children" [class.open]="childrenLvl2.open">
+										<ng-container *ngFor="let childrenLvl3 of childrenLvl2.children; trackBy: trackByKey">
+											<div class="search-list__list-item nested">
+												<span class="search-list__list-item-nested-icon" [class.open]="childrenLvl3.open" (click)="toggleSubList($event)"></span>
+												<search-list-checkbox [filter]="filter" [bucket]="childrenLvl3" (change)="triggerChange()"></search-list-checkbox>
+												<div class="search-list__inner-list" *ngIf="childrenLvl3.children" [class.open]="childrenLvl3.open">
+													<ng-container *ngFor="let childrenLvl4 of childrenLvl3.children; trackBy: trackByKey">
+														<div class="search-list__list-item">
+															<search-list-checkbox [filter]="filter" [bucket]="childrenLvl4" (change)="triggerChange()"></search-list-checkbox>
+														</div>
+													</ng-container>
+												</div>
+											</div>
+										</ng-container>
+									</div>
+								</div>
+							</ng-container>
+						</div>
+					</div>
+				</ng-container>
 			</ng-container>
 		</div>
+		<ng-template #simpleBlock>
+			<div class="search-list__list-content">
+				<ng-container *ngFor="let bucket of filteredList; trackBy: trackByKey">
+					<div class="search-list__list-item" *ngIf="!filter.searchedValue || bucket.key.toLowerCase().includes(filter.searchedValue)">
+						<search-list-checkbox [filter]="filter" [bucket]="bucket" (change)="triggerChange()"></search-list-checkbox>
+					</div>
+				</ng-container>
+			</div>
+		</ng-template>
 		<div class="search-list__list-btn-wrap">
 			<button class="btn btn_clear" (click)="removeItems()">Clear all</button>
 			<button class="btn btn_continue" (click)="closeShowList()">Continue</button>

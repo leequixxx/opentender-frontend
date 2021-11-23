@@ -72,4 +72,11 @@
 			}
 		}
   }
+
+
+	::ng-deep {
+		.select-filters {
+			margin-top: -1px !important;
+		}
+	}
 }
