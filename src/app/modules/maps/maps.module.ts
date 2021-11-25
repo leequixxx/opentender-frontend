@@ -14,6 +14,7 @@ import {NGXLeafletModule} from '../../thirdparty/ngx-leaflet/leaflet.module';
 import {I18nModule} from '../i18n/i18n.module';
 import {PageScrollModule} from '../page-scroll/page-scroll.module';
 import {InfoButtonModule} from '../info-button/info-button.module';
+import {NutsMapRegionComponent} from './nuts-map-region.component';
 
 @NgModule({
 	imports: [
@@ -34,10 +35,12 @@ import {InfoButtonModule} from '../info-button/info-button.module';
 		MapSuppliersComponent,
 		MapBuyersComponent,
 		MapVolumeComponent,
+		NutsMapRegionComponent,
 	],
 	exports: [
 		MapComponent,
 		NUTSMapComponent,
+		NutsMapRegionComponent,
 		MapHomeComponent,
 		MapPortalComponent,
 		MapSuppliersComponent,

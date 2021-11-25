@@ -45,7 +45,7 @@ export class MapHomeComponent {
 	}
 
 	getTitle() {
-		return this.map_companies ? this.i18n.get('Number of Suppliers by Region') : this.i18n.get('Number of Tenders by Region');
+		return this.map_companies ? this.i18n.get('Suppliers by Region') : this.i18n.get('Tenders by Region');
 	}
 
 	formatTooltipCallback(featureProperties) {

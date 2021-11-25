@@ -167,6 +167,7 @@ declare namespace Definitions {
 		metaData?: BodyMetadata;
 		buyerType?: BuyerType;
 		bodyIds?: Array<BuyerBodyId>
+		bidderType?: string
 	}
 	export interface BodyMetadata {
 		foundationDate?: string;
@@ -639,10 +640,12 @@ declare namespace Definitions {
 	export type SizeType = 'BELOW_THE_THRESHOLD' | 'ABOVE_THE_THRESHOLD';
 	export type SupplyType = 'SUPPLIES' | 'WORKS' | 'SERVICES' | 'OTHER';
 	export interface Tender {
-		supplierName: string;
-		supplierAddress: string;
-		supplierId: string;
-		supplierBidderType: string;
+		suppliers?: Array<{
+			name: string;
+			address: string;
+			id: string;
+			bidderType: string;
+		}>
 		/**
 		 * Tender ID
 		 */

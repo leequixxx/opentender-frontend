@@ -13,7 +13,7 @@
 				</div>
 				<div class="container-left-12" *ngIf="region.level<3">
 					<div class="graph-title" i18n>Number of tenders in sub-regions</div>
-					<graph nutsmap [data]="viz.child_regions.data" [level]="region.level+1"></graph>
+					<graph nutsmapregion [data]="viz.child_regions.data" [level]="region.level+1"></graph>
 				</div>
 			</div>
 			<div class="container">

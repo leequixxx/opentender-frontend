@@ -188,7 +188,7 @@
 		<div *ngIf="state.buyer.open" class="container container-padded-large mt_20">
 			<div class="container-left-6" *ngIf="tender.buyers | defined">
 				<div class="info">
-					<tender-body *ngFor="let authority of tender.buyers; let i = index" [body]="authority" [icon]="'icon-library'" [link]="'/authority/'+authority.id"></tender-body>
+					<tender-body class="tender-body" *ngFor="let authority of tender.buyers; let i = index" [body]="authority" [icon]="'icon-library'" [link]="'/authority/'+authority.id"></tender-body>
 				</div>
 			</div>
 			<div class="container-left-6 info">
@@ -223,39 +223,20 @@
 				<div *ngIf="tender.administrators | defined">
 					<h4 class="info__title" i18n>Administrators</h4>
 					<div *ngFor="let admin of tender.administrators">
-						<tender-body [body]="admin"></tender-body>
+						<tender-body class="tender-body" [body]="admin"></tender-body>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<div class="container" *ngIf="!state.supplier.empty">
 		<h3>
 			<collapse-expand [o]="state.supplier"></collapse-expand>
 		</h3>
 		<div *ngIf="state.supplier.open" class="container container-padded-large mt_20">
-			<div class="container-left-6">
+			<div class="container-left-6" *ngIf="tender.suppliers | defined">
 				<div class="info">
-					<div class="info__content">
-						<div class="info__row" *ngIf="tender.supplierName | defined">
-							<h4 class="info__row-label" i18n>Supplier name:</h4>
-							<a  class="info__row-link" routerLink="{{ '/company/' + tender.supplierId }}"><i class="icon-library info__row-icon"></i>{{tender.supplierName | nameGuard}}</a>
-							<div class="info__row-value">{{tender.supplierName | expandUnderlined}}</div>
-						</div>
-						<div class="info__row" *ngIf="tender.supplierAddress | defined">
-							<h4 class="info__row-label" i18n>Supplier address</h4>
-							<div class="info__row-value">{{tender.supplierAddress | expandUnderlined}}</div>
-						</div>
-						<div class="info__row" *ngIf="tender.supplierId | defined">
-							<h4 class="info__row-label" i18n>Supplier body ID</h4>
-							<div class="info__row-value">{{tender.supplierId | expandUnderlined}}</div>
-						</div>
-						<div class="info__row" *ngIf="tender.supplierBidderType | defined">
-							<h4 class="info__row-label" i18n>Supplier bidder type</h4>
-							<div class="info__row-value">{{tender.supplierBidderType | expandUnderlined}}</div>
-						</div>
-					</div>
+					<tender-supplier-body class="tender-body" *ngFor="let company of tender.suppliers; let i = index" [body]="company" [icon]="'icon-library'" [link]="'/company/'+company.id"></tender-supplier-body>
 				</div>
 			</div>
 		</div>
@@ -371,7 +352,7 @@
 									<div class="container-left-8">
 										<div *ngIf="bid.bidders | defined">
 											<div *ngFor="let bidder of bid.bidders">
-												<tender-body [body]="bidder" [icon]="'icon-office'" [link]="'/company/'+bidder.id"></tender-body>
+												<tender-lot-body [body]="bidder" [icon]="'icon-office'" [link]="'/company/'+bidder.id"></tender-lot-body>
 											</div>
 										</div>
 										<div *ngIf="bid.subcontractors | defined">

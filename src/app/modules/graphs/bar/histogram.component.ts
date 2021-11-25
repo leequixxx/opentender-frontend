@@ -127,7 +127,7 @@ export class GraphHistogramComponent implements OnChanges, ISeriesProvider {
 	constructor(private i18n: I18NService) {
 		let year = this.i18n.get('Year');
 		this.lots_in_years.chart.xAxis.label = year;
-		this.lots_in_years.chart.yAxis.label = this.i18n.get('Nr. of Tenders');
+		this.lots_in_years.chart.yAxis.label = this.i18n.get('Number of Tenders');
 		this.sum_prices_in_years.chart.xAxis.label = year;
 		this.sum_prices_in_years.chart.yAxis.label = this.i18n.get(`Volume of Tenders (${this.currencySymbol})`);
 		this.avg_prices_in_years.chart.xAxis.label = year;

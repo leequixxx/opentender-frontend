@@ -169,7 +169,7 @@ export class GraphIndicatorHistogramComponent implements OnChanges, ISeriesProvi
 	constructor(private i18n: I18NService) {
 		let year = this.i18n.get('Year');
 		this.avg_lots_in_years.chart.xAxis.label = year;
-		this.avg_lots_in_years.chart.yAxis.label = this.i18n.get('% of Tenders');
+		this.avg_lots_in_years.chart.yAxis.label = this.i18n.get('Share of Tenders');
 		this.sum_lots_in_years.chart.xAxis.label = year;
 		this.sum_lots_in_years.chart.yAxis.label = this.i18n.get('Number of tenders');
 		this.sum_prices_in_years.chart.xAxis.label = year;

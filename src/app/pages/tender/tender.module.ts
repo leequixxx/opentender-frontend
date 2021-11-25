@@ -2,7 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {routing} from './tender.routing';
-import {CollapseExpandComponent, TenderBodyAddressComponent, TenderBodyComponent, TenderBodyLineComponent, TenderPriceComponent} from './components/tender.components';
+import {
+	CollapseExpandComponent,
+	TenderBodyAddressComponent,
+	TenderBodyComponent,
+	TenderBodyLineComponent, TenderLotBodyComponent,
+	TenderPriceComponent,
+	TenderSupplierBodyComponent
+} from './components/tender.components';
 import {RouterModule} from '@angular/router';
 import {PipesModule} from '../../modules/pipes/pipes.module';
 import {TenderPage} from './tender.component';
@@ -32,7 +39,9 @@ import {InfoButtonModule} from '../../modules/info-button/info-button.module';
 		CollapseExpandComponent,
 		TenderBodyAddressComponent,
 		TenderBodyComponent,
+		TenderSupplierBodyComponent,
 		TenderBodyLineComponent,
+		TenderLotBodyComponent,
 		TenderPriceComponent
 	]
 })

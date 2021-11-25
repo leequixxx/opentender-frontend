@@ -20,7 +20,7 @@ import * as Config from '../../../../../config.dist.js';
 			<div class="graph-toolbar-container">
 				<div class="graph-toolbar">
 					<button class="tool-button" [ngClass]="{down:this.graph==this.cpv_codes_prices}" (click)="this.graph=this.cpv_codes_prices" i18n>Volume ({{currencySymbol}})</button>
-					<button class="tool-button" [ngClass]="{down:this.graph==this.cpv_codes_nr}" (click)="this.graph=this.cpv_codes_nr" i18n>Nr. of Tenders</button>
+					<button class="tool-button" [ngClass]="{down:this.graph==this.cpv_codes_nr}" (click)="this.graph=this.cpv_codes_nr" i18n>Number of Tenders</button>
 				</div>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ export class GraphSectorTreeMap implements OnChanges, ISeriesProvider {
 	graph: IChartTreeMap = this.cpv_codes_prices;
 
 	constructor(private router: Router, private i18n: I18NService) {
-		this.cpv_codes_nr.chart.legend = {title: i18n.get('Nr. of Tenders')};
+		this.cpv_codes_nr.chart.legend = {title: i18n.get('Number of Tenders')};
 		this.cpv_codes_prices.chart.legend = {title: i18n.get(`Volume of Tenders (${this.currencySymbol})`)};
 		this.cpv_codes_nr.chart.i18n = this.i18n.ChartsTranslations;
 		this.cpv_codes_prices.chart.i18n = this.i18n.ChartsTranslations;

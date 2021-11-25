@@ -71,6 +71,9 @@ export class TenderBodyAddressComponent {
 			<div class="info__row" *ngIf="body.buyerType">
 				<span class="info__row-label">{{ body.buyerType | expandUnderlined }}</span>
 			</div>
+			<div class="info__row" *ngIf="body.bidderType">
+				<span class="info__row-label">{{ body.bidderType | expandUnderlined }}</span>
+			</div>
 			<div class="info__row" *ngIf="body.bodyIds">
 				<span class="info__row-label" *ngFor="let bodyId of body.bodyIds">{{ bodyId.type | expandUnderlined }}: {{ bodyId.id }}</span>
 			</div>
@@ -89,6 +92,75 @@ export class TenderBodyComponent {
 	public icon: string;
 }
 
+
+@Component({
+	moduleId: __filename,
+	selector: 'tender-lot-body',
+	styleUrls: ['../tender.component.scss'],
+	template: `
+		<div *ngIf="body" class="info__content">
+			<div class="info__row" *ngIf="link">
+				<span class="info__row-label">Bidder name:</span>
+				<a  class="info__row-link" routerLink="{{link}}"><i *ngIf="icon" class="{{icon}} info__row-icon"></i>{{body.name | nameGuard}}</a>
+			</div>
+			<div class="info__row" *ngIf="!link">
+				<span class="info__row-label">{{body.name | nameGuard}}</span>
+			</div>
+			<div class="info__row" *ngIf="body.bidderType">
+				<span class="info__row-label">{{ body.bidderType | expandUnderlined }}</span>
+			</div>
+			<div class="info__row" *ngIf="body.bodyIds">
+				<span class="info__row-label" *ngFor="let bodyId of body.bodyIds">{{ bodyId.type | expandUnderlined }}: {{ bodyId.id }}</span>
+			</div>
+			<div class="info__row" *ngIf="body.address">
+				<tender-body-address [address]="body.address"></tender-body-address>
+			</div>
+		</div>
+	`
+})
+export class TenderLotBodyComponent {
+	@Input()
+	public body: Body;
+	@Input()
+	public link: string;
+	@Input()
+	public icon: string;
+}
+
+@Component({
+	moduleId: __filename,
+	selector: 'tender-supplier-body',
+	styleUrls: ['../tender.component.scss'],
+	template: `
+		<div *ngIf="body" class="info__content">
+			<div class="info__row" *ngIf="link">
+				<span class="info__row-label">Supplier name:</span>
+				<a  class="info__row-link" routerLink="{{link}}"><i *ngIf="icon" class="{{icon}} info__row-icon"></i>{{body.name | nameGuard}}</a>
+			</div>
+			<div class="info__row" *ngIf="!link">
+				<span class="info__row-label">{{body.name | nameGuard}}</span>
+			</div>
+			<div class="info__row" *ngIf="body.bidderType">
+				<span class="info__row-label">{{ body.bidderType | expandUnderlined }}</span>
+			</div>
+			<div class="info__row" *ngIf="body.bodyIds">
+				<span class="info__row-label" *ngFor="let bodyId of body.bodyIds">{{ bodyId.type | expandUnderlined }}: {{ bodyId.id }}</span>
+			</div>
+			<div class="info__row" *ngIf="body.address">
+				<span class="info__row-label">{{ body.address }}</span>
+			</div>
+		</div>
+	`
+})
+
+export class TenderSupplierBodyComponent {
+	@Input()
+	public body: Body;
+	@Input()
+	public link: string;
+	@Input()
+	public icon: string;
+}
 @Component({
 	moduleId: __filename,
 	selector: 'tender-body-line',

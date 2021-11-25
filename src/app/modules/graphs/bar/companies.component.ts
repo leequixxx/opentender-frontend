@@ -113,7 +113,7 @@ export class GraphCompaniesComponent implements OnChanges, ISeriesProvider {
 	graph = this.companies_absolute;
 
 	constructor(private router: Router, private i18n: I18NService) {
-		this.companies_absolute.chart.xAxis.label = this.i18n.get('Nr. of Tenders');
+		this.companies_absolute.chart.xAxis.label = this.i18n.get('Number of Tenders');
 		this.companies_absolute.chart.yAxis.label = this.i18n.get('Supplier');
 		this.companies_volume.chart.xAxis.label = this.i18n.get(`Total Volume of Tenders (${this.currencySymbol})`);
 		this.companies_volume.chart.yAxis.label = this.i18n.get('Supplier');

@@ -21,6 +21,11 @@
 		}
 	}
 
+	.tender-body + .tender-body {
+		display: block;
+		margin-top: 16px;
+	}
+
 	.container {
 		margin-top: 30px;
 
@@ -52,6 +57,10 @@
       }
     }
   }
+
+	.container-left-10 {
+		padding: 0;
+	}
 
   .info-foi {
     font-size: 0.8em;
@@ -144,9 +153,7 @@
 
   .lot {
     margin-top: 14px;
-    div {
-      padding-bottom: 0;
-    }
+
     h4 {
       margin-top: 0;
     }

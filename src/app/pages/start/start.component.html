@@ -26,7 +26,7 @@
 			<portal-map [portals]="portals"></portal-map>
 		</div>
 		<div class="container-left-6">
-			<div class="portal-links-legend" i18n>Nr. of Tenders</div>
+			<div class="portal-links-legend" i18n>Number of Tenders</div>
 			<ul class="portal-links">
 				<li class="portal-link" *ngFor="let portal of portals" [ngClass]="{active:portal.id===current.id}">
 					<a [routerLink]="['/']" *ngIf="portal.id===current.id">{{portal.name}}</a>
