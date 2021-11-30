@@ -8,6 +8,8 @@ import {Component, Input, EventEmitter, Output, OnChanges, SimpleChanges} from '
 })
 export class SelectYearRangeComponent implements OnChanges {
 	@Input() years: Array<number>;
+	@Input() typeYear: boolean = false;
+	@Input() small: boolean = false;
 	@Output('onRangeChange') onRangeChange = new EventEmitter();
 
 	public minYear: number = 0;

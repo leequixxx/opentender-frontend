@@ -1,6 +1,10 @@
 label {
 	margin-bottom: 40px;
 	font-weight: 700;
+
+	&.m0 {
+		margin: 0;
+	}
 }
 
 .select-range-values {

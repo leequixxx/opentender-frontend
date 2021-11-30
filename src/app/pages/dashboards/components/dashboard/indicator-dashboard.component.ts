@@ -52,7 +52,7 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	private firstInit = true;
 	public map_data: IStatsNuts = {};
 
-	public search_title = ''
+	public search_title = 'Search';
 
 	constructor(private api: ApiService,
 							private i18n: I18NService,
@@ -366,13 +366,6 @@ export class DashboardsIndicatorComponent implements OnChanges {
 		}
 		return filters;
 	}
-
-	// search() {
-	// 	this.search_cmd = {
-	// 		filters: this.buildFilters(true)
-	// 	};
-	// }
-
 	searchChange(data: ISearchResultTender) {
 		this.search.fillAggregationResults(data.aggregations);
 
@@ -384,5 +377,8 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	}
 	private saveDataToStorage(data) {
 		localStorage.setItem(JSON.stringify(location.pathname) + this.storageId, JSON.stringify(data));
+	}
+	get averageScore(): number {
+		return this.viz && this.viz.scores && this.viz.scores.score && this.viz.scores.score.data && this.viz.scores.score.data.length ? this.viz.scores.score.data[0].value : 0;
 	}
 }

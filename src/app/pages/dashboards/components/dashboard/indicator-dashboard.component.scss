@@ -14,12 +14,12 @@
 	}
 
 	label {
+		height: 28px;
 		&.mb {
-			&_40 {
-				margin-bottom: 40px;
+			&_20 {
+				margin-bottom: 20px;
 			}
 		}
-
 		&.fw {
 			&_700 {
 				font-weight: 700;
@@ -28,7 +28,7 @@
 	}
 
   .dialog-button {
-    float: right;
+    margin-left: auto;
   }
 
   .weight-selects {
@@ -73,10 +73,39 @@
 		}
   }
 
+	.graph-title.average {
+		display: flex;
+		align-items: center;
+		min-height: auto;
+		max-height: initial;
+		padding: 20px 0 10px;
+		border-bottom: 1px solid $blue;
+	}
+
+	.graph-title-content {
+		font-size: 28px;
+		margin-top: 6px;
+	}
+
+	.graph-title-score {
+		font-weight: 400;
+	}
 
 	::ng-deep {
-		.select-filters {
-			margin-top: -1px !important;
+		.form-subindicator {
+			background-position: 96% 50%;
+		}
+		.search-filter-buttons {
+			border-bottom: 1px solid $blue;
+			padding-bottom: 10px;
+			h1 {
+				font-size: 28px;
+				line-height: 67px;
+			}
+
+			.select-filter-btn {
+				margin-left: auto !important;
+			}
 		}
 	}
 }

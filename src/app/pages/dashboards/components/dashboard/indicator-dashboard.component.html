@@ -8,24 +8,21 @@
 		<search-box [search]="search" [filters]="filters" [search_title]="search_title" (onChange)="filtersChange()" (reset)="setDefaultStats()"></search-box>
 	</div>
 	<div class="container container-margin">
-		<div class="container-left-12">
-			<label class="mb_40 fw_700" i18n>Score Range</label>
+		<div class="container-left-4">
+			<label class="fw_700" i18n>Score Range</label>
 			<slider
 				[min]="0"
 				[max]="100"
 				[startValue]="0"
 				[endValue]="100"
-				stepValue="10"
-				defaultWidth="934"
+				[typeCount]="true"
 				(onSliderChange)="onScoreSliderChange($event)"></slider>
 		</div>
-	</div>
-	<div class="container container-margin" style="position: relative; z-index: 2">
-		<div class="container-left-12">
-			<select-year-range [years]="viz.scores.years.data" (onRangeChange)="onYearRangeSliderChange($event)"></select-year-range>
+		<div class="container-left-4">
+			<select-year-range [typeYear]="true" [small]="true" [years]="viz.scores.years.data" (onRangeChange)="onYearRangeSliderChange($event)"></select-year-range>
 		</div>
-		<div class="form-group">
-			<label for="subindicator" i18n>
+		<div class="container-left-4">
+			<label for="subindicator" class="mb_20 fw_700" i18n>
 				Sub-Indicators
 				<info-button>
 					<p *ngFor="let text of tooltips[pageID].adjustWeights">{{text}}</p>
@@ -35,27 +32,24 @@
 				<option [ngValue]="null">[<ng-container i18n>All sub-indicators</ng-container>]</option>
 				<option *ngFor="let sub of subindicators" [ngValue]="sub">{{sub.name}}</option>
 			</select>
-			<div *ngIf="!selected && subindicators.length>1" class="dialog-button" (click)="toggleDialog()">
-				<button class="btn btn_main select-filter-btn">
-					Adjust Weights
-				</button>
-			</div>
 		</div>
 	</div>
 	<div [ngClass]="{'is-loading': loading>0}" style="position: relative; z-index: 1">
 		<div class="container">
 			<div class="container-left-12">
-				<div class="graph-title" i18n>
-					Average Score of {{indicatorTitle}}
+				<div class="graph-title average" i18n>
+					<span class="graph-title-content">Average Score of {{indicatorTitle}}: <span class="graph-title-score">{{ averageScore }}</span></span>
 					<info-button>
 						<p *ngFor="let text of tooltips[pageID].averageScoreOfIndicators">{{text}}</p>
 					</info-button>
+					<div *ngIf="!selected && subindicators.length>1" class="dialog-button" (click)="toggleDialog()">
+						<button class="btn btn_main select-filter-btn">
+							Adjust Weights
+						</button>
+					</div>
 				</div>
 			</div>
-			<div class="container-left-3">
-				<graph score-grid [data]="viz.scores.score.data"></graph>
-			</div>
-			<div class="container-left-9">
+			<div class="container-left-12">
 				<graph indicator-structure [data]="viz.scores.terms_indicators_score.data" [weights]="filterWeights" (onSelect)="selectIndicatorChange($event)" [glossary]="'#'+(selected?selected.id:indicator.id)"></graph>
 			</div>
 		</div>
