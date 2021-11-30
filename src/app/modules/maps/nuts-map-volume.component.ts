@@ -7,10 +7,10 @@ import * as Config from '../../../../config.dist.js';
 	selector: 'graph[volume-nutsmap]',
 	template: `
 		<div class="graph-title" i18n>
-			Volume ({{currencySymbol}}) by Region
+			Tenders by Region
 			<info-button>
 				<p>
-					The map shows the volume of contracts awarded by regions in KES. Click on one area to view more details on public procurement in that region.<br>
+					The map showing the number of contracts in the region. Click on one area to view more details on public procurement in that region.<br>
 					Region information was assigned using raw addresses published on the original source, for more details see the Data Explainer on the About page.
 				</p>
 			</info-button>

@@ -117,7 +117,7 @@ export class DashboardsMarketAnalysisPage implements OnInit, OnDestroy {
 		viz.sectors_stats.data = stats.sectors_stats;
 		viz.volume_regions.data = {};
 		stats.region_stats.forEach(region => {
-			viz.volume_regions.data[region.id] = { value: region.stats.sum_finalPriceEUR.value || 0 };
+			viz.volume_regions.data[region.id] = { count: region.value, value: region.stats.sum_finalPriceEUR.value || 0 };
 		});
 		viz.score_in_years.data = stats.histogram_indicators['TENDER'] || {};
 		viz.score_in_sectors.data = stats.terms_main_cpv_divisions_score;
