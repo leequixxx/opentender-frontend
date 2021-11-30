@@ -142,9 +142,9 @@ export class I18NService {
 			let scaled = value / scale;
 
 			// format number and add prefix as suffix
-			return scaled.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ' ' + this.getLargeNumberName(tier, scaled);
+			return scaled.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + ' ' + this.getLargeNumberName(tier, scaled);
 		}
-		return value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
+		return value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 	}
 
 	public formatCurrency(value: string) {
@@ -159,14 +159,14 @@ export class I18NService {
 		return value;
 	}
 
-	public formatCurrencyValue(value: number, fractionSize: number = 2) {
+	public formatCurrencyValue(value: number, fractionSize: number = 0) {
 		if (value === undefined) {
 			return '';
 		}
 		return this.formatValue(value);
 	}
 
-	public formatCurrencyValueEUR(value: number, fractionSize: number = 2) {
+	public formatCurrencyValueEUR(value: number, fractionSize: number = 0) {
 		if (value === undefined) {
 			return '';
 		}
