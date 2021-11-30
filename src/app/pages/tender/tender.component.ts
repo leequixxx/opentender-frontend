@@ -163,7 +163,7 @@ export class TenderPage implements OnInit, OnDestroy {
 			this.tender = tender;
 			this.state.reqs.empty = !this.objHasProperty(tender, ['personalRequirements', 'economicRequirements', 'technicalRequirements', 'eligibilityCriteria']);
 			this.state.buyer.empty = !this.objHasProperty(tender, ['buyers', 'onBehalfOf', 'furtherInformationProvider', 'specificationsProvider', 'bidsRecipient', 'appealBodyName', 'mediationBodyName', 'administrators']);
-			this.state.supplier.empty = !this.objHasProperty(tender, ['name', 'address', 'id', 'bidderType']);
+			this.state.supplier.empty = !this.tender.suppliers.length || !this.objHasProperty(tender, ['name', 'address', 'id', 'bidderType']);
 			this.state.lots.empty = !Utils.isDefined(tender.lots);
 			this.state.publications.empty = !Utils.isDefined(tender.publications);
 			this.state.documents.empty = !Utils.isDefined(tender.documents);

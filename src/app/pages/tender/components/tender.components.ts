@@ -92,7 +92,6 @@ export class TenderBodyComponent {
 	public icon: string;
 }
 
-
 @Component({
 	moduleId: __filename,
 	selector: 'tender-lot-body',
