@@ -3,9 +3,9 @@ import {INestedType, ISearchFilterDef, ISearchFilterDefType} from '../app.interf
 
 export const TenderFilterDefs: Array<ISearchFilterDef> = [
 	{
-		id: 'buyers.name',
+		id: 'buyers.name.raw',
 		name: 'Name',
-		field: 'buyers.name',
+		field: 'buyers.name.raw',
 		group: 'Buyer',
 		type: ISearchFilterDefType.select,
 		size: 10000
@@ -38,9 +38,9 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		size: 10000
 	},
 	{
-		id: 'lots.bids.bidders.name',
+		id: 'lots.bids.bidders.name.raw',
 		name: 'Name',
-		field: 'lots.bids.bidders.name',
+		field: 'lots.bids.bidders.name.raw',
 		group: 'Supplier',
 		type: ISearchFilterDefType.select,
 		size: 10000
@@ -53,9 +53,9 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		type: ISearchFilterDefType.value
 	},
 	{
-		id: 'title',
+		id: 'title.raw',
 		name: 'Title',
-		field: 'title',
+		field: 'title.raw',
 		group: 'Tender',
 		type: ISearchFilterDefType.select,
 		size: 10000,

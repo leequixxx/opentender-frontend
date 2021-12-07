@@ -6,12 +6,12 @@ import {I18NService} from '../../../../modules/i18n/services/i18n.service';
 	selector: 'search-list-checkbox',
 	templateUrl: 'search-list-checkbox.html',
 	styleUrls: ['search-list-checkbox.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchListCheckbox {
 	@Input() filter: ISearchFilter;
 	@Input() bucket: ISearchResultBucket;
-	@Output() change: EventEmitter<string> = new EventEmitter<string>()
+	@Input() children: ISearchResultBucket[] = [];
+	@Output() change: EventEmitter<string> = new EventEmitter<string>();
 
 	constructor(public i18n: I18NService) {
 	}
@@ -28,8 +28,20 @@ export class SearchListCheckbox {
 		}
 		return bucket.key;
 	}
+	private setStates(buckets, state) {
+		buckets.forEach(b => {
+			this.filter.enabled[b.key] = state;
+			if (b.children) {
+				this.setStates(b.children, state);
+			}
+		});
+	}
 
-	public triggerChange() {
-		this.change.emit('')
+	public triggerChange(key) {
+		if (this.children) {
+			const state = this.filter.enabled[key];
+			this.setStates(this.children, state);
+		}
+		this.change.emit('');
 	}
 }

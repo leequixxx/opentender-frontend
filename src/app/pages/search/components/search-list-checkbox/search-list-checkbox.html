@@ -1,6 +1,6 @@
 <label class="checkbox">
 	<span class="checkbox-mirror" [class.checked]="filter.enabled[bucket.key]"></span>
-	<input class="hidden" type="checkbox" [(ngModel)]="filter.enabled[bucket.key]" (ngModelChange)="triggerChange()">
+	<input class="hidden" type="checkbox" [(ngModel)]="filter.enabled[bucket.key]" (ngModelChange)="triggerChange(bucket.key)">
 	<span class="checkbox-columns">
 		<span class="value" title="{{ getValueTitle(bucket,filter) }}">{{ getValueTitle(bucket,filter) }}</span>
 	</span>
