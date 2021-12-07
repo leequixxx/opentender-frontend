@@ -234,14 +234,14 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 		id: 'body.name.raw',
 		name: 'Name',
 		field: 'body.name.raw',
-		group: 'Authority',
+		group: 'Supplier',
 		type: ISearchFilterDefType.select,
 		size: 10000
 	},
 	{
 		id: 'body.contractsCount',
 		name: 'Contracts count',
-		group: 'Authority',
+		group: 'Supplier',
 		field: 'body.contractsCount',
 		type: ISearchFilterDefType.range,
 		typeCount: true
@@ -249,7 +249,7 @@ export const CompanyFilterDefs: Array<ISearchFilterDef> = [
 	{
 		id: 'body.company.totalValueOfContracts',
 		name: 'Total value of contracts',
-		group: 'Authority',
+		group: 'Supplier',
 		field: 'body.company.totalValueOfContracts',
 		type: ISearchFilterDefType.range,
 		bigInt: true,
@@ -351,7 +351,7 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 	{
 		id: 'body.name.raw',
 		name: 'Name',
-		group: 'Authority',
+		group: 'Buyer',
 		field: 'body.name.raw',
 		type: ISearchFilterDefType.select,
 		size: 10000
@@ -359,7 +359,7 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 	{
 		id: 'body.buyerType',
 		name: 'Buyer Type',
-		group: 'Authority',
+		group: 'Buyer',
 		field: 'body.buyerType',
 		type: ISearchFilterDefType.select,
 		valueFormatter: Utils.expandUnderlined,
@@ -368,7 +368,7 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 	{
 		id: 'body.contractsCount',
 		name: 'Contracts count',
-		group: 'Authority',
+		group: 'Buyer',
 		field: 'body.contractsCount',
 		type: ISearchFilterDefType.range,
 		typeCount: true
@@ -376,7 +376,7 @@ export const AuthorityFilterDefs: Array<ISearchFilterDef> = [
 	{
 		id: 'body.company.totalValueOfContracts',
 		name: 'Total value of contracts',
-		group: 'Authority',
+		group: 'Buyer',
 		field: 'body.company.totalValueOfContracts',
 		type: ISearchFilterDefType.range,
 		bigInt: true,
