@@ -197,7 +197,7 @@ export const TenderFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Dates',
 		field: 'lots.awardDecisionDate',
 		typeYear: true,
-		type: ISearchFilterDefType.range,
+		type: ISearchFilterDefType.years,
 	},
 	{
 		id: 'lots.awardDecisionDate',
