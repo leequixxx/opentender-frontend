@@ -65,21 +65,22 @@ export class NUTSMapComponent implements OnChanges, ISeriesProvider {
 		Object.keys(this.data).forEach(key => {
 			let nutskey = Utils.validateNutsCode(key, this.level);
 			let nut = nuts[nutskey];
-			if (!nut) {
+			if (!nut && this.data[nutskey]) {
 				nut = {
 					id: nutskey,
 					feature: geo.features.find(f => f.properties.id === nutskey),
 					value: 0,
-					gradientValue: this.data[key].count
+					gradientValue: this.data[nutskey].count
 				};
 				nuts[nutskey] = nut;
+
+				nut.value = `
+					<br>
+					<span>Count: ${this.data[nutskey].count}</span>
+					<br>
+					<span>Value: ${this.data[nutskey].value}</span>
+				`;
 			}
-			nut.value = `
-			<br>
-			<span>Count: ${this.data[key].count}</span>
-			<br>
-			<span>Value: ${this.data[key].value}</span>
-			`;
 		});
 		let max = 0;
 		let min = 0;
