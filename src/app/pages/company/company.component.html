@@ -14,18 +14,20 @@
 			<div class="info-links">
 				<div class="info-link-box">
 					<ng-container i18n>Link</ng-container>
-<!--					<ng-container i18n>Search this company at</ng-container>-->
-<!--					<br>-->
-<!--					<a target="_blank" rel="noopener" href="https://register.openownership.org/search?utf8=%E2%9C%93&q={{ company.name | encodeURIComponent }}"><i class="icon-new-tab"></i> OpenOwnership.org</a><br>-->
-<!--					<a target="_blank" rel="noopener" href="https://lobbyfacts.eu/search/node/{{ company.name | encodeURIComponent }}"><i class="icon-new-tab"></i> LobbyFacts.eu</a>-->
-<!--					<a target="_blank" rel="noopener" href="http://farmsubsidy.openspending.org/search/?q={{ company.name | encodeURIComponent }}"><i class="icon-new-tab"></i> FarmSubsidy.org</a>-->
 				</div>
-<!--				<div class="info-link-box" *ngIf="country.foi">-->
-<!--					<ng-container i18n>Find Freedom of Information requests at</ng-container>-->
-<!--					<br>-->
-<!--					<a target="_blank" rel="noopener" href="{{ company.name | foiSearchLink: country }}"><i class="icon-new-tab"></i> {{country.foi.name}}</a>-->
-<!--				</div>-->
 			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="container-left-12">
+			<graph indicator-structure [data]="transparencyIndicators" [title]="'Average Score of Transparency: ' + (company.indicator && company.indicator.transparencyIndicatorCompositionScore ? (company.indicator.transparencyIndicatorCompositionScore | formatNumber) : 0)"></graph>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="container-left-12">
+			<graph indicator-structure [data]="integrityIndicators" [title]="'Average Score of Integrity: ' + (company.indicator && company.indicator.integrityIndicatorCompositionScore ? (company.indicator.integrityIndicatorCompositionScore | formatNumber)  : 0)"></graph>
 		</div>
 	</div>
 

@@ -11,6 +11,7 @@ import {REGION_BENCHMARK} from '../../model/gradLegend';
 /// <reference path="./model/tender.d.ts" />
 import Body = Definitions.Body;
 import {I18NService} from '../../modules/i18n/services/i18n.service';
+import Indicator = Definitions.Indicator;
 
 @Component({
 	moduleId: __filename,
@@ -30,6 +31,9 @@ export class CompanyPage implements OnInit, OnDestroy {
 	public notFound: boolean = false;
 	private subscription: any;
 	public REGION_BENCHMARK = REGION_BENCHMARK;
+	public indicators: {[name: string]: number} = {};
+	public transparencyIndicators: {[name: string]: number} = {};
+	public integrityIndicators: {[name: string]: number} = {};
 
 	public viz: {
 		authority_nuts: { data: IStatsNuts, title?: string };
@@ -162,6 +166,17 @@ export class CompanyPage implements OnInit, OnDestroy {
 	display(data: { company: ICompany }): void {
 		if (data && data.company && data.company.body) {
 			this.company = data.company.body;
+			this.indicators = data.company.ot.indicators
+				.filter(indicator => indicator.status === 'CALCULATED')
+				.map(indicator => ([indicator.type, indicator.value]))
+				.reduce((prev, curr) => {
+					const prop = {};
+					prop[curr[0]] = curr[1];
+					const result = {...prev, ...prop};
+					return result;
+				}, {});
+			this.transparencyIndicators = this.getIndicatorByPrefix('TRANSPARENCY');
+			this.integrityIndicators = this.getIndicatorByPrefix('INTEGRITY');
 			this.buildBenchmarkFilter();
 			this.titleService.set(this.company.name);
 			this.getSimilars(this.company.id);
@@ -235,5 +250,14 @@ export class CompanyPage implements OnInit, OnDestroy {
 
 	public setDefaultColumns() {
 		this.columnIds = this.defaultColumns;
+	}
+	public getIndicatorByPrefix(prefix) {
+		const result = {...this.indicators};
+		Object.keys(result).forEach(key => {
+			if (!key.includes(prefix)) {
+				delete result[key];
+			}
+		});
+		return result;
 	}
 }

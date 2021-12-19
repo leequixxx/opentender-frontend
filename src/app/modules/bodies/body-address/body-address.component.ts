@@ -29,7 +29,7 @@ export class BodyAddressComponent {
 					this.nutsCode = result[this.address.ot.nutscode];
 				},
 				(error) => {
-					this.nutsCode = `NUTS ${this.address.ot.nutscode}`;
+					this.nutsCode = `NUTS ${this.address && this.address.ot && this.address.ot.nutscode ? this.address.ot.nutscode : ''}`;
 				},
 				() => {
 					sub.unsubscribe();

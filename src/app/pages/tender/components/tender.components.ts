@@ -43,10 +43,10 @@ export class TenderBodyAddressComponent {
 		this.subscription = this.route.params.subscribe(params => {
 			let sub = this.api.getNutsNames().subscribe(
 				(result) => {
-					this.nutsCode = this.address && this.address.ot ? result[this.address.ot.nutscode] : '';
+					this.nutsCode = this.address && this.address.ot && this.address.ot.nutscode ? result[this.address.ot.nutscode] : '';
 				},
 				(error) => {
-					this.nutsCode = `NUTS ${this.address.ot.nutscode}`;
+					this.nutsCode = `NUTS ${this.address && this.address.ot && this.address.ot.nutscode ? this.address.ot.nutscode : ''}`;
 				},
 				() => {
 					sub.unsubscribe();

@@ -18,13 +18,20 @@
 			<div class="info-links">
 				<div class="info-link-box">
 					<ng-container i18n>Link<!--Search this authority at--></ng-container><br>
-<!--					<a target="_blank" rel="noopener" href="http://farmsubsidy.openspending.org/search/?q={{ authority.name | encodeURIComponent }}"><i class="icon-new-tab"></i> FarmSubsidy.org</a>-->
 				</div>
-<!--				<div class="info-link-box" *ngIf="country.foi">-->
-<!--					<ng-container i18n>Find Freedom of Information requests</ng-container><br>-->
-<!--					<a target="_blank" rel="noopener" href="{{ authority.name | foiSearchLink: country }}"><i class="icon-new-tab"></i> {{country.foi.name}}</a>-->
-<!--				</div>-->
 			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="container-left-12">
+			<graph indicator-structure [data]="transparencyIndicators" [title]="'Average Score of Transparency: ' + (authority.indicator && authority.indicator.transparencyIndicatorCompositionScore ? (authority.indicator.transparencyIndicatorCompositionScore | formatNumber) : 0)"></graph>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="container-left-12">
+			<graph indicator-structure [data]="integrityIndicators" [title]="'Average Score of Integrity: ' + (authority.indicator && authority.indicator.integrityIndicatorCompositionScore ? (authority.indicator.integrityIndicatorCompositionScore | formatNumber) : 0)"></graph>
 		</div>
 	</div>
 

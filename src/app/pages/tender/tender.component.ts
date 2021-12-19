@@ -178,8 +178,8 @@ export class TenderPage implements OnInit, OnDestroy {
 			let vals = {};
 			let scores = {};
 			let indicators = {};
-			if (tender.indicators) {
-				tender.indicators.forEach(indicator => {
+			if (tender.ot.indicators) {
+				tender.ot.indicators.forEach(indicator => {
 					if (indicator.status === 'CALCULATED') {
 						vals[indicator.type] = indicator.value;
 						const ig = this.indicators.getGroupOf(indicator.type);

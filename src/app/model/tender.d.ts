@@ -166,8 +166,9 @@ declare namespace Definitions {
 		address?: Address;
 		metaData?: BodyMetadata;
 		buyerType?: BuyerType;
-		bodyIds?: Array<BuyerBodyId>
-		bidderType?: string
+		bodyIds?: Array<BuyerBodyId>;
+		bidderType?: string;
+		indicator?: {integrityIndicatorCompositionScore: number, transparencyIndicatorCompositionScore: number};
 	}
 	export interface BodyMetadata {
 		foundationDate?: string;
@@ -926,7 +927,8 @@ declare namespace Definitions {
 		corrections?: Correction[];
 		documentsLocation?: Address;
 		ot?: {
-		indicator?: {
+			indicators?: Indicator[];
+			indicator?: {
 			INTEGRITY_SINGLE_BID?: IndicatorValue;
 			INTEGRITY_CALL_FOR_TENDER_PUBLICATION?: IndicatorValue;
 			INTEGRITY_ADVERTISEMENT_PERIOD?: IndicatorValue;

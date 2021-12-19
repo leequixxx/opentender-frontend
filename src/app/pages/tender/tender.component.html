@@ -152,12 +152,12 @@
 		</div>
 	</div>
 
-	<div class="container" *ngIf="tender.indicators | defined">
+	<div class="container" *ngIf="tender.ot.indicators | defined">
 		<h3>
 			<collapse-expand [o]="state.indi"></collapse-expand>
 		</h3>
 		<div *ngIf="state.indi.open" class="">
-			<div *ngIf="tender.indicators.length===0" i18n>There are no Indicators for this Tender</div>
+			<div *ngIf="tender.ot.indicators.length===0" i18n>There are no Indicators for this Tender</div>
 			<div *ngFor="let group of viz.indicator_groups">
 				<div class="graph-title">
 					{{group.title}}

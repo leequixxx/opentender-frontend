@@ -5,6 +5,7 @@ import Buyer = Definitions.Buyer;
 import {Country} from './services/config.service';
 import {IChartData} from './thirdparty/ngx-charts-universal/chart.interface';
 import {FeatureCollection, GeometryObject} from 'geojson';
+import Indicator = Definitions.Indicator;
 
 /* data objects from api */
 
@@ -28,6 +29,7 @@ export interface IAuthority {
 	countries: Array<string>;
 	value?: number;
 	sector?: string;
+	ot: {indicators: Indicator[]};
 }
 
 export interface ICompany {
@@ -36,6 +38,7 @@ export interface ICompany {
 	countries: Array<string>;
 	value?: number;
 	sector?: string;
+	ot: {indicators: Indicator[]};
 }
 
 export interface IDownload {

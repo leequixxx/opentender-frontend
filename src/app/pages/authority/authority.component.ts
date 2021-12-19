@@ -29,6 +29,9 @@ export class AuthorityPage implements OnInit, OnDestroy {
 	private subscription: any;
 	private include_authorities_ids: Array<string> = [];
 	public similar: Array<Body> = [];
+	public indicators: {[name: string]: number} = {};
+	public transparencyIndicators: {[name: string]: number} = {};
+	public integrityIndicators: {[name: string]: number} = {};
 
 	public viz: {
 		top_companies: { data: { absolute: IStatsCompanies, volume: IStatsCompanies }, title?: string };
@@ -115,6 +118,17 @@ export class AuthorityPage implements OnInit, OnDestroy {
 	display(data: { authority: IAuthority }): void {
 		if (data && data.authority) {
 			this.authority = data.authority.body;
+			this.indicators = data.authority.ot.indicators
+				.filter(indicator => indicator.status === 'CALCULATED')
+				.map(indicator => ([indicator.type, indicator.value]))
+				.reduce((prev, curr) => {
+					const prop = {};
+					prop[curr[0]] = curr[1];
+					const result = {...prev, ...prop};
+					return result;
+				}, {});
+			this.transparencyIndicators = this.getIndicatorByPrefix('TRANSPARENCY');
+			this.integrityIndicators = this.getIndicatorByPrefix('INTEGRITY');
 			this.buildBenchmarkFilter();
 			this.titleService.set(this.authority.name);
 			this.getSimilars(this.authority.id);
@@ -236,5 +250,14 @@ export class AuthorityPage implements OnInit, OnDestroy {
 
 	public setDefaultColumns() {
 		this.columnIds = this.defaultColumns;
+	}
+	public getIndicatorByPrefix(prefix) {
+		const result = {...this.indicators};
+		Object.keys(result).forEach(key => {
+			if (!key.includes(prefix)) {
+				delete result[key];
+			}
+		});
+		return result;
 	}
 }
