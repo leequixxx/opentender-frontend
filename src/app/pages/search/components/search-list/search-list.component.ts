@@ -125,6 +125,7 @@ export class SearchListComponent {
 	}
 
 	get filteredList() {
+		this.filter.buckets = this.filter.buckets.sort((a, b) => a.key.localeCompare(b.key));
 		if (!this.filter.def.nestedType) {
 			return !this.searchValue ? this.filter.buckets : this.filter.buckets.filter(b => this.isItemIncludesValue(b));
 		}
