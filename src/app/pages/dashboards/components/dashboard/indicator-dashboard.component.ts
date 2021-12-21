@@ -26,7 +26,6 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	@Input() pageDescription = [''];
 	@Input() pageID = '';
 	public currencySymbol = Config.currencySymbol;
-	// private icon: string = '';
 	@Input() searchPrefix: string = '';
 	private searchScore: [number, number] = [0, 100];
 	public filterWeights: ISearchCommandWeights = null;
@@ -64,7 +63,6 @@ export class DashboardsIndicatorComponent implements OnChanges {
 		this.search.build(this.filters.filter(isSearchDef), this.filters.filter(def => {
 			return this.filterIds.indexOf(def.id) >= 0;
 		}));
-		// this.setTitle();
 	}
 
 	public filtersChange() {
@@ -106,7 +104,6 @@ export class DashboardsIndicatorComponent implements OnChanges {
 		} else {
 			this.refresh();
 		}
-		// this.icon = this.indicator.icon;
 		this.subindicators = this.indicator.subindicators;
 		this.displayIndicatorTitles();
 	}
@@ -193,12 +190,11 @@ export class DashboardsIndicatorComponent implements OnChanges {
 		this.search_cmd = this.getCommand(this.search.getCommand());
 		this.visualizeScores();
 		this.visualizeRanges();
-		// this.search();
 	}
 
 	public getCommand(cmd) {
-		cmd.filters = [...cmd.filters, ...this.buildFilters(true)]
-		return cmd
+		cmd.filters = [...cmd.filters, ...this.buildFilters()];
+		return cmd;
 	}
 
 	onScoreSliderChange(event) {
@@ -267,7 +263,6 @@ export class DashboardsIndicatorComponent implements OnChanges {
 
 	visualizeScores() {
 		let filters = this.search_cmd.filters;
-		// let filters = [...this.search_cmd.filters, ...this.buildFilters(false)];
 		this.loading++;
 		// @ts-ignore
 		let cmd: ISearchCommand = {filters: filters};
@@ -286,7 +281,6 @@ export class DashboardsIndicatorComponent implements OnChanges {
 
 	visualizeRanges() {
 		let filters = this.search_cmd.filters;
-		// let filters = [...this.search_cmd.filters, ...this.buildFilters(true)];
 		this.loading++;
 		let cmd: ISearchCommand = {filters: filters};
 		let sub = this.api.getIndicatorRangeStats(cmd).subscribe(
@@ -303,56 +297,39 @@ export class DashboardsIndicatorComponent implements OnChanges {
 			});
 	}
 
-	buildFilters(inRange: boolean) {
+	buildFilters() {
 		let filter: ISearchCommandFilter;
-		if (inRange) {
-			if (!this.selected) {
-				if (!this.filterWeights) {
-					filter = {
-						field: 'ot.scores.type',
-						type: 'term',
-						value: [this.searchPrefix],
-						and: [{
-							field: 'ot.scores.value',
-							type: 'range',
-							value: this.searchScore
-						}]
-					};
-				} else {
-					filter = {
-						field: this.searchPrefix,
-						type: 'weighted',
-						value: this.searchScore,
-						weights: this.filterWeights
-					};
-				}
-			} else {
-				filter = {
-					field: 'indicators.type',
-					type: 'term',
-					value: [this.searchPrefix],
-					and: [{
-						field: 'indicators.value',
-						type: 'range',
-						value: this.searchScore
-					}]
-				};
-			}
-		} else {
-			if (!this.selected) {
+		if (!this.selected) {
+			if (!this.filterWeights) {
 				filter = {
 					field: 'ot.scores.type',
 					type: 'term',
 					value: [this.searchPrefix],
-					weights: this.filterWeights ? this.filterWeights : undefined
+					and: [{
+						field: 'ot.scores.value',
+						type: 'range',
+						value: this.searchScore
+					}]
 				};
 			} else {
 				filter = {
-					field: 'indicators.type',
-					type: 'term',
-					value: [this.searchPrefix]
+					field: this.searchPrefix,
+					type: 'weighted',
+					value: this.searchScore,
+					weights: this.filterWeights,
 				};
 			}
+		} else {
+			filter = {
+				field: 'ot.indicators.type',
+				type: 'term',
+				value: [this.searchPrefix],
+				and: [{
+					field: 'ot.scores.value',
+					type: 'range',
+					value: this.searchScore
+				}]
+			};
 		}
 		let filters = [filter];
 

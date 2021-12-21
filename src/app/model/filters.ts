@@ -529,7 +529,7 @@ export const DashboardFilterDefs: Array<ISearchFilterDef> = [
 		id: 'ot.country',
 		name: 'Country',
 		group: 'Address',
-		field: 'op.country',
+		field: 'ot.country',
 		type: ISearchFilterDefType.select,
 		valueFormatter: (value) => Utils.formatNuts(value),
 		size: 10000
@@ -540,7 +540,7 @@ export const DashboardFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Address',
 		field: 'buyers.address.ot.nutscode.nuts3',
 		type: ISearchFilterDefType.select,
-		// type: ISearchFilterDefType.nestedListWithSearch,
+		nestedType: INestedType.nuts,
 		size: 10000
 	},
 	{
@@ -558,7 +558,7 @@ export const DashboardFilterDefs: Array<ISearchFilterDef> = [
 		group: 'Sector',
 		field: 'cpvs.code.raw',
 		type: ISearchFilterDefType.select,
-		// type: ISearchFilterDefType.nestedListWithSearch,
+		nestedType: INestedType.cpv,
 		size: 10000
 	},
 	{
