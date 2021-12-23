@@ -298,10 +298,10 @@ export class DashboardsIndicatorComponent implements OnChanges {
 	}
 
 	buildFilters() {
-		let filter: ISearchCommandFilter;
+		let filters: ISearchCommandFilter[] = [];
 		if (!this.selected) {
 			if (!this.filterWeights) {
-				filter = {
+				filters.push({
 					field: 'ot.scores.type',
 					type: 'term',
 					value: [this.searchPrefix],
@@ -310,28 +310,32 @@ export class DashboardsIndicatorComponent implements OnChanges {
 						type: 'range',
 						value: this.searchScore
 					}]
-				};
+				});
 			} else {
-				filter = {
+				filters.push({
 					field: this.searchPrefix,
 					type: 'weighted',
 					value: this.searchScore,
 					weights: this.filterWeights,
-				};
+				});
 			}
 		} else {
-			filter = {
+			filters.push({
+				field: 'ot.scores.type',
+				type: 'term',
+				value: [this.searchPrefix.substr(0, this.searchPrefix.indexOf('_') ? this.searchPrefix.indexOf('_') : this.searchPrefix.length)]
+			});
+			filters.push({
 				field: 'ot.indicators.type',
 				type: 'term',
 				value: [this.searchPrefix],
 				and: [{
-					field: 'ot.scores.value',
+					field: 'ot.indicators.value',
 					type: 'range',
 					value: this.searchScore
 				}]
-			};
+			});
 		}
-		let filters = [filter];
 
 		if (this.filter.years) {
 			let yearFilter: ISearchCommandFilter = {
